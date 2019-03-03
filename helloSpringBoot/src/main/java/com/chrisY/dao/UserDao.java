@@ -1,8 +1,6 @@
 package com.chrisY.dao;
 
-import com.chrisY.domain.User;
-
-import java.util.List;
+import com.chrisY.domain.user.User;
 
 /**
  * @author ：ChrisY

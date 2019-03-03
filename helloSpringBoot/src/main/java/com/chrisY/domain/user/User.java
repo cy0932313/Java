@@ -1,4 +1,4 @@
-package com.chrisY.domain;
+package com.chrisY.domain.user;
 
 /**
  * @author ：ChrisY
@@ -26,9 +26,4 @@ public class User {
     private String userName;
     private int age;
 
-    public User(String userName,int age)
-    {
-        this.userName = userName;
-        this.age = age;
-    }
 }

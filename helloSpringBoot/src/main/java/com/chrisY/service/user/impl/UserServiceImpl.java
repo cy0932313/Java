@@ -1,7 +1,7 @@
 package com.chrisY.service.user.impl;
 
 import com.chrisY.dao.UserDao;
-import com.chrisY.domain.User;
+import com.chrisY.domain.user.User;
 import com.chrisY.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

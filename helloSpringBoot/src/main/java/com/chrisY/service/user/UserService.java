@@ -1,6 +1,6 @@
 package com.chrisY.service.user;
 
-import com.chrisY.domain.User;
+import com.chrisY.domain.user.User;
 
 /**
  * @author ：ChrisY

@@ -1,4 +1,4 @@
-package com.chrisY.service;
+package com.chrisY.service.quantification.http;
 
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

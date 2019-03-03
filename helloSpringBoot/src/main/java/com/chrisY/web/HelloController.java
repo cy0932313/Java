@@ -1,12 +1,11 @@
 package com.chrisY.web;
 
 import com.chrisY.service.user.UserService;
-import com.chrisY.service.user.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-import com.chrisY.domain.User;
+import com.chrisY.domain.user.User;
 
 /**
  * @author ：ChrisY
