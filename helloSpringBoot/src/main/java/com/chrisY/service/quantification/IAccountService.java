@@ -18,7 +18,7 @@ public interface IAccountService {
     */
     public Account initAccount(String accountId, Double money,int status);
 
-    public void buy(Account account,Double price);
+    public void buy(Account account,Double price,StringBuilder printLog);
 
-    public void sell(Account account,Double price);
+    public void sell(Account account,Double price,StringBuilder printLog);
 }

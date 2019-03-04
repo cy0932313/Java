@@ -34,6 +34,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
     @Autowired
     ISellConditionService iSellConditionService;
 
+    //输出
+    StringBuilder printLog = new StringBuilder();
+
     @Override
     public String initQuantification(String dataSource) {
         //数据处理
@@ -60,17 +63,18 @@ public class QuantificationServiceImpl implements IQuantificationService {
                 previousIndexHash = this.itemToIndex(data.getColumn(), data.getItem().get(i - 1));
             }
             indexHash = this.itemToIndex(data.getColumn(), data.getItem().get(i));
-//            System.out.println(timestampToDateStr(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000)) + ":" + indexHash.get("cci"));
 
             //T+1
             if (ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd").equals(ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000), "yyyy-MM-dd"))) {
+                printLog.append("T+1限制，当天无法买入或者卖出,时间：" + ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd"));
+                printLog.append("<br />");
                 System.out.println("T+1限制，当天无法买入或者卖出,时间：" + ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd"));
                 continue;
             }
 
             this.handleData(indexHash, previousIndexHash);
         }
-        return "Success";
+        return printLog.toString();
     }
 
     public void handleData(HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash) {
@@ -85,6 +89,8 @@ public class QuantificationServiceImpl implements IQuantificationService {
                 result = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
             }
             if (result) {
+                printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+                printLog.append("<br />");
                 System.out.println("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
                 this.handleAccount(Double.parseDouble(indexHash.get("close")), "buy", String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000));
             }
@@ -93,6 +99,8 @@ public class QuantificationServiceImpl implements IQuantificationService {
                 result = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
             }
             if (result) {
+                printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+                printLog.append("<br />");
                 System.out.println("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
                 this.handleAccount(Double.parseDouble(indexHash.get("close")), "sell", String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000));
             }
@@ -102,9 +110,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
     public void handleAccount(Double price, String type, String timestamp) {
         if (type == "buy") {
             this.account.setBuyDate(timestamp);
-            this.iAccountService.buy(this.account, price);
+            this.iAccountService.buy(this.account, price,printLog);
         } else {
-            this.iAccountService.sell(this.account, price);
+            this.iAccountService.sell(this.account, price,printLog);
         }
     }
 

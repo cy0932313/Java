@@ -25,7 +25,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void buy(Account account, Double price) {
+    public void buy(Account account, Double price,StringBuilder printLog) {
         account.setCostPrice(account.getMoney());
         //账户余额可以买入多少股
         double shareNumber = Math.floor(Math.floor(account.getMoney() / price) / 100) * 100;
@@ -40,11 +40,13 @@ public class AccountServiceImpl implements IAccountService {
 
         account.setStatus(0);
         account.setMoney(account.getMoney() - priceCount - servicePrice);
+        printLog.append("买入成功：共花费：" + (priceCount + servicePrice) + "，其中股票花费" + priceCount + ",手续费:" + servicePrice + "，账户余额:" + account.getMoney());
+        printLog.append("<br />");
         System.out.println("买入成功：共花费：" + (priceCount + servicePrice) + "，其中股票花费" + priceCount + ",手续费:" + servicePrice + "，账户余额:" + account.getMoney());
     }
 
     @Override
-    public void sell(Account account, Double price) {
+    public void sell(Account account, Double price,StringBuilder printLog) {
 
         double spend = price * account.getShareNumber();
 
@@ -62,6 +64,8 @@ public class AccountServiceImpl implements IAccountService {
         account.setMoney(account.getMoney() + spend);
 
         double profitLoss = 1 - (account.getCostPrice() / account.getMoney());
+        printLog.append("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "，本次盈亏:"+ (account.getMoney() - account.getCostPrice()) +"本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%");
+        printLog.append("<br />");
         System.out.println("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "，本次盈亏:"+ (account.getMoney() - account.getCostPrice()) +"本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%");
     }
 }
