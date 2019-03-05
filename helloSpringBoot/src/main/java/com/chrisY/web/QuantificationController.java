@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/quan")
 public class QuantificationController {
-    String begin = "1464105600";
+    String begin = "1544025600000";
     String symbol = "SH600196";
     String baseUrl = "https://stock.xueqiu.com/v5/stock/chart/kline.json?";
     String count = "100000";

@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,6 +76,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
 
             this.handleData(indexHash, previousIndexHash);
         }
+
+        this.calculation(data);
+
         return printLog.toString();
     }
 
@@ -89,9 +94,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
                 result = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
             }
             if (result) {
-                printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+                printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
                 printLog.append("<br />");
-                System.out.println("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+                System.out.println("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
                 this.handleAccount(Double.parseDouble(indexHash.get("close")), "buy", String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000));
             }
         } else {
@@ -99,9 +104,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
                 result = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
             }
             if (result) {
-                printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+                printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
                 printLog.append("<br />");
-                System.out.println("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+                System.out.println("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
                 this.handleAccount(Double.parseDouble(indexHash.get("close")), "sell", String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000));
             }
         }
@@ -123,6 +128,23 @@ public class QuantificationServiceImpl implements IQuantificationService {
         }
 
         return indexMap;
+    }
+
+    public void calculation(XueqiuData data)
+    {
+        double stratPrice = Double.parseDouble(data.getItem().get(0).get(5));
+        double endPrice = Double.parseDouble(data.getItem().get(data.getItem().size() - 1).get(5));
+        if(this.account.getStatus() == 1)
+        {
+            printLog.append("本策略结果为："+new BigDecimal( (this.account.getMoney() / this.account.getInitMoney() - 1)   * 100).setScale(2, RoundingMode.UP)+"%");
+        }
+        else
+        {
+            printLog.append("本策略结果为："+new BigDecimal( ((this.account.getMoney() + this.account.getShareNumber() * endPrice) / this.account.getInitMoney() - 1)   * 100).setScale(2, RoundingMode.UP)+"%");
+        }
+        printLog.append("<br />");
+        printLog.append("本次回测区间涨幅为"+new BigDecimal((endPrice / stratPrice - 1) * 100).setScale(2, RoundingMode.UP)+"%");
+        printLog.append("<br />");
     }
 
     public static String timestampToDateStr(String timestamp) {

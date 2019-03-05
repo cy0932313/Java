@@ -21,4 +21,6 @@ public interface IAccountService {
     public void buy(Account account,Double price,StringBuilder printLog);
 
     public void sell(Account account,Double price,StringBuilder printLog);
+
+
 }

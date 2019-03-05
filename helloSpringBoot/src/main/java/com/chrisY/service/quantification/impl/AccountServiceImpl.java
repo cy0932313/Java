@@ -18,6 +18,7 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public Account initAccount(String accountId, Double money, int status) {
         Account account = new Account();
+        account.setInitMoney(money);
         account.setAccountName(accountId);
         account.setMoney(money);
         account.setStatus(status);
@@ -63,7 +64,7 @@ public class AccountServiceImpl implements IAccountService {
         account.setStatus(1);
         account.setMoney(account.getMoney() + spend);
 
-        double profitLoss = 1 - (account.getCostPrice() / account.getMoney());
+        double profitLoss =  account.getMoney() / account.getCostPrice() - 1;
         printLog.append("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "，本次盈亏:"+ (account.getMoney() - account.getCostPrice()) +"本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%");
         printLog.append("<br />");
         System.out.println("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "，本次盈亏:"+ (account.getMoney() - account.getCostPrice()) +"本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%");

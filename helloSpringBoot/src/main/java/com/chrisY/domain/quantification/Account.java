@@ -6,6 +6,25 @@ package com.chrisY.domain.quantification;
  * @create: 2019-03-02 09:36
  **/
 public class Account {
+
+    private String accountName;
+
+    private Double initMoney;
+    private Double money;
+    private int status;
+    private String buyDate;
+    private double shareNumber;
+    private double costPrice;
+    private double frozenShareNumber;
+
+    public Double getInitMoney() {
+        return initMoney;
+    }
+
+    public void setInitMoney(Double initMoney) {
+        this.initMoney = initMoney;
+    }
+
     public String getAccountName() {
         return accountName;
     }
@@ -22,10 +41,6 @@ public class Account {
         this.money = money;
     }
 
-    private String accountName;
-    private Double money;
-    private int status;
-
     public String getBuyDate() {
         return buyDate;
     }
@@ -33,10 +48,6 @@ public class Account {
     public void setBuyDate(String buyDate) {
         this.buyDate = buyDate;
     }
-
-    private String buyDate;
-    private double shareNumber;
-    private double costPrice;
 
     public double getCostPrice() {
         return costPrice;
@@ -53,8 +64,6 @@ public class Account {
     public void setFrozenShareNumber(double frozenShareNumber) {
         this.frozenShareNumber = frozenShareNumber;
     }
-
-    private double frozenShareNumber;
 
     public double getShareNumber() {
         return shareNumber;
