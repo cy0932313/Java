@@ -15,6 +15,21 @@ public class SellServiceImpl implements ISellConditionService {
         if (cciData < 100 && previouscciData > 100) {
             return true;
         }
+        else if(cciData > 250)
+        {
+            return  true;
+        }
+        else if(cciData < -100)
+        {
+            return  true;
+        }
+        return false;
+    }
+    @Override
+    public boolean macd(Double macdData,Double previousmacdData){
+        if (macdData < 0 && previousmacdData > 0) {
+            return true;
+        }
         return false;
     }
 }

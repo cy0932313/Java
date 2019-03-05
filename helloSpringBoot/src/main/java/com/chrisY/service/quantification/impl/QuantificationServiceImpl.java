@@ -52,6 +52,7 @@ public class QuantificationServiceImpl implements IQuantificationService {
 
         //账号准备就绪
         this.account = iAccountService.initAccount("chris", 50000.00, 1);
+        printLog.delete(0,printLog.length());
         return this.run();
     }
 
@@ -91,7 +92,8 @@ public class QuantificationServiceImpl implements IQuantificationService {
         if (status == 1) {
             //CCI
             if (indexHash != null && previousIndexHash != null) {
-                result = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+//                result = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+                result = this.iBuyConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
             }
             if (result) {
                 printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
@@ -101,7 +103,8 @@ public class QuantificationServiceImpl implements IQuantificationService {
             }
         } else {
             if (indexHash != null && previousIndexHash != null) {
-                result = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+//                result = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+                result = this.iSellConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
             }
             if (result) {
                 printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
@@ -124,7 +127,14 @@ public class QuantificationServiceImpl implements IQuantificationService {
     private HashMap itemToIndex(ArrayList column, ArrayList item) {
         HashMap<String, String> indexMap = new HashMap<>();
         for (int i = 0; i < column.size(); i++) {
-            indexMap.put(column.get(i).toString(), item.get(i).toString());
+            if(item.get(i) == null)
+            {
+                indexMap.put(column.get(i).toString(), "");
+            }
+            else
+            {
+                indexMap.put(column.get(i).toString(), item.get(i).toString());
+            }
         }
 
         return indexMap;

@@ -17,6 +17,15 @@ public class BuyServiceImpl implements IBuyConditionService {
         {
             return true;
         }
+
+        return false;
+    }
+
+    @Override
+    public boolean macd(Double macdData,Double previousmacdData){
+        if (macdData > 0 && previousmacdData < 0) {
+            return true;
+        }
         return false;
     }
 }

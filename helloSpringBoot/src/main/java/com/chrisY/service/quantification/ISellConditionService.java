@@ -7,6 +7,9 @@ package com.chrisY.service.quantification;
  **/
 
 public interface ISellConditionService {
+    //cci卖出入条件
     public boolean cci(Double cciData,Double previouscciData);
+    //macd卖出入条件
+    public boolean macd(Double macdData,Double previousmacdData);
 
 }

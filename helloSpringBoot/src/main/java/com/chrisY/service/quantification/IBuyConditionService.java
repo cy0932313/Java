@@ -12,4 +12,7 @@ public interface IBuyConditionService {
     //cci指标买入条件
     public boolean cci(Double cciData,Double previouscciData);
 
+    //macd买入条件
+    public boolean macd(Double macdData,Double previousmacdData);
+
 }
