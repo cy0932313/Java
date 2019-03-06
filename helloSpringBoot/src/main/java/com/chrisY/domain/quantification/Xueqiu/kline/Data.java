@@ -1,4 +1,4 @@
-package com.chrisY.domain.quantification.Xueqiu;
+package com.chrisY.domain.quantification.Xueqiu.kline;
 
 /**
  * @description:
@@ -7,14 +7,14 @@ package com.chrisY.domain.quantification.Xueqiu;
  **/
 public class Data {
 
-    XueqiuData data;
+    XueqiuDataKline data;
     int error_code;
 
-    public XueqiuData getData() {
+    public XueqiuDataKline getData() {
         return data;
     }
 
-    public void setData(XueqiuData data) {
+    public void setData(XueqiuDataKline data) {
         this.data = data;
     }
 

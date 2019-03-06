@@ -20,17 +20,17 @@ public class QuantificationController {
 
     @RequestMapping(value = "/60")
     public String get60mk() {
-        return quantification.initQuantification("60");
+        return quantification.initQuantification("60m");
     }
 
     @RequestMapping(value = "/30")
     public String get30mk() {
-        return quantification.initQuantification("30");
+        return quantification.initQuantification("30m");
     }
 
     @RequestMapping(value = "/day")
     public String getDay() {
-        return quantification.initQuantification("day");
+        return quantification.initQuantification("1day");
     }
 
 }

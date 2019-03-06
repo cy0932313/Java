@@ -1,4 +1,4 @@
-package com.chrisY.domain.quantification.Xueqiu;
+package com.chrisY.domain.quantification.Xueqiu.kline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,12 @@ import java.util.List;
  * @author: Chris.Y
  * @create: 2019-03-02 12:37
  **/
-public class XueqiuData {
+public class XueqiuDataKline {
 
 
     String symbol;
+    ArrayList<String> column;
+    ArrayList<ArrayList<String>> item;
 
     public String getSymbol() {
         return symbol;
@@ -37,6 +39,5 @@ public class XueqiuData {
         this.item = item;
     }
 
-    ArrayList<String> column;
-    ArrayList<ArrayList<String>> item;
+
 }

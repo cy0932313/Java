@@ -1,4 +1,4 @@
-package com.chrisY.domain.quantification.Xueqiu;
+package com.chrisY.domain.quantification.Xueqiu.kline;
 
 import java.util.List;
 

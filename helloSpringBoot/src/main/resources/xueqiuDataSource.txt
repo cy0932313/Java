@@ -123,3 +123,6 @@ period：数据周期（d表示日线，m表示月线，w表示周线）
  (日期 开盘 收盘 涨跌额 涨跌幅 最低 最高 成交量 成交金额 换手率)
 
 https://www.cnblogs.com/DreamRJF/p/8660630.html
+
+https://xueqiu.com/stock/forchartk/stocklist.json?symbol=SH600000&period=1day&type=after&begin=1314201600000&end=1314374400000
+
