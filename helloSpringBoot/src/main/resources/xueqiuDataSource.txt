@@ -112,3 +112,13 @@
     "error_code":0,
     "error_description":""
 }
+
+
+http://q.stock.sohu.com/hisHq?code=cn_300228&start=20130930&end=20181231&stat=1&order=D&period=d&callback=historySearchHandler&rt=jsonp
+code：股票代码，以cn_开头，start:起始时间，end：截止时间，
+stat:统计信息，为0的时候就不返回stat对应的值了，
+order：排序方法（D表示降序排，A表示升序排），
+period：数据周期（d表示日线，m表示月线，w表示周线）
+
+ (日期 开盘 收盘 涨跌额 涨跌幅 最低 最高 成交量 成交金额 换手率)
+

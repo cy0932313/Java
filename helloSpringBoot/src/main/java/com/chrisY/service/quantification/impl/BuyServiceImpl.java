@@ -18,6 +18,11 @@ public class BuyServiceImpl implements IBuyConditionService {
             return true;
         }
 
+        if(cciData > 100 && previouscciData < 100)
+        {
+            return true;
+        }
+
         return false;
     }
 

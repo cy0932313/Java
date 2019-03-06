@@ -7,6 +7,7 @@ import com.chrisY.service.quantification.IAccountService;
 import com.chrisY.service.quantification.IBuyConditionService;
 import com.chrisY.service.quantification.IQuantificationService;
 import com.chrisY.service.quantification.ISellConditionService;
+import com.chrisY.service.quantification.http.HttpClient;
 import com.chrisY.util.ChrisDateUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,22 @@ import java.util.HashMap;
  **/
 @Service
 public class QuantificationServiceImpl implements IQuantificationService {
+    //1543808688000
+    private String begin = "1443808688000";
+    //格力 SZ000651  //复兴 SH600196
+    //京东方A SZ000725   //恒瑞 SH600276
+    //四方 SZ300468  //创业板 SH159915
+    private String symbol = "SZ000725";
+    private String baseUrl;
+    private String count = "500000";
+    //"kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy"
+    private String indicator = "kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy";
+
     private Data xueqiuDataSource;
     private Account account;
+
+    @Autowired
+    HttpClient httpClient;
     @Autowired
     IAccountService iAccountService;
     @Autowired
@@ -39,8 +54,23 @@ public class QuantificationServiceImpl implements IQuantificationService {
     //输出
     StringBuilder printLog = new StringBuilder();
 
+
+    public String sendRequest(String period) {
+        if(period.equals("30")||period.equals("60"))
+        {
+            baseUrl = "https://stock.xueqiu.com/v5/stock/chart/kline.json?";
+        }
+        else
+        {
+            baseUrl ="https://stock.xueqiu.com/v5/stock/realtime/quotec.json?";
+        }
+        return baseUrl + "symbol=" + symbol + "&begin=" + begin + "&period=" + period + "&count=" + count + "&indicator=" + indicator;
+    }
+
     @Override
-    public String initQuantification(String dataSource) {
+    public String initQuantification(String period) {
+        String dataSource = httpClient.client(sendRequest(period));
+
         //数据处理
         this.xueqiuDataSource = new Data();
         ObjectMapper mapper = new ObjectMapper();
@@ -92,8 +122,8 @@ public class QuantificationServiceImpl implements IQuantificationService {
         if (status == 1) {
             //CCI
             if (indexHash != null && previousIndexHash != null) {
-//                result = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
-                result = this.iBuyConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
+                result = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+//                result = this.iBuyConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
             }
             if (result) {
                 printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
@@ -103,8 +133,8 @@ public class QuantificationServiceImpl implements IQuantificationService {
             }
         } else {
             if (indexHash != null && previousIndexHash != null) {
-//                result = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
-                result = this.iSellConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
+                result = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+//                result = this.iSellConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
             }
             if (result) {
                 printLog.append("触发交易：时间点"+ChrisDateUtils.timeStamp2Date(String.valueOf (Long.parseLong(indexHash.get("timestamp"))/1000),"yyyy-MM-dd HH:mm:ss")+"，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));

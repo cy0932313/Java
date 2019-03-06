@@ -1,7 +1,6 @@
 package com.chrisY.web;
 
 import com.chrisY.service.quantification.IQuantificationService;
-import com.chrisY.service.quantification.http.HttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,34 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/quan")
 public class QuantificationController {
-    String begin = "1444025600000";
-    //格力SZ000651  //复兴SH600196
-    //京东方A SZ000725   //恒瑞 SH600276
-    //四方 SZ300468  //创业板 SH159915
-    String symbol = "SZ159915";
-    String baseUrl = "https://stock.xueqiu.com/v5/stock/chart/kline.json?";
-    String count = "500000";
-    //"kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy"
-    String indicator = "kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy";
 
-    @Autowired
-    HttpClient httpClient;
     @Autowired
     IQuantificationService quantification;
 
     @RequestMapping(value = "/60")
     public String get60mk() {
-        return this.sendRequest("60m");
+        return quantification.initQuantification("60");
     }
 
     @RequestMapping(value = "/30")
     public String get30mk() {
-        return this.sendRequest("30m");
+        return quantification.initQuantification("30");
     }
 
-    public String sendRequest(String period) {
-        String url = baseUrl + "symbol=" + symbol + "&begin=" + begin + "&period=" + period + "&count=" + count + "&indicator=" + indicator;
-
-        return quantification.initQuantification(httpClient.client(url));
+    @RequestMapping(value = "/day")
+    public String getDay() {
+        return quantification.initQuantification("day");
     }
+
 }

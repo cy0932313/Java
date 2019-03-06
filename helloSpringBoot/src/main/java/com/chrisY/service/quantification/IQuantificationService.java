@@ -7,5 +7,5 @@ package com.chrisY.service.quantification;
  **/
 
 public interface IQuantificationService {
-    public String initQuantification(String dataSource);
+    public String initQuantification(String period);
 }
