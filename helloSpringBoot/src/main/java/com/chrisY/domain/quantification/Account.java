@@ -17,6 +17,25 @@ public class Account {
     private double costPrice;
     private double frozenShareNumber;
 
+    public int getSucessNum() {
+        return sucessNum;
+    }
+
+    public void setSucessNum(int sucessNum) {
+        this.sucessNum = sucessNum;
+    }
+
+    public int getFailNum() {
+        return failNum;
+    }
+
+    public void setFailNum(int failNum) {
+        this.failNum = failNum;
+    }
+
+    private int sucessNum;
+    private int failNum;
+
     public Double getInitMoney() {
         return initMoney;
     }

@@ -13,15 +13,19 @@ public class BuyServiceImpl implements IBuyConditionService {
     @Override
     public boolean cci(Double cciData,Double previouscciData)
     {
+//        if(cciData < 250)
+//        {
+//            return true;
+//        }
         if(cciData > -100 && previouscciData < -100)
         {
             return true;
         }
 
-        if(cciData > 100 && previouscciData < 100)
-        {
-            return true;
-        }
+//        if(cciData > 100 && previouscciData < 100)
+//        {
+//            return true;
+//        }
 
         return false;
     }

@@ -12,10 +12,11 @@ import org.springframework.stereotype.Service;
 public class SellServiceImpl implements ISellConditionService {
     @Override
     public boolean cci(Double cciData,Double previouscciData) {
-        if (cciData < 100 && previouscciData > 100) {
-            return true;
-        }
-        else if(cciData > 250)
+//        if (cciData < 100 && previouscciData > 100) {
+//            return true;
+//        }
+//        else
+            if(cciData > 250)
         {
             return  true;
         }

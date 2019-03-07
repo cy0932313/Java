@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +32,9 @@ import java.util.HashMap;
 public class QuantificationServiceImpl implements IQuantificationService {
     //格力 SZ000651  //复兴 SH600196
     //京东方A SZ000725   //恒瑞 SH600276
-    //四方 SZ300468  //创业板 SH159915
+    //四方 SZ300468  //创业板 SZ159915
+    //300 SH510300  //工商 SH601398
+    //片子癀 SH600436  //五粮液 SZ000858
     private String symbol = "SH600196";
     private String begin = "1314201600000";
     private String end = "1314374400000";
@@ -209,6 +212,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
         } else {
             printLog.append("本策略结果为：" + new BigDecimal(((this.account.getMoney() + this.account.getShareNumber() * endPrice) / this.account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) + "%");
         }
+        printLog.append("<br />");
+        DecimalFormat df = new DecimalFormat("0.00");
+        printLog.append("成功率"+  df.format((float)this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))* 100);
         printLog.append("<br />");
         printLog.append("本次回测区间涨幅为" + new BigDecimal((endPrice / stratPrice - 1) * 100).setScale(2, RoundingMode.UP) + "%");
         printLog.append("<br />");
