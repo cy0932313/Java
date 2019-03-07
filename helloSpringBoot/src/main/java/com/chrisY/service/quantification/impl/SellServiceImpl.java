@@ -20,7 +20,7 @@ public class SellServiceImpl implements ISellConditionService {
         {
             return  true;
         }
-        else if(cciData < -100)
+        else if(cciData < -65)
         {
             return  true;
         }

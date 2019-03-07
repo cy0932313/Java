@@ -35,7 +35,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
     //四方 SZ300468  //创业板 SZ159915
     //300 SH510300  //工商 SH601398
     //片子癀 SH600436  //五粮液 SZ000858
-    private String symbol = "SH600196";
+    //苏宁 SZ002024   //东方 SZ300359
+    //科创 SZ300730
+    private String symbol = "SZ300730";
     private String begin = "1314201600000";
     private String end = "1314374400000";
     private String period;
@@ -79,7 +81,7 @@ public class QuantificationServiceImpl implements IQuantificationService {
         String dataSource = httpClient.client(sendRequest(period));
 
         //账号准备就绪
-        this.account = iAccountService.initAccount("chris", 50000.00, 1);
+        this.account = iAccountService.initAccount("chris", 20000.00, 1);
         printLog.delete(0, printLog.length());
 
         //数据处理
@@ -214,7 +216,7 @@ public class QuantificationServiceImpl implements IQuantificationService {
         }
         printLog.append("<br />");
         DecimalFormat df = new DecimalFormat("0.00");
-        printLog.append("成功率"+  df.format((float)this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))* 100);
+        printLog.append("成功率"+ Float.parseFloat(df.format((float)this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))) * 100 +"%" );
         printLog.append("<br />");
         printLog.append("本次回测区间涨幅为" + new BigDecimal((endPrice / stratPrice - 1) * 100).setScale(2, RoundingMode.UP) + "%");
         printLog.append("<br />");

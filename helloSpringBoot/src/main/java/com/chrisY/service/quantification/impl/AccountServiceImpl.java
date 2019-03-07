@@ -73,8 +73,8 @@ public class AccountServiceImpl implements IAccountService {
         {
             account.setFailNum(account.getFailNum() + 1);
         }
-        printLog.append("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "，本次盈亏:"+ (account.getMoney() - account.getCostPrice()) +"</br><font color=\"color:#333333\">本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%</font>");
+        printLog.append("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "</br><font color=\"color:red\">本次盈亏:"+  (int)(account.getMoney() - account.getCostPrice()) +",本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%</font>");
         printLog.append("<br />");
-        System.out.println("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "，本次盈亏:"+ (account.getMoney() - account.getCostPrice()) +"<span style=\"color:#333\">本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%</span>");
+        System.out.println("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "</br><span style=\"color:#333\">本次盈亏:"+  new BigDecimal(account.getMoney() - account.getCostPrice()) +"本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%</span>");
     }
 }
