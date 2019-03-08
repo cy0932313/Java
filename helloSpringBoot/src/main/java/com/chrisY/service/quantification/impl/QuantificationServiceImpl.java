@@ -36,8 +36,11 @@ public class QuantificationServiceImpl implements IQuantificationService {
     //300 SH510300  //工商 SH601398
     //片子癀 SH600436  //五粮液 SZ000858
     //苏宁 SZ002024   //东方 SZ300359
-    //科创 SZ300730
-    private String symbol = "SZ300730";
+    //科创 SZ300730   //中信证券 SH600030
+    //东方通信 SH600776 //美的 SZ000333
+    //亚星锚链 SH601890
+
+    private String symbol = "SH600276";
     private String begin = "1314201600000";
     private String end = "1314374400000";
     private String period;
@@ -81,7 +84,8 @@ public class QuantificationServiceImpl implements IQuantificationService {
         String dataSource = httpClient.client(sendRequest(period));
 
         //账号准备就绪
-        this.account = iAccountService.initAccount("chris", 20000.00, 1);
+//        this.account = iAccountService.initAccount("chris", 50000.00, false,true,0.33);
+        this.account = iAccountService.initAccount("chris", 20000.00, false);
         printLog.delete(0, printLog.length());
 
         //数据处理
@@ -141,14 +145,6 @@ public class QuantificationServiceImpl implements IQuantificationService {
             }
             indexHash = this.itemToIndex(data.getColumn(), data.getItem().get(i));
 
-            //T+1
-            if (ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd").equals(ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd"))) {
-                printLog.append("T+1限制，当天无法买入或者卖出,时间：" + ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd"));
-                printLog.append("<br />");
-                System.out.println("T+1限制，当天无法买入或者卖出,时间：" + ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd"));
-                continue;
-            }
-
             this.handleData(indexHash, previousIndexHash);
         }
 
@@ -156,41 +152,53 @@ public class QuantificationServiceImpl implements IQuantificationService {
 
     public void handleData(HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash) {
         //获取账户当前状态
-        int status = this.account.getStatus();
+        boolean status = this.account.getAccountStatus();
+        boolean buyResult = false;
+        boolean sellResult = false;
 
-        //持股状态中只需要判断卖出条件，则空仓状态中只需要判断买入条件
-        boolean result = false;
-        if (status == 1) {
-            //CCI
-            if (indexHash != null && previousIndexHash != null) {
-                result = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
-//                result = this.iBuyConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
-            }
-            if (result) {
-                printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
-                printLog.append("<br />");
-                System.out.println("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
-                this.handleAccount(Double.parseDouble(indexHash.get("close")), "buy", String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000));
-            }
-        } else {
-            if (indexHash != null && previousIndexHash != null) {
-                result = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
-//                result = this.iSellConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
-            }
-            if (result) {
-                printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
-                printLog.append("<br />");
-                System.out.println("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
-                this.handleAccount(Double.parseDouble(indexHash.get("close")), "sell", String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000));
-            }
+        if (indexHash != null && previousIndexHash != null) {
+            sellResult = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+            buyResult = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
+            //result = this.iSellConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
+            //result = this.iBuyConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
+        }
+
+        if (buyResult) {
+            this.handleAccount(indexHash, previousIndexHash,"buy");
+        }
+
+        if (sellResult) {
+            this.handleAccount(indexHash, previousIndexHash,"sell");
         }
     }
 
-    public void handleAccount(Double price, String type, String timestamp) {
+    public void handleAccount(HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash, String type) {
+        double price = Double.parseDouble(indexHash.get("close"));
+        String  timestamp = String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000);
         if (type == "buy") {
+            if(this.account.getMoney() < price * 100)
+            {
+                return;
+            }
+
+            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+            printLog.append("<br />");
             this.account.setBuyDate(timestamp);
             this.iAccountService.buy(this.account, price, printLog);
         } else {
+            //T+1
+            if (ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd").equals(ChrisDateUtils.timeStamp2Date(timestamp, "yyyy-MM-dd"))) {
+                printLog.append("T+1限制，当天无法卖出入,时间：" + ChrisDateUtils.timeStamp2Date(this.account.getBuyDate(), "yyyy-MM-dd"));
+                printLog.append("<br />");
+                return;
+            }
+            if(this.account.getShareNumber() == 0)
+            {
+                return;
+            }
+            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
+            printLog.append("<br />");
+
             this.iAccountService.sell(this.account, price, printLog);
         }
     }
@@ -209,14 +217,16 @@ public class QuantificationServiceImpl implements IQuantificationService {
     }
 
     public void calculation(double stratPrice, double endPrice) {
-        if (this.account.getStatus() == 1) {
-            printLog.append("本策略结果为：" + new BigDecimal((this.account.getMoney() / this.account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) + "%");
+        printLog.append("<font color=\"#green\">");
+        if (!this.account.getAccountStatus()) {
+            printLog.append("本策略结果为：" + new BigDecimal((this.account.getMoney() / this.account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) + "%，盈亏总额：" + (this.account.getMoney() - this.account.getInitMoney()));
         } else {
-            printLog.append("本策略结果为：" + new BigDecimal(((this.account.getMoney() + this.account.getShareNumber() * endPrice) / this.account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) + "%");
+            printLog.append("本策略结果为：" + new BigDecimal(((this.account.getMoney() + this.account.getShareNumber() * endPrice) / this.account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) + "%，盈亏总额：" + ((this.account.getMoney() + this.account.getShareNumber() * endPrice) -this.account.getInitMoney()));
         }
+        printLog.append("</font>");
         printLog.append("<br />");
         DecimalFormat df = new DecimalFormat("0.00");
-        printLog.append("成功率"+ Float.parseFloat(df.format((float)this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))) * 100 +"%" );
+//        printLog.append("成功率"+ Float.parseFloat(df.format((float)this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))) * 100 +"%" );
         printLog.append("<br />");
         printLog.append("本次回测区间涨幅为" + new BigDecimal((endPrice / stratPrice - 1) * 100).setScale(2, RoundingMode.UP) + "%");
         printLog.append("<br />");

@@ -16,7 +16,8 @@ public interface IAccountService {
     * @Author: Chris.Y
     * @Date: 2019/3/2
     */
-    public Account initAccount(String accountId, Double money,int status);
+    public Account initAccount(String accountId, Double money, boolean accountStatus);
+    public Account initAccount(String accountId, Double money, boolean accountStatus,boolean shunt,double shuntAvg);
 
     public void buy(Account account,Double price,StringBuilder printLog);
 

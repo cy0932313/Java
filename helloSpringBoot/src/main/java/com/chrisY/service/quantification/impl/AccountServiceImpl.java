@@ -2,6 +2,7 @@ package com.chrisY.service.quantification.impl;
 
 import com.chrisY.domain.quantification.Account;
 import com.chrisY.service.quantification.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,23 +16,44 @@ import java.math.RoundingMode;
 @Service
 public class AccountServiceImpl implements IAccountService {
 
+    @Autowired
+    IEmailService emailService;
     @Override
-    public Account initAccount(String accountId, Double money, int status) {
+    public Account initAccount(String accountId, Double money, boolean accountStatus) {
         Account account = new Account();
         account.setInitMoney(money);
         account.setAccountName(accountId);
         account.setMoney(money);
-        account.setStatus(status);
+        account.setAccountStatus(accountStatus);
+        account.setShunt(false);
         return account;
     }
 
     @Override
-    public void buy(Account account, Double price,StringBuilder printLog) {
-        account.setCostPrice(account.getMoney());
+    public Account initAccount(String accountId, Double money, boolean accountStatus, boolean shunt, double shuntAvg) {
+        Account account = new Account();
+        account.setInitMoney(money);
+        account.setAccountName(accountId);
+        account.setMoney(money);
+        account.setAccountStatus(accountStatus);
+        account.setShunt(shunt);
+        account.setShuntAvg(shuntAvg);
+        return account;
+    }
+
+
+    @Override
+    public void buy(Account account, Double price, StringBuilder printLog) {
         //账户余额可以买入多少股
-        double shareNumber = Math.floor(Math.floor(account.getMoney() / price) / 100) * 100;
-        account.setShareNumber(shareNumber);
+        double shareNumber = 0;
+        if (!account.getShunt()) {
+            shareNumber = Math.floor(Math.floor(account.getMoney() / price) / 100) * 100;
+        } else {
+            shareNumber = Math.floor(Math.floor(account.getInitMoney() * account.getShuntAvg() / price) / 100) * 100;
+        }
+
         double priceCount = price * shareNumber;//股价花费金额
+
 
         //W2.5
         double servicePrice = (priceCount / 10000) * 2.5;
@@ -39,15 +61,21 @@ public class AccountServiceImpl implements IAccountService {
             servicePrice = 5;
         }
 
-        account.setStatus(0);
+        if (account.getMoney() - priceCount - servicePrice < 0) {
+            return;
+        }
+
+        account.setShareNumber(account.getShareNumber() + shareNumber);
+        account.setAccountStatus(true);
         account.setMoney(account.getMoney() - priceCount - servicePrice);
-        printLog.append("买入成功：共花费：" + (priceCount + servicePrice) + "，其中股票花费" + priceCount + ",手续费:" + servicePrice + "，账户余额:" + account.getMoney());
+        account.setBuyMoney(priceCount + servicePrice + account.getBuyMoney());
+        printLog.append("买入成功：共花费：" + (priceCount + servicePrice) + "，其中股票花费" + priceCount + ",手续费:" + servicePrice + "，账户余额:" + account.getMoney() + "，目前持股" + account.getShareNumber());
         printLog.append("<br />");
-        System.out.println("买入成功：共花费：" + (priceCount + servicePrice) + "，其中股票花费" + priceCount + ",手续费:" + servicePrice + "，账户余额:" + account.getMoney());
+        emailService.sendMail("SH600196","买卖信号");
     }
 
     @Override
-    public void sell(Account account, Double price,StringBuilder printLog) {
+    public void sell(Account account, Double price, StringBuilder printLog) {
 
         double spend = price * account.getShareNumber();
 
@@ -61,20 +89,21 @@ public class AccountServiceImpl implements IAccountService {
 
         spend = spend - servicePrice - stampDuty;
 
-        account.setStatus(1);
+        account.setAccountStatus(false);
         account.setMoney(account.getMoney() + spend);
 
-        double profitLoss =  account.getMoney() / account.getCostPrice() - 1;
-        if(profitLoss > 0)
-        {
+        double profitLoss = spend / account.getBuyMoney() - 1;
+        if (profitLoss > 0) {
             account.setSucessNum(account.getSucessNum() + 1);
-        }
-        else
-        {
+        } else {
             account.setFailNum(account.getFailNum() + 1);
         }
-        printLog.append("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "</br><font color=\"color:red\">本次盈亏:"+  (int)(account.getMoney() - account.getCostPrice()) +",本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%</font>");
+
+        printLog.append("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + "，账户余额:" + account.getMoney() + "</br><font color=\"color:red\">本次盈亏:" + (int) (spend - account.getBuyMoney()) + ",本次盈亏率:" + new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%,总盈亏："+  new BigDecimal((account.getMoney() / account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) +"%</font>");
         printLog.append("<br />");
-        System.out.println("卖出入成功：共花费：" + spend + ",其中手续费:" + (servicePrice + stampDuty) + ",买入成本" + account.getCostPrice() + "，卖出后账户余额:" + account.getMoney() + "</br><span style=\"color:#333\">本次盈亏:"+  new BigDecimal(account.getMoney() - account.getCostPrice()) +"本次盈亏率:" +    new BigDecimal(profitLoss * 100).setScale(2, RoundingMode.UP) + "%</span>");
+
+        account.setShareNumber(0);
+        account.setBuyMoney(0);
+        emailService.sendMail("SH600196","买卖信号");
     }
 }
