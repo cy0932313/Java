@@ -2,6 +2,7 @@ package com.chrisY.service.quantification.impl;
 
 import com.chrisY.domain.quantification.Account;
 import com.chrisY.service.quantification.IAccountService;
+import com.chrisY.service.quantification.IEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,7 @@ import java.math.RoundingMode;
  **/
 @Service
 public class AccountServiceImpl implements IAccountService {
-
-    @Autowired
-    IEmailService emailService;
+ 
     @Override
     public Account initAccount(String accountId, Double money, boolean accountStatus) {
         Account account = new Account();
@@ -71,7 +70,6 @@ public class AccountServiceImpl implements IAccountService {
         account.setBuyMoney(priceCount + servicePrice + account.getBuyMoney());
         printLog.append("买入成功：共花费：" + (priceCount + servicePrice) + "，其中股票花费" + priceCount + ",手续费:" + servicePrice + "，账户余额:" + account.getMoney() + "，目前持股" + account.getShareNumber());
         printLog.append("<br />");
-        emailService.sendMail("SH600196","买卖信号");
     }
 
     @Override
@@ -104,6 +102,5 @@ public class AccountServiceImpl implements IAccountService {
 
         account.setShareNumber(0);
         account.setBuyMoney(0);
-        emailService.sendMail("SH600196","买卖信号");
     }
 }

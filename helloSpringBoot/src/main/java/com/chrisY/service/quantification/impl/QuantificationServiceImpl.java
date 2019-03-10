@@ -5,15 +5,14 @@ import com.chrisY.domain.quantification.Xueqiu.kline.Data;
 import com.chrisY.domain.quantification.Xueqiu.kline.XueqiuDataKline;
 import com.chrisY.domain.quantification.Xueqiu.stocklist.ItemStock;
 import com.chrisY.domain.quantification.Xueqiu.stocklist.XueqiuDataStocklist;
-import com.chrisY.service.quantification.IAccountService;
-import com.chrisY.service.quantification.IBuyConditionService;
-import com.chrisY.service.quantification.IQuantificationService;
-import com.chrisY.service.quantification.ISellConditionService;
+import com.chrisY.service.quantification.*;
 import com.chrisY.service.quantification.http.HttpClient;
 import com.chrisY.util.ChrisDateUtils;
+import com.chrisY.web.QuantificationController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static com.chrisY.web.QuantificationController.printLog;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -30,20 +29,8 @@ import java.util.HashMap;
  **/
 @Service
 public class QuantificationServiceImpl implements IQuantificationService {
-    //格力 SZ000651  //复兴 SH600196
-    //京东方A SZ000725   //恒瑞 SH600276
-    //四方 SZ300468  //创业板 SZ159915
-    //300 SH510300  //工商 SH601398
-    //片子癀 SH600436  //五粮液 SZ000858
-    //苏宁 SZ002024   //东方 SZ300359
-    //科创 SZ300730   //中信证券 SH600030
-    //东方通信 SH600776 //美的 SZ000333
-    //亚星锚链 SH601890
-
-    private String symbol = "SH600276";
     private String begin = "1314201600000";
     private String end = "1314374400000";
-    private String period;
 
     private Data xueqiuDataSource;
     private XueqiuDataStocklist xueqiuDataStocklist;
@@ -57,20 +44,17 @@ public class QuantificationServiceImpl implements IQuantificationService {
     IBuyConditionService iBuyConditionService;
     @Autowired
     ISellConditionService iSellConditionService;
+    @Autowired
+    IEmailService iEmailService;
 
-    //输出
-    StringBuilder printLog = new StringBuilder();
 
-    public String sendRequest(String period) {
+    public String sendRequest(String symbol, String period) {
         String baseUrl;
-        this.period = period;
-        if (period.equals("1day"))
-        {
+        if (period.equals("1day")) {
             baseUrl = "https://xueqiu.com/stock/forchartk/stocklist.json?";
             String type = "after";
             baseUrl = baseUrl + "symbol=" + symbol + "&begin=" + begin + "&end=" + end + "&period=" + period + "&type=" + type;
-        } else
-        {
+        } else {
             baseUrl = "https://stock.xueqiu.com/v5/stock/chart/kline.json?";
             String count = "500000";
             String indicator = "kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy";
@@ -80,12 +64,12 @@ public class QuantificationServiceImpl implements IQuantificationService {
     }
 
     @Override
-    public String initQuantification(String period) {
-        String dataSource = httpClient.client(sendRequest(period));
+    public String initQuantification(String symbol, String period, boolean logContent) {
+        String dataSource = httpClient.client(sendRequest(symbol, period));
 
         //账号准备就绪
 //        this.account = iAccountService.initAccount("chris", 50000.00, false,true,0.33);
-        this.account = iAccountService.initAccount("chris", 20000.00, false);
+        this.account = iAccountService.initAccount("chris", 50000.00, false);
         printLog.delete(0, printLog.length());
 
         //数据处理
@@ -95,7 +79,7 @@ public class QuantificationServiceImpl implements IQuantificationService {
         double stratPrice = 0.00;
         double endPrice = 0.00;
         try {
-            if (this.period.equals("1day")) {
+            if (period.equals("1day")) {
                 this.xueqiuDataStocklist = mapper.readValue(dataSource, XueqiuDataStocklist.class);
                 this.stockList();
             } else {
@@ -108,8 +92,12 @@ public class QuantificationServiceImpl implements IQuantificationService {
             ex.getStackTrace();
         }
 
-        this.calculation(stratPrice, endPrice);
-
+        StringBuilder resultStr = this.calculation(symbol, stratPrice, endPrice);
+        if (logContent) {
+            printLog.append(resultStr);
+        } else {
+            return resultStr.toString();
+        }
         return printLog.toString();
     }
 
@@ -147,7 +135,6 @@ public class QuantificationServiceImpl implements IQuantificationService {
 
             this.handleData(indexHash, previousIndexHash);
         }
-
     }
 
     public void handleData(HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash) {
@@ -157,32 +144,26 @@ public class QuantificationServiceImpl implements IQuantificationService {
         boolean sellResult = false;
 
         if (indexHash != null && previousIndexHash != null) {
-            sellResult = this.iSellConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
-            buyResult = this.iBuyConditionService.cci(Double.parseDouble(indexHash.get("cci")), Double.parseDouble(previousIndexHash.get("cci")));
-            //result = this.iSellConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
-            //result = this.iBuyConditionService.macd(Double.parseDouble(indexHash.get("macd")), Double.parseDouble(previousIndexHash.get("macd")));
+            sellResult = this.iSellConditionService.sellCondition("cci",indexHash, previousIndexHash);
+            buyResult = this.iBuyConditionService.buyCondition("cci",indexHash, previousIndexHash);
         }
 
         if (buyResult) {
-            this.handleAccount(indexHash, previousIndexHash,"buy");
+            this.handleAccount(indexHash, previousIndexHash, "buy");
         }
 
         if (sellResult) {
-            this.handleAccount(indexHash, previousIndexHash,"sell");
+            this.handleAccount(indexHash, previousIndexHash, "sell");
         }
     }
 
     public void handleAccount(HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash, String type) {
         double price = Double.parseDouble(indexHash.get("close"));
-        String  timestamp = String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000);
+        String timestamp = String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000);
         if (type == "buy") {
-            if(this.account.getMoney() < price * 100)
-            {
+            if (this.account.getMoney() < price * 100) {
                 return;
             }
-
-            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合买入条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
-            printLog.append("<br />");
             this.account.setBuyDate(timestamp);
             this.iAccountService.buy(this.account, price, printLog);
         } else {
@@ -192,13 +173,9 @@ public class QuantificationServiceImpl implements IQuantificationService {
                 printLog.append("<br />");
                 return;
             }
-            if(this.account.getShareNumber() == 0)
-            {
+            if (this.account.getShareNumber() == 0) {
                 return;
             }
-            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合卖出条件，上一个小时CCI数据：" + previousIndexHash.get("cci") + "，这个小时CCI数据：" + indexHash.get("cci"));
-            printLog.append("<br />");
-
             this.iAccountService.sell(this.account, price, printLog);
         }
     }
@@ -216,20 +193,41 @@ public class QuantificationServiceImpl implements IQuantificationService {
         return indexMap;
     }
 
-    public void calculation(double stratPrice, double endPrice) {
-        printLog.append("<font color=\"#green\">");
+    public StringBuilder calculation(String symbol, double stratPrice, double endPrice) {
+        StringBuilder resultString = new StringBuilder();
+
+        String symbolName = QuantificationController.symbolMap_.get(symbol);
+        resultString.append("股票名称：<font color=\"blue\">" + symbolName);
+        resultString.append("</font></br>");
+
+        double a = 0;
         if (!this.account.getAccountStatus()) {
-            printLog.append("本策略结果为：" + new BigDecimal((this.account.getMoney() / this.account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) + "%，盈亏总额：" + (this.account.getMoney() - this.account.getInitMoney()));
+            a =  (this.account.getMoney() / this.account.getInitMoney() - 1) * 100;
+            resultString.append("本策略结果为：<font color=\"red\">" + new BigDecimal(a).setScale(2, RoundingMode.UP) + "%</font>，盈亏总额：" + (this.account.getMoney() - this.account.getInitMoney()));
         } else {
-            printLog.append("本策略结果为：" + new BigDecimal(((this.account.getMoney() + this.account.getShareNumber() * endPrice) / this.account.getInitMoney() - 1) * 100).setScale(2, RoundingMode.UP) + "%，盈亏总额：" + ((this.account.getMoney() + this.account.getShareNumber() * endPrice) -this.account.getInitMoney()));
+            a = ((this.account.getMoney() + this.account.getShareNumber() * endPrice) / this.account.getInitMoney() - 1) * 100;
+            resultString.append("本策略结果为：<font color=\"red\">" + new BigDecimal(a).setScale(2, RoundingMode.UP) + "%</font>，盈亏总额：" + ((this.account.getMoney() + this.account.getShareNumber() * endPrice) - this.account.getInitMoney()));
         }
-        printLog.append("</font>");
-        printLog.append("<br />");
+        resultString.append("<br />");
         DecimalFormat df = new DecimalFormat("0.00");
-//        printLog.append("成功率"+ Float.parseFloat(df.format((float)this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))) * 100 +"%" );
-        printLog.append("<br />");
-        printLog.append("本次回测区间涨幅为" + new BigDecimal((endPrice / stratPrice - 1) * 100).setScale(2, RoundingMode.UP) + "%");
-        printLog.append("<br />");
+        resultString.append("成功率"+ Float.parseFloat(df.format((float)this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))) * 100 +"%" );
+        resultString.append("<br />");
+        double b = (endPrice / stratPrice - 1) * 100;
+        resultString.append("本次回测区间涨幅为<font color=\"green\">" + new BigDecimal(b).setScale(2, RoundingMode.UP) + "%</font>");
+        resultString.append("<br />");
+        if(a > b)
+        {
+            resultString.append("策略赢了拿着不动<font size=\"30px\" color=\"red\">" +new BigDecimal(a -b).setScale(2, RoundingMode.UP)+"%</font>");
+        }
+        else
+        {
+            resultString.append("策略输了拿着不动<font size=\"30px\" color=\"green\">" +new BigDecimal(a -b).setScale(2, RoundingMode.UP)+"%</font>");
+        }
+
+        resultString.append("<br />");
+        resultString.append("<br />");
+
+        return resultString;
     }
 
     public static String timestampToDateStr(String timestamp) {

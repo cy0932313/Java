@@ -1,4 +1,4 @@
-package com.chrisY.service.quantification.impl;
+package com.chrisY.service.quantification;
 
 /**
  * @author ：ChrisY
@@ -6,6 +6,6 @@ package com.chrisY.service.quantification.impl;
  * @description：
  */
 
-interface IEmailService {
+public interface IEmailService {
     public void sendMail(String title, String text);
 }

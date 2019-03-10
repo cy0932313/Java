@@ -1,5 +1,7 @@
 package com.chrisY.service.quantification;
 
+import java.util.HashMap;
+
 /**
  * @description:买入条件
  * @author: Chris.Y
@@ -9,10 +11,6 @@ package com.chrisY.service.quantification;
 
 public interface IBuyConditionService {
 
-    //cci指标买入条件
-    public boolean cci(Double cciData,Double previouscciData);
-
-    //macd买入条件
-    public boolean macd(Double macdData,Double previousmacdData);
+    public boolean buyCondition(String indexValue,HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash);
 
 }
