@@ -35,6 +35,9 @@ public class SellServiceImpl implements ISellConditionService {
         double previouscciData = Double.parseDouble(previousIndexHash.get("cci"));
         double previouscciClose = Double.parseDouble(previousIndexHash.get("close"));
         double cciClose = Double.parseDouble(indexHash.get("close"));
+        double cciOpen = Double.parseDouble(indexHash.get("open"));
+
+
         if (cciData > 250) {
             printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "这个小时CCI数据：" + cciData+",CCI大于250");
             printLog.append("<br />");
@@ -46,6 +49,18 @@ public class SellServiceImpl implements ISellConditionService {
             printLog.append("<br />");
             return true;
         }
+//        else if((cciClose/cciOpen) - 1 < -0.03)
+//        {
+//            printLog.append("121212触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合卖出条件，上一个小时CCI数据：" +previouscciData + "，这个小时CCI数据：" +cciData);
+//            printLog.append("<br />");
+//            return true;
+//        }
+//        else if(previouscciData - cciData >= 100)
+//        {
+//            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合卖出条件，上一个小时CCI数据：" +previouscciData + "，这个小时CCI数据：" +cciData);
+//            printLog.append("<br />");
+//                return true;
+//        }
         return false;
     }
     private boolean ma()
