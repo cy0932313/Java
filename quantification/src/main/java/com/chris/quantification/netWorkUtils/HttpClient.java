@@ -13,38 +13,33 @@ import org.springframework.web.client.RestTemplate;
  */
 
 public class HttpClient {
-    private String url;
-    private String cookie;
+    private String url, cookie, reqType;
 
 
-    public String HttpClient(String url)
-    {
+    public HttpClient(String url, String reqType) {
         this.url = url;
-        return  sendGetRequest();
+        this.reqType = reqType;
     }
 
-    public  String HttpClient(String url,String cookie)
-    {
+    public HttpClient(String url, String cookie, String reqType) {
         this.url = url;
         this.cookie = cookie;
-        return  sendGetRequest();
+        this.reqType = reqType;
     }
 
-    private String sendGetRequest()
-    {
+    public String sendRequest() {
         HttpHeaders requestHeaders = new HttpHeaders();
-        if(this.cookie != null)
-        {
-//            requestHeaders.add("Cookie", "xq_a_token=839343b0d4e4de6c50a055f7927e214b8afa75f6");
-            requestHeaders.add("Cookie",cookie);
+        if (this.cookie != null) {
+            requestHeaders.add("Cookie", cookie);
         }
 
         HttpEntity requestEntity = new HttpEntity(null, requestHeaders);
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> responses = restTemplate.exchange(url,
-                HttpMethod.GET, requestEntity,  String.class);
+        ResponseEntity<String> responses = null;
+        if (this.reqType.equals("GET")) {
+            responses = restTemplate.exchange(url,
+                    HttpMethod.GET, requestEntity, String.class);
+        }
         return responses.getBody();
     }
-
-
 }
