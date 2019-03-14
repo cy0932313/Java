@@ -55,9 +55,12 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
     public String currentTimeStamp;
 
-    //当前任务启动状态，需要设置当前是否持股或则空仓
-    private boolean currentStatus = true;
-    private String currentSymbol = "复兴医药";
+
+    private Map<String, String> holdMap = new HashMap<String, String>() {
+        {
+            put("复兴医药", "2019-03-11");
+        }
+    };
 
 
     @Override
@@ -91,27 +94,34 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
                 cci_strategyCenter.previousData = resultDataList.get(2);
             }
 
-            if (this.currentStatus && this.currentSymbol.equals(symbolName)) {
-                if (cci_strategyCenter.sellCondition()) {
-                    this.currentStatus = false;
+            if (cci_strategyCenter.sellCondition()) {
+                if (this.isHold(symbolName,cci_strategyCenter.currentData.get("timestamp"))) {
                     String content = "通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
                             + "\n" +
                             "卖入时间：" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(cci_strategyCenter.currentData.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss")
                             + "\n" + "卖入参考价：" + cci_strategyCenter.currentData.get("close");
                     emailService.sendMail(symbolName + ",卖出卖出卖出!!!", content);
                 }
-            } else {
-                if (cci_strategyCenter.buyCondition()) {
-                    this.currentStatus = true;
-                    String content = "通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
-                            + "\n" +
-                            "买入时间：" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(cci_strategyCenter.currentData.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss")
-                            + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close");
-                    emailService.sendMail(symbolName + ",买入买入买入!!!", content);
+            }
+            if (cci_strategyCenter.buyCondition()) {
+                String content = "通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
+                        + "\n" +
+                        "买入时间：" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(cci_strategyCenter.currentData.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss")
+                        + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close");
+                emailService.sendMail(symbolName + ",买入买入买入!!!", content);
+            }
+        }
+    }
+
+    private boolean isHold(String symbolName,String sellTime) {
+        for (String symbol : this.holdMap.keySet()) {
+            if (symbol.equals(symbolName)) {
+                if(!ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(sellTime) / 1000), "yyyy-MM-dd").equals(this.holdMap.get(symbol)) )
+                {
+                    return true;
                 }
             }
-
-
         }
+        return false;
     }
 }
