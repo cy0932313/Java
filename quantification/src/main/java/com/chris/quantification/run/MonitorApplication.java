@@ -18,7 +18,7 @@ public class MonitorApplication {
     @Autowired
     CCI_MonitorCenterImpl cci_monitorCenter;
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 60000)
     public void startMonitor_CCI() {
         String currentTimeStamp = ChrisDateUtils.timeStamp();
         String currentTime = ChrisDateUtils.timeStamp2Date(
@@ -28,13 +28,17 @@ public class MonitorApplication {
                 currentTimeStamp, "HH"));
         int minute = Integer.parseInt(ChrisDateUtils.timeStamp2Date(
                 currentTimeStamp, "mm"));
-//        int week = ChrisDateUtils.getFullDateWeekTime(currentTime);
-//
-//        if (week < 6 && (hour > 8 && hour < 15)) {
-//            if (minute == 0 || (minute == 53 && hour == 14)) {
-                cci_monitorCenter.currentTimeStamp = currentTimeStamp;
+        int week = ChrisDateUtils.getFullDateWeekTime(currentTime);
+
+        if (week < 6 && hour > 9 && hour < 15) {
+            if ((hour == 9 && minute == 30) ||
+                    (hour == 10 && minute == 29) ||
+                    (hour == 11 && minute == 28) ||
+                    (hour == 13 && minute == 59) ||
+                    (hour == 14 && minute == 53)) {
+                System.out.println("监控时间：" + currentTime);
                 cci_monitorCenter.TechnicalIndex();
-//            }
-//        }
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,7 +28,7 @@ public class EmailServiceImpl implements IEmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from); // 发送人的邮箱
         message.setSubject(title); //标题
-        message.setTo("1941027001@qq.com"); //发给谁  对方邮箱
+        message.setTo("chris0932313@163.com"); //发给谁  对方邮箱
         message.setText(text); //内容
         mailSender.send(message); //发送
     }
