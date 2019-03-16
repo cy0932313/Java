@@ -8,5 +8,5 @@ package com.chrisY.service.quantification;
 
 public interface IQuantificationService {
     public String initQuantification(String symbol,String period,long begin,long end,boolean logContent,boolean summary);
-    public void cciMonitor(String symbol,String period,long begin);
+
 }

@@ -1,6 +1,7 @@
 package com.chris.quantification.run;
 
-import com.chris.quantification.service.impl.CCI.CCI_MonitorCenterImpl;
+import com.chris.quantification.service.impl.monitor.CCI.CCI_MonitorCenterImpl;
+import com.chris.quantification.service.impl.monitor.Price_MonitorCenterImpl;
 import com.chrisY.util.ChrisDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +18,14 @@ public class MonitorApplication {
 
     @Autowired
     CCI_MonitorCenterImpl cci_monitorCenter;
+    @Autowired
+    Price_MonitorCenterImpl price_monitorCenter;
+
+    @Scheduled(fixedRate = 60000)
+    public void startMonitor_symbolPrice()
+    {
+        price_monitorCenter.TechnicalIndex();
+    }
 
     @Scheduled(fixedRate = 60000)
     public void startMonitor_CCI() {

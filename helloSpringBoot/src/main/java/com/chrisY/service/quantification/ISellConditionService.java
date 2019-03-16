@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public interface ISellConditionService {
 
-    public boolean sellCondition(String indexValue,HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash);
+    public boolean sellCondition(String openPrice,String indexValue,HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash);
 
 
 }

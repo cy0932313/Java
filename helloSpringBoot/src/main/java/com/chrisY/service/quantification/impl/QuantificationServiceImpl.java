@@ -62,47 +62,6 @@ public class QuantificationServiceImpl implements IQuantificationService {
         return baseUrl;
     }
 
-    @Override
-    public void cciMonitor(String symbol, String period, long begin) {
-        String dataSource = httpClient.client(sendRequest(symbol, period, begin, 0));
-        this.xueqiuDataSource = new Data();
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            this.xueqiuDataSource = mapper.readValue(dataSource, Data.class);
-        } catch (Exception ex) {
-            ex.getStackTrace();
-        }
-        XueqiuDataKline data = this.xueqiuDataSource.getData();
-        int count = data.getItem().size();
-
-        HashMap<String, String> previousIndexHash = this.itemToIndex(data.getColumn(), data.getItem().get(count - 3));
-
-        HashMap<String, String> indexHash = this.itemToIndex(data.getColumn(), data.getItem().get(count-2));
-
-        boolean sellResult = this.iSellConditionService.sellCondition("cci", indexHash, previousIndexHash);
-        boolean buyResult = this.iBuyConditionService.buyCondition("cci", indexHash, previousIndexHash);
-        String symbolName = QuantificationController.symbolMap_.get(symbol);
-
-        if(buyResult)
-        {
-            iEmailService.sendMail(symbolName + "，买入！买入！买入！",
-                    "通过指标监控到\nCCI数据\n上个小时数据：" + previousIndexHash.get("cci") + "\n这个小时数据：" + indexHash.get("cci")
-                            +"\n" +
-                            "买入时间："+ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss")
-                    +"\n" + "买入参考价："+indexHash.get("close"));
-
-        }
-        if(sellResult)
-        {
-            iEmailService.sendMail(symbolName + "，卖出！卖出！卖出！",
-                    "通过指标监控到\nCCI数据\n上个小时数据：" + previousIndexHash.get("cci") + "\n这个小时数据：" + indexHash.get("cci")
-                            +"\n" +
-                            "买入时间："+ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss")
-                            +"\n" + "卖出参考价："+indexHash.get("close"));
-
-        }
-        System.out.println(symbolName + buyResult + sellResult);
-    }
 
     @Override
     public String initQuantification(String symbol, String period, long begin, long end, boolean logContent, boolean summary) {
@@ -164,6 +123,21 @@ public class QuantificationServiceImpl implements IQuantificationService {
         }
     }
 
+    private String getDayOpenPrice()
+    {
+        XueqiuDataKline data = this.xueqiuDataSource.getData();
+
+        HashMap<String,String> indexHash = null;
+        for (int i = 0; i < data.getItem().size(); i++) {
+            indexHash = this.itemToIndex(data.getColumn(), data.getItem().get(i));
+
+            System.out.println("时间：："+ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss"));
+
+        }
+        return "";
+    }
+
+    private HashMap<String,String> openPriceMap = new HashMap<>();
     public void kLine() {
         XueqiuDataKline data = this.xueqiuDataSource.getData();
 
@@ -174,7 +148,11 @@ public class QuantificationServiceImpl implements IQuantificationService {
                 previousIndexHash = this.itemToIndex(data.getColumn(), data.getItem().get(i - 1));
             }
             indexHash = this.itemToIndex(data.getColumn(), data.getItem().get(i));
-
+            System.out.println(ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "HH:mm"));
+            if(ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "HH:mm").equals("10:30"))
+            {
+                openPriceMap.put(ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm"),indexHash.get("open"));
+            }
             this.handleData(indexHash, previousIndexHash);
         }
     }
@@ -186,15 +164,17 @@ public class QuantificationServiceImpl implements IQuantificationService {
         boolean sellResult = false;
 
         if (indexHash != null && previousIndexHash != null) {
-            sellResult = this.iSellConditionService.sellCondition("cci", indexHash, previousIndexHash);
-            buyResult = this.iBuyConditionService.buyCondition("cci", indexHash, previousIndexHash);
+            String openPrice = openPriceMap.get((ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd ")+"10:30"));
+            sellResult = this.iSellConditionService.sellCondition(openPrice,"cci", indexHash, previousIndexHash);
+            buyResult = this.iBuyConditionService.buyCondition(openPrice,"cci", indexHash, previousIndexHash);
         }
-
+        this.getDayOpenPrice();
         if (buyResult) {
             this.handleAccount(indexHash, previousIndexHash, "buy");
         }
 
         if (sellResult) {
+            QuantificationController.test1 = 0;
             this.handleAccount(indexHash, previousIndexHash, "sell");
         }
     }

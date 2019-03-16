@@ -11,6 +11,6 @@ import java.util.HashMap;
 
 public interface IBuyConditionService {
 
-    public boolean buyCondition(String indexValue,HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash);
+    public boolean buyCondition(String openPrice,String indexValue,HashMap<String, String> indexHash, HashMap<String, String> previousIndexHash);
 
 }

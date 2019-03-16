@@ -6,7 +6,15 @@ package com.chrisY.domain.quantification;
  * @create: 2019-03-02 09:36
  **/
 public class Account {
+    public String getTest() {
+        return test;
+    }
 
+    public void setTest(String test) {
+        this.test = test;
+    }
+
+    private String test;
     private String accountName;
 
     private Double initMoney;

@@ -1,4 +1,4 @@
-package com.chris.quantification.service.impl.CCI;
+package com.chris.quantification.service.impl.monitor.CCI;
 
 import com.chris.quantification.service.IMonitorCenter;
 import com.chris.quantification.service.impl.EmailServiceImpl;
@@ -55,6 +55,8 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
     private boolean trigger = false;
 
+    private StringBuilder emailContent = new StringBuilder();
+
     private Map<String, String> buySymbolMap = new HashMap<String, String>() {
         {
             put("复兴医药", "2019-03-11");
@@ -68,6 +70,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("period", "60m");
         param.put("begin", "1552011341000");
+        this.emailContent.delete(0, this.emailContent.length());
 
         for (String symbol : this.symbolMap.keySet()) {
             param.put("symbol", symbol);
@@ -77,9 +80,11 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         }
 
         if (!this.trigger) {
-            emailService.sendMail( "安心上班", ChrisDateUtils.timeStamp2Date(
-                    ChrisDateUtils.timeStamp(), null) +"监控结束");
+            emailService.sendMail("安心上班", ChrisDateUtils.timeStamp2Date(
+                    ChrisDateUtils.timeStamp(), null) + "监控结束");
         } else {
+            emailService.sendMail("[交易提醒]" + ChrisDateUtils.timeStamp2Date(
+                    ChrisDateUtils.timeStamp(), null), this.emailContent.toString());
             this.trigger = false;
         }
     }
@@ -95,34 +100,57 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             System.out.println("监控内容：" + symbolName + "这个小时CCI数据" + cci_strategyCenter.currentData.get("cci"));
 
             if (this.isHold(symbolName, cci_strategyCenter.currentData.get("timestamp"))) {
+                cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
                 if (cci_strategyCenter.sellCondition()) {
-
-                    String content = "通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
+                    this.emailContent.append(symbolName + ",卖出卖出卖出!!!" + "\n");
+                    this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
                             + "\n" +
-                            "卖入时间：" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(cci_strategyCenter.currentData.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss")
-                            + "\n" + "卖入参考价：" + cci_strategyCenter.currentData.get("close");
+                            "卖入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
+                            + "\n" + "卖入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
+
                     this.trigger = true;
-                    emailService.sendMail(symbolName + ",卖出卖出卖出!!!", content);
                 }
             }
 
             if (cci_strategyCenter.buyCondition()) {
-                String content = "通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
+                this.emailContent.append(symbolName + ",买入买入买入!!!" + "\n");
+                this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
                         + "\n" +
-                        "买入时间：" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(cci_strategyCenter.currentData.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss")
-                        + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close");
+                        "买入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
+                        + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
+
                 this.trigger = true;
-                emailService.sendMail(symbolName + ",买入买入买入!!!", content);
             }
         }
     }
 
     private boolean isHold(String symbolName, String buyDate) {
         for (String symbol : this.buySymbolMap.keySet()) {
-            if (symbol.equals(symbolName) && this.buySymbolMap.get(symbol).equals(ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(buyDate) / 1000), "yyyy-MM-dd"))) {
+            if (symbol.equals(symbolName) && this.buySymbolMap.get(symbol).equals(this.getTime(buyDate, "yyyy-MM-dd"))) {
                 return true;
             }
         }
         return false;
     }
+
+    private double getCurrentOpenPirce(ArrayList<HashMap<String, String>> resultDataList) {
+        int currentHour = Integer.parseInt(this.getTime(resultDataList.get(0).get("timestamp"), "HH"));
+        int index = 0;
+        if (currentHour < 12) {
+            index = currentHour - 10;
+        } else {
+            index = currentHour - 12;
+        }
+
+        return Double.parseDouble(resultDataList.get(index).get("open"));
+    }
+
+    private String getTime(String timestamp, String formate) {
+        if (formate == null) {
+            formate = "yyyy-MM-dd HH:mm:ss";
+        }
+
+        return ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(timestamp) / 1000), formate);
+    }
+
 }
