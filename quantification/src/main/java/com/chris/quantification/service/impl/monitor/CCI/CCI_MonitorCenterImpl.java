@@ -108,6 +108,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
                             "卖入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
                             + "\n" + "卖入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
 
+                    this.buySymbolMap.remove(symbolName);
                     this.trigger = true;
                 }
             }

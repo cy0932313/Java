@@ -2,15 +2,13 @@ package com.chris.quantification.service.impl;
 
 import com.chris.quantification.domain.xueqiuSixty.DataSixty;
 import com.chris.quantification.domain.xueqiuSixty.SixtyContent;
-import com.chris.quantification.netWorkUtils.HttpClient;
+import com.chris.quantification.utils.HttpClient;
 import com.chris.quantification.service.IGetDataSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author ：ChrisY

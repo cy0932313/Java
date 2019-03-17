@@ -1,4 +1,4 @@
-package com.chris.quantification.netWorkUtils;
+package com.chris.quantification.utils;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

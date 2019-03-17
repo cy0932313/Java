@@ -57,11 +57,13 @@ public class Price_MonitorCenterImpl implements IMonitorCenter {
             if (Double.parseDouble(resultDataList.get(0).get("close")) >= monitorSymbolPrice) {
                 this.emailService.sendMail("[目标价提醒]" + ChrisDateUtils.timeStamp2Date(
                         ChrisDateUtils.timeStamp(), null), symbolName + "已大于目标价:" + monitorSymbolPrice + "\n" + "当前价格为：" + Double.parseDouble(resultDataList.get(0).get("close")) + "\n");
+                this.monitorPirceMap.remove(symbolName);
             }
         } else if (tempArray[0].equals("<")) {
             if (Double.parseDouble(resultDataList.get(0).get("close")) <= monitorSymbolPrice) {
                 this.emailService.sendMail("[目标价提醒]" + ChrisDateUtils.timeStamp2Date(
                         ChrisDateUtils.timeStamp(), null), symbolName + "已小于目标价:" + monitorSymbolPrice + "\n" + "当前价格为：" + Double.parseDouble(resultDataList.get(0).get("close")) + "\n");
+                this.monitorPirceMap.remove(symbolName);
             }
         }
     }

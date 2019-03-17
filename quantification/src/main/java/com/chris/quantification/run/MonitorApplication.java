@@ -21,10 +21,19 @@ public class MonitorApplication {
     @Autowired
     Price_MonitorCenterImpl price_monitorCenter;
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 30000)
     public void startMonitor_symbolPrice()
     {
-        price_monitorCenter.TechnicalIndex();
+        String currentTimeStamp = ChrisDateUtils.timeStamp();
+        String currentTime = ChrisDateUtils.timeStamp2Date(
+                currentTimeStamp, null);
+        int hour = Integer.parseInt(ChrisDateUtils.timeStamp2Date(
+                currentTimeStamp, "HH"));
+        int week = ChrisDateUtils.getFullDateWeekTime(currentTime);
+
+        if (week < 6 && hour > 9 && hour < 15) {
+            price_monitorCenter.TechnicalIndex();
+        }
     }
 
     @Scheduled(fixedRate = 60000)
