@@ -9,27 +9,26 @@ import org.slf4j.LoggerFactory;
  * @author: Chris.Y
  * @create: 2019-03-17 21:29
  **/
-public class LogUtils {  /**
- * 将信息打印到自定义日志（my_info.log）中
- * @param message 需要被打印的信息
- */
-public static void printLog(String message){
-    Logger logger  =  LoggerFactory.getLogger(QuantificationApplication.class);
+public class LogUtils {
+    /**
+     * @param message 需要被打印的信息
+     */
+    public static void printLog(String message) {
+        Logger logger = LoggerFactory.getLogger(QuantificationApplication.class);
 
-    StringBuffer logOut = new StringBuffer();
-    logOut.append("\n");
-    logOut.append(message);
-    logOut.append("\n");
+        StringBuffer logOut = new StringBuffer();
+        logOut.append("\n");
+        logOut.append(message);
+        logOut.append("\n");
 
-    logger.info(logOut.toString());
-}
+        logger.info(logOut.toString());
+    }
 
     /**
-     * 将信息打印到自定义日志（system_error.log）中
      * @param e 异常信息
      */
-    public static void printLog(Exception e, Class<?> clazz){
-        Logger logger  =  LoggerFactory.getLogger(clazz);
+    public static void printLog(Exception e, Class<?> clazz) {
+        Logger logger = LoggerFactory.getLogger(clazz);
 
         StringBuffer logOut = new StringBuffer();
         logOut.append("\n");

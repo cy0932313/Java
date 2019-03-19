@@ -3,6 +3,7 @@ package com.chris.quantification.service.impl.monitor.CCI;
 import com.chris.quantification.service.IMonitorCenter;
 import com.chris.quantification.service.impl.EmailServiceImpl;
 import com.chris.quantification.service.impl.XueqiuSixtyDataImpl;
+import com.chris.quantification.utils.LogUtils;
 import com.chrisY.util.ChrisDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,6 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             put("SH601890", "亚星锚链");
             put("SZ000725", "京东方A");
             put("SZ300468", "四方精创");
-            put("SH600776", "东方通信");
         }
     };
 
@@ -96,11 +96,12 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             cci_strategyCenter.currentData = resultDataList.get(0);
             cci_strategyCenter.previousData = resultDataList.get(1);
 
-            System.out.println("监控内容：" + symbolName + "上个小时CCI数据" + cci_strategyCenter.previousData.get("cci"));
-            System.out.println("监控内容：" + symbolName + "这个小时CCI数据" + cci_strategyCenter.currentData.get("cci"));
+//            System.out.println("监控内容：" + symbolName + "上个小时CCI数据" + cci_strategyCenter.previousData.get("cci"));
+//            System.out.println("监控内容：" + symbolName + "这个小时CCI数据" + cci_strategyCenter.currentData.get("cci"));
 
             if (this.isHold(symbolName, cci_strategyCenter.currentData.get("timestamp"))) {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
+                System.out.println("监控内容：" + symbolName + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice);
                 if (cci_strategyCenter.sellCondition()) {
                     this.emailContent.append(symbolName + ",卖出卖出卖出!!!" + "\n");
                     this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
@@ -127,7 +128,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
     private boolean isHold(String symbolName, String buyDate) {
         for (String symbol : this.buySymbolMap.keySet()) {
-            if (symbol.equals(symbolName) && this.buySymbolMap.get(symbol).equals(this.getTime(buyDate, "yyyy-MM-dd"))) {
+            if (symbol.equals(symbolName) && ChrisDateUtils.compare_date(this.buySymbolMap.get(symbol),this.getTime(buyDate, "yyyy-MM-dd"),"yyyy-MM-dd") == -1) {
                 return true;
             }
         }

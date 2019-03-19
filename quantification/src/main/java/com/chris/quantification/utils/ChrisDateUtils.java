@@ -1,5 +1,6 @@
 package com.chrisY.util;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -95,4 +96,27 @@ public class ChrisDateUtils {
 
         return weekDays[w];
     }
+
+    public static int compare_date(String DATE1, String DATE2,String formate) {
+        if(formate == null)
+        {
+            formate = "yyyy-MM-dd hh:mm";
+        }
+        DateFormat df = new SimpleDateFormat(formate);
+        try {
+            Date dt1 = df.parse(DATE1);
+            Date dt2 = df.parse(DATE2);
+            if (dt1.getTime() > dt2.getTime()) {
+                return 1;
+            } else if (dt1.getTime() < dt2.getTime()) {
+                return -1;
+            } else {
+                return 0;
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return 0;
+    }
+
 }

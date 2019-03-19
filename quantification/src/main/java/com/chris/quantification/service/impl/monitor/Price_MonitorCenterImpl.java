@@ -39,12 +39,14 @@ public class Price_MonitorCenterImpl implements IMonitorCenter {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("period", "60m");
         param.put("begin", "1552011341000");
-
-        for (String symbol : this.symbolMap.keySet()) {
-            param.put("symbol", symbol);
-            xueqiuSixtyData.setParameter(param);
-            xueqiuSixtyData.getDataSoruce();
-            handle(this.symbolMap.get(symbol), xueqiuSixtyData.getHandleDataResult());
+        if(monitorPirceMap.size() > 0)
+        {
+            for (String symbol : this.symbolMap.keySet()) {
+                param.put("symbol", symbol);
+                xueqiuSixtyData.setParameter(param);
+                xueqiuSixtyData.getDataSoruce();
+                handle(this.symbolMap.get(symbol), xueqiuSixtyData.getHandleDataResult());
+            }
         }
     }
 
