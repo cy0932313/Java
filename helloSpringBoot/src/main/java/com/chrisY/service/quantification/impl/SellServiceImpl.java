@@ -67,12 +67,12 @@ this.openPrice = openPrice;
             printLog.append("<br />");
             return true;
         }
-//        else if(kdjj >= 100)
-//        {
-//            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "KDJ卖出:"+once);
-//            printLog.append("<br />");
-//            return true;
-//        }
+        else if(kdjd >= 80 && cciData <100 && cciData > -100)
+        {
+            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "KDJ卖出:"+once);
+            printLog.append("<br />");
+            return true;
+        }
 //        else if(this.openPrice != null && 1 - (cciClose/Double.parseDouble(this.openPrice)) > 0.03)
 //        {
 //            QuantificationController.test = this.openPrice;

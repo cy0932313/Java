@@ -37,14 +37,17 @@ public class QuantificationController {
 
     public static final Map<String, String> symbolMap_ = new HashMap<String, String>() {
         {
-            put("SH600196", "复兴医药");
+//            put("SH600196", "复兴医药");
 //            put("SH600436","片子癀");
+//            put("SZ002007", "华兰生物");
+//
+//            put("SZ000002", "万科A");
 //            put("SZ000963","华东医药");
-//            put("SH600276","恒瑞医药");
+            put("SH600276","恒瑞医药");
 //            put("SZ300015","爱尔眼科");
 //            put("SH600518","康美药业");
 //            put("SZ000538","云南白药");
-//
+////
 //            put("SZ159915", "创业板");
 //            put("SH510300", "沪深300");
 //            put("SZ000651", "格力电器");

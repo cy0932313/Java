@@ -40,6 +40,10 @@ public class BuyServiceImpl implements IBuyConditionService {
         double previouscciClose = Double.parseDouble(previousIndexHash.get("close"));
         double cciClose = Double.parseDouble(indexHash.get("close"));
 
+        double kdjd = Double.parseDouble(indexHash.get("kdjd"));
+        double previouskdjd = Double.parseDouble(previousIndexHash.get("kdjd"));
+
+
         if (cciData > -100 && previouscciData < -100 && cciClose > previouscciClose&&!ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "HH").equals("15") ) {
             QuantificationController.test1 = cciClose;
             printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合买入条件，上一个小时CCI数据：" + previouscciData + "，这个小时CCI数据：" + cciData);
@@ -54,6 +58,16 @@ public class BuyServiceImpl implements IBuyConditionService {
             printLog.append("<br />");
             return  true;
         }
+
+        if(cciData < 100 && cciData > -100 && kdjd > 20 && previouskdjd < 20)
+        {
+//            QuantificationController.test1 = cciClose;
+            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，KDJ技术指标符合买入条件，上一个小时KDJ数据：" + previouskdjd + "，这个小时KDJ数据：" + kdjd);
+            printLog.append("<br />");
+            return true;
+        }
+
+
         return false;
     }
 
