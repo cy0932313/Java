@@ -38,6 +38,24 @@ this.openPrice = openPrice;
         double cciClose = Double.parseDouble(indexHash.get("close"));
         double cciOpen = Double.parseDouble(indexHash.get("open"));
 
+
+        double kdjk = Double.parseDouble(indexHash.get("kdjk"));
+        double kdjd = Double.parseDouble(indexHash.get("kdjd"));
+        double kdjj = Double.parseDouble(indexHash.get("kdjj"));
+        int once = 0;
+        if(kdjk > 80)
+        {
+            ++once;
+        }
+         if(kdjd > 80)
+        {
+            ++once;
+        }
+         if(kdjj > 80)
+        {
+            ++once;
+        }
+
         if (cciData > 250) {
             printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "这个小时CCI数据：" + cciData+",CCI大于250");
             printLog.append("<br />");
@@ -49,6 +67,12 @@ this.openPrice = openPrice;
             printLog.append("<br />");
             return true;
         }
+//        else if(kdjj >= 100)
+//        {
+//            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "KDJ卖出:"+once);
+//            printLog.append("<br />");
+//            return true;
+//        }
 //        else if(this.openPrice != null && 1 - (cciClose/Double.parseDouble(this.openPrice)) > 0.03)
 //        {
 //            QuantificationController.test = this.openPrice;

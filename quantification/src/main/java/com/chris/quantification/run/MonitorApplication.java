@@ -48,12 +48,22 @@ public class MonitorApplication {
                 currentTimeStamp, "mm"));
         int week = ChrisDateUtils.getFullDateWeekTime(currentTime);
 
-        if (week < 6 && hour > 9 && hour < 15) {
-            if ((hour == 9 && minute == 32) ||
-                    (hour == 10 && minute == 28) ||
-                    (hour == 11 && minute == 28) ||
-                    (hour == 13 && minute == 59) ||
-                    (hour == 14 && minute == 53)) {
+        if (week < 6 && hour > 8 && hour < 15) {
+//            if ( (hour == 10 && minute == 28) ||
+//                    (hour == 11 && minute == 28) ||
+//                    (hour == 13 && minute == 59) ||
+//                    (hour == 14 && minute == 53)) {
+//                System.out.println("监控时间：" + currentTime);
+//                cci_monitorCenter.TechnicalIndex();
+//            }
+
+            if (hour == 9 && minute >= 30) {
+                System.out.println("监控时间：" + currentTime);
+                cci_monitorCenter.TechnicalIndex();
+            } else if (hour == 14 && minute <= 53) {
+                System.out.println("监控时间：" + currentTime);
+                cci_monitorCenter.TechnicalIndex();
+            } else if (hour > 9 && hour < 14) {
                 System.out.println("监控时间：" + currentTime);
                 cci_monitorCenter.TechnicalIndex();
             }
