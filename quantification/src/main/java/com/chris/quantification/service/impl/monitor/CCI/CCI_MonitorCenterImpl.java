@@ -110,7 +110,9 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         }
 
         if (!this.trigger) {
-            emailService.sendMail("安心上班", ChrisDateUtils.timeStamp2Date(
+//            emailService.sendMail("安心上班", ChrisDateUtils.timeStamp2Date(
+//                    ChrisDateUtils.timeStamp(), null) + "监控结束");
+            System.out.println("安心上班" + ChrisDateUtils.timeStamp2Date(
                     ChrisDateUtils.timeStamp(), null) + "监控结束");
         } else {
             emailService.sendMail("[交易提醒]" + ChrisDateUtils.timeStamp2Date(
@@ -128,7 +130,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
             if (this.isHold(symbolName, cci_strategyCenter.currentData.get("timestamp"))) {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
-                System.out.println("监控内容：" + symbolName + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice+ "当前价为：" + cci_strategyCenter.currentData.get("close"));
+                System.out.println("监控内容：" + symbolName + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "当前价为：" + cci_strategyCenter.currentData.get("close"));
                 if (cci_strategyCenter.sellCondition()) {
                     this.emailContent.append(symbolName + ",卖出卖出卖出!!!" + "\n");
                     this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
@@ -155,7 +157,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
     private boolean isHold(String symbolName, String buyDate) {
         for (String symbol : this.buySymbolMap.keySet()) {
-            if (symbol.equals(symbolName) && ChrisDateUtils.compare_date(this.buySymbolMap.get(symbol),this.getTime(buyDate, "yyyy-MM-dd"),"yyyy-MM-dd") == -1) {
+            if (symbol.equals(symbolName) && ChrisDateUtils.compare_date(this.buySymbolMap.get(symbol), this.getTime(buyDate, "yyyy-MM-dd"), "yyyy-MM-dd") == -1) {
                 return true;
             }
         }
