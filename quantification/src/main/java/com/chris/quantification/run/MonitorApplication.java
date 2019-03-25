@@ -49,24 +49,30 @@ public class MonitorApplication {
         int week = ChrisDateUtils.getFullDateWeekTime(currentTime);
 
         if (week < 6 && hour > 8 && hour < 15) {
-//            if ( (hour == 10 && minute == 28) ||
-//                    (hour == 11 && minute == 28) ||
-//                    (hour == 13 && minute == 59) ||
-//                    (hour == 14 && minute == 53)) {
-//                System.out.println("监控时间：" + currentTime);
-//                cci_monitorCenter.TechnicalIndex();
-//            }
-
-            if (hour == 9 && minute >= 30) {
-                System.out.println("监控时间：" + currentTime);
-                cci_monitorCenter.TechnicalIndex();
-            } else if (hour == 14 && minute <= 53) {
-                System.out.println("监控时间：" + currentTime);
-                cci_monitorCenter.TechnicalIndex();
-            } else if (hour > 9 && hour < 14) {
+            /**
+             * 小时周期快走完监控
+             */
+            if ( (hour == 10 && minute == 28) ||
+                    (hour == 11 && minute == 28) ||
+                    (hour == 13 && minute == 59) ||
+                    (hour == 14 && minute == 53)) {
                 System.out.println("监控时间：" + currentTime);
                 cci_monitorCenter.TechnicalIndex();
             }
+
+            /**
+               每分钟都监控
+             */
+//            if (hour == 9 && minute >= 30) {
+//                System.out.println("监控时间：" + currentTime);
+//                cci_monitorCenter.TechnicalIndex();
+//            } else if (hour == 14 && minute <= 53) {
+//                System.out.println("监控时间：" + currentTime);
+//                cci_monitorCenter.TechnicalIndex();
+//            } else if (hour > 9 && hour < 14) {
+//                System.out.println("监控时间：" + currentTime);
+//                cci_monitorCenter.TechnicalIndex();
+//            }
         }
     }
 }

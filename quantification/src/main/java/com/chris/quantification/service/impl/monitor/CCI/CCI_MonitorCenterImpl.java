@@ -1,5 +1,6 @@
 package com.chris.quantification.service.impl.monitor.CCI;
 
+import com.chris.quantification.domain.SymbolHold;
 import com.chris.quantification.service.IMonitorCenter;
 import com.chris.quantification.service.impl.EmailServiceImpl;
 import com.chris.quantification.service.impl.XueqiuSixtyDataImpl;
@@ -85,21 +86,22 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
     private StringBuilder emailContent = new StringBuilder();
 
-    private Map<String, String> buySymbolMap = new HashMap<String, String>() {
-        {
-//            put("复兴医药", "2019-03-11");
-//            put("创业板", "2019-03-15");
-            put("中信证券", "2019-03-15");
-            put("格力电器", "2019-03-21");
-            put("华兰生物", "2019-03-22");
-        }
-    };
+    private Map<String, SymbolHold> buySymbolMap = new HashMap<String, SymbolHold>();
+    public void initHoldSymbol()
+    {
+
+        buySymbolMap.put("复兴医药",new SymbolHold("SH600196","复兴医药", "2019-03-25",29.55));
+//        buySymbolMap.put("格力电器",new SymbolHold("SZ000651","格力电器", "2019-03-21",45.71));
+//        buySymbolMap.put("华兰生物",new SymbolHold("SZ000651","华兰生物", "2019-03-22",42.9));
+    }
 
     @Override
     public void TechnicalIndex() {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("period", "60m");
         param.put("begin", "1552011341000");
+
+        this.initHoldSymbol();
         this.emailContent.delete(0, this.emailContent.length());
 
         for (String symbol : this.symbolMap.keySet()) {
@@ -110,10 +112,10 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         }
 
         if (!this.trigger) {
-//            emailService.sendMail("安心上班", ChrisDateUtils.timeStamp2Date(
-//                    ChrisDateUtils.timeStamp(), null) + "监控结束");
-            System.out.println("安心上班" + ChrisDateUtils.timeStamp2Date(
+            emailService.sendMail("安心上班", ChrisDateUtils.timeStamp2Date(
                     ChrisDateUtils.timeStamp(), null) + "监控结束");
+//            System.out.println("安心上班" + ChrisDateUtils.timeStamp2Date(
+//                    ChrisDateUtils.timeStamp(), null) + "监控结束");
         } else {
             emailService.sendMail("[交易提醒]" + ChrisDateUtils.timeStamp2Date(
                     ChrisDateUtils.timeStamp(), null), this.emailContent.toString());
@@ -130,6 +132,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
             if (this.isHold(symbolName, cci_strategyCenter.currentData.get("timestamp"))) {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
+                cci_strategyCenter.symbolHold = this.buySymbolMap.get(symbolName);
                 System.out.println("监控内容：" + symbolName + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "当前价为：" + cci_strategyCenter.currentData.get("close"));
                 if (cci_strategyCenter.sellCondition()) {
                     this.emailContent.append(symbolName + ",卖出卖出卖出!!!" + "\n");
@@ -157,7 +160,8 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
     private boolean isHold(String symbolName, String buyDate) {
         for (String symbol : this.buySymbolMap.keySet()) {
-            if (symbol.equals(symbolName) && ChrisDateUtils.compare_date(this.buySymbolMap.get(symbol), this.getTime(buyDate, "yyyy-MM-dd"), "yyyy-MM-dd") == -1) {
+            SymbolHold symbolHold = this.buySymbolMap.get(symbol);
+            if (symbol.equals(symbolName) && ChrisDateUtils.compare_date(symbolHold.getSymbolBuyTime(), this.getTime(buyDate, "yyyy-MM-dd"), "yyyy-MM-dd") == -1) {
                 return true;
             }
         }
