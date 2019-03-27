@@ -90,9 +90,9 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
     public void initHoldSymbol()
     {
 
-        buySymbolMap.put("复兴医药",new SymbolHold("SH600196","复兴医药", "2019-03-25",29.55));
-//        buySymbolMap.put("格力电器",new SymbolHold("SZ000651","格力电器", "2019-03-21",45.71));
-//        buySymbolMap.put("华兰生物",new SymbolHold("SZ000651","华兰生物", "2019-03-22",42.9));
+        buySymbolMap.put("复兴医药",new SymbolHold("SH600196","复兴医药", "2019-03-27",28.85,false));
+//        buySymbolMap.put("格力电器",new SymbolHold("SZ000651","格力电器", "2019-03-26",45.15));
+        buySymbolMap.put("50ETF",new SymbolHold("SH510050","华兰生物", "2019-03-27",2.73,true));
     }
 
     @Override

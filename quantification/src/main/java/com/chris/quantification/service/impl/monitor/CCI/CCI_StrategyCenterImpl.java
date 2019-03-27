@@ -48,14 +48,21 @@ public class CCI_StrategyCenterImpl implements IStrategyCenter {
     public boolean sellCondition() {
         double cciData = Double.parseDouble(currentData.get("cci"));
         double cciClose = Double.parseDouble(currentData.get("close"));
+        double dayProfit = 0.05;
+        double countProfit = 0.1;
+        if(this.symbolHold.isETF)
+        {
+            dayProfit = 0.03;
+            countProfit = 0.05;
+        }
 
         if (cciData > 250) {
             return true;
         } else if (cciData < -100) {
             return true;
-        } else if (this.currentDayOpenPrice != 0 && (cciClose / this.currentDayOpenPrice) - 1 > 0.05) {
+        } else if (this.currentDayOpenPrice != 0 && (cciClose / this.currentDayOpenPrice) - 1 > dayProfit) {
             return true;
-        } else if (this.symbolHold != null && (cciClose / this.symbolHold.symbolBuyPrice) - 1 > 0.1) {
+        } else if (this.symbolHold != null && (cciClose / this.symbolHold.symbolBuyPrice) - 1 > countProfit) {
             return true;
         }
         return false;
