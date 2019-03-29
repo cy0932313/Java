@@ -38,7 +38,7 @@ public class CCI_StrategyCenterImpl implements IStrategyCenter {
         double previouscciData = Double.parseDouble(previousData.get("cci"));
         double previouscciClose = Double.parseDouble(previousData.get("close"));
 
-        if (cciData > -100 && previouscciData < -100 && cciClose > previouscciClose && !ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(currentData.get("timestamp")) / 1000), "HH").equals("15")) {
+        if (cciData > -100 && previouscciData < -100 && !ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(currentData.get("timestamp")) / 1000), "HH").equals("15")) {
             return true;
         }
         return false;

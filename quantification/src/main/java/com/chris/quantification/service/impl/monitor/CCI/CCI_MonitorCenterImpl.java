@@ -46,7 +46,6 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             put("SH600585", "海螺水泥");
             put("SH600309", "万华化学");
 
-            put("SZ002027", "分众传媒");
             put("SH601890", "亚星锚链");
 
             put("SH600030", "中信证券");
@@ -92,7 +91,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
         buySymbolMap.put("复兴医药",new SymbolHold("SH600196","复兴医药", "2019-03-27",28.85,false));
 //        buySymbolMap.put("格力电器",new SymbolHold("SZ000651","格力电器", "2019-03-26",45.15));
-        buySymbolMap.put("50ETF",new SymbolHold("SH510050","华兰生物", "2019-03-27",2.73,true));
+        buySymbolMap.put("50ETF",new SymbolHold("SH510050","50ETF", "2019-03-29",2.757,true));
     }
 
     @Override

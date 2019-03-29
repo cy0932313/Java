@@ -31,7 +31,7 @@ public class XueqiuSixtyDataImpl implements IGetDataSource {
     public void getDataSoruce() {
         String count = "500000";
         String indicator = "kline,ma,macd,kdj,boll,rsi,wr,bias,cci,psy";
-        String cookie = "xq_a_token=839343b0d4e4de6c50a055f7927e214b8afa75f6";
+        String cookie = "xq_a_token=c90503da9578c457eaef9b92e49c94a54932e81d";
         String baseUrl = "https://stock.xueqiu.com/v5/stock/chart/kline.json?"
                 + "symbol=" + symbol
                 + "&begin=" + begin
