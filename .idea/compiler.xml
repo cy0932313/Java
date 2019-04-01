@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="helloSpringBoot" />
+        <module name="mechanization" />
         <module name="quantification" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="helloSpringBoot" target="1.8" />
+      <module name="mechanization" target="1.8" />
       <module name="monitor" target="1.8" />
       <module name="quantification" target="1.8" />
     </bytecodeTargetLevel>
@@ -19,6 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="helloSpringBoot" options="-parameters" />
+      <module name="mechanization" options="-parameters" />
       <module name="monitor" options="-parameters" />
       <module name="quantification" options="-parameters" />
     </option>

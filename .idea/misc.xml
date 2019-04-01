@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/helloSpringBoot/pom.xml" />
         <option value="$PROJECT_DIR$/quantification/pom.xml" />
+        <option value="$PROJECT_DIR$/mechanization/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

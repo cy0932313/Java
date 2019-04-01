@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/helloSpringBoot/helloSpringBoot.iml" filepath="$PROJECT_DIR$/helloSpringBoot/helloSpringBoot.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaCore/javaCore.iml" filepath="$PROJECT_DIR$/javaCore/javaCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mechanization/mechanization.iml" filepath="$PROJECT_DIR$/mechanization/mechanization.iml" />
       <module fileurl="file://$PROJECT_DIR$/quantification/quantification.iml" filepath="$PROJECT_DIR$/quantification/quantification.iml" />
     </modules>
   </component>
