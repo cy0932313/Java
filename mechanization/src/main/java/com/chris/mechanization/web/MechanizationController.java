@@ -22,13 +22,8 @@ public class MechanizationController {
     private SymbolDataImpl symbolData;
 
     @PostMapping("/downloadSymbol")
-    
-    public String downloadSymbol(String symbol)
-    {
-        if(symbolData.saveSymbolData(symbol))
-        {
-            return "Success";
-        }
-        return "Fail";
+
+    public String downloadSymbol(String symbol) {
+        return symbolData.saveSymbolData(symbol);
     }
 }

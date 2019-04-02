@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chris.mechanization.dao.IXueqiuDayDao">
+
+    <insert id="addXueqiuStock">
+        insert ignore into ${tableName}
+        (volume, open,high,close,low,chg,percent,turnrate,ma5,ma10,ma20,ma30
+        ,dif,dea,macd,lot_volume,timestamp,time)
+        values
+        (#{itemStock.volume},
+        #{itemStock.open},
+        #{itemStock.high},
+        #{itemStock.close},
+        #{itemStock.low},
+        #{itemStock.chg},
+        #{itemStock.percent},
+        #{itemStock.turnrate},
+        #{itemStock.ma5},
+        #{itemStock.ma10},
+        #{itemStock.ma20},
+        #{itemStock.ma30},
+        #{itemStock.dif},
+        #{itemStock.dea},
+        #{itemStock.macd},
+        #{itemStock.lot_volume},
+        #{itemStock.timestamp},
+        #{itemStock.time}
+        )
+    </insert>
+
+</mapper>

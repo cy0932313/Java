@@ -6,35 +6,6 @@ package com.chris.mechanization.domain.xueqiuData;
  * @create: 2019-03-06 21:01
  **/
 public class ItemStock {
-    String volume;
-    String open;
-    String high;
-    String close;
-    String low;
-    String chg;
-    String percent;
-    String turnrate;
-    String ma5;
-    String ma10;
-    String ma20;
-    String ma30;
-    String dif;
-    String dea;
-    String macd;
-    String lot_volume;
-    String timestamp;
-    String time;
-
-    public String getCci() {
-        return cci;
-    }
-
-    public void setCci(String cci) {
-        this.cci = cci;
-    }
-
-    String cci;
-
     public String getVolume() {
         return volume;
     }
@@ -178,5 +149,25 @@ public class ItemStock {
     public void setTime(String time) {
         this.time = time;
     }
+
+    String volume;
+    String open;
+    String high;
+    String close;
+    String low;
+    String chg;
+    String percent;
+    String turnrate;
+    String ma5;
+    String ma10;
+    String ma20;
+    String ma30;
+    String dif;
+    String dea;
+    String macd;
+    String lot_volume;
+    String timestamp;
+    String time;
+
 
 }
