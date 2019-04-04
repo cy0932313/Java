@@ -7,5 +7,5 @@ package com.chris.mechanization.service;
  */
 
 public interface ISymbolDataService {
-    public String saveSymbolData(String symbolName);
+    public String saveSymbolData(String symbolName,String beginTime,String endTime,boolean update);
 }

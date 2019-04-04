@@ -23,7 +23,7 @@ public class MechanizationController {
 
     @PostMapping("/downloadSymbol")
 
-    public String downloadSymbol(String symbol) {
-        return symbolData.saveSymbolData(symbol);
+    public String downloadSymbol(String symbol,String beginTime,String endTime,boolean update) {
+        return symbolData.saveSymbolData(symbol,beginTime,endTime,update);
     }
 }

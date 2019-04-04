@@ -28,6 +28,10 @@
              ma10 varchar(32) NOT NULL,
              ma20 varchar(32) NOT NULL,
              ma30 varchar(32) NOT NULL,
+
+             ma60 varchar(32) NOT NULL,
+
+
              chg varchar(32) NOT NULL,
              percent varchar(32) NOT NULL,
              turnrate varchar(32) NOT NULL,

@@ -37,7 +37,7 @@ public class XueqiuDayDataImpl implements IGetDataSource {
                 + "&begin=" + begin
                 + "&end=" + end
                 + "&period=" + period
-                + "&type=after"
+                + "&type=before"
                 +"&_="+String.valueOf(System.currentTimeMillis());
 
         HttpClient httpClient = new HttpClient(baseUrl, cookie, "GET");
