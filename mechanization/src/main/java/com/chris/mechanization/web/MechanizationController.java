@@ -1,5 +1,6 @@
 package com.chris.mechanization.web;
 
+import com.chris.mechanization.service.impl.CoinDataImpl;
 import com.chris.mechanization.service.impl.SymbolDataImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +21,19 @@ public class MechanizationController {
 
     @Autowired
     private SymbolDataImpl symbolData;
+    @Autowired
+    private CoinDataImpl coinData;
 
     @PostMapping("/downloadSymbol")
 
-    public String downloadSymbol(String symbol,String beginTime,String endTime,boolean update) {
-        return symbolData.saveSymbolData(symbol,beginTime,endTime,update);
+    public String downloadSymbol(String symbol,String period,String beginTime,String endTime,boolean update) {
+        return symbolData.saveSymbolData(symbol, period,beginTime,endTime,update);
     }
+
+    @PostMapping("/downloadCoin")
+    public String coin(String symbol,String period,String beginTime,String endTime,boolean update) {
+//        1514736000000
+        return coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
+    }
+
 }

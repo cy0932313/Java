@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="binance-api-client" />
         <module name="helloSpringBoot" />
         <module name="mechanization" />
         <module name="quantification" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="binance-api-client" target="1.8" />
       <module name="helloSpringBoot" target="1.8" />
       <module name="mechanization" target="1.8" />
       <module name="monitor" target="1.8" />
