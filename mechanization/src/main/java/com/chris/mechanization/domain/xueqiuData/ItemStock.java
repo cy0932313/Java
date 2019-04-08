@@ -169,5 +169,24 @@ public class ItemStock {
     String timestamp;
     String time;
 
+    public String getMa60() {
+        return ma60;
+    }
+
+    public void setMa60(String ma60) {
+        this.ma60 = ma60;
+    }
+
+    public String getCci() {
+        return cci;
+    }
+
+    public void setCci(String cci) {
+        this.cci = cci;
+    }
+
+    String ma60;
+    String cci;
+
 
 }

@@ -58,21 +58,39 @@
              numberOfTrades varchar(32) NOT NULL,
              takerBuyBaseAssetVolume varchar(32) NOT NULL,
              takerBuyQuoteAssetVolume varchar(32) NOT NULL,
+             time varchar(32),
+             ma5  varchar(32),
+             ma7  varchar(32),
+             ma10  varchar(32),
+             ma14  varchar(32),
+             ma20  varchar(32),
+             ma30  varchar(32),
+             ma60  varchar(32),
+             cci   varchar(32),
           PRIMARY KEY (openTime))
     </update>
 
-    <resultMap id="BaseResultMap" type="com.binance.api.client.domain.market.Candlestick">
-        <!--<result column="openTime" property="volume" jdbcType="VARCHAR"/>-->
+    <resultMap id="BaseResultMap_coin" type="com.binance.api.client.domain.market.Candlestick">
+        <result column="openTime" property="volume" jdbcType="VARCHAR"/>
         <result column="open" property="open" jdbcType="VARCHAR"/>
-        <!--<result column="high" property="high" jdbcType="VARCHAR"/>-->
-        <!--<result column="close" property="close" jdbcType="VARCHAR"/>-->
-        <!--<result column="low" property="low" jdbcType="VARCHAR"/>-->
-        <!--<result column="closeTime" property="chg" jdbcType="VARCHAR"/>-->
-        <!--<result column="volume" property="volume" jdbcType="VARCHAR"/>-->
-        <!--<result column="quoteAssetVolume" property="quoteAssetVolume" jdbcType="VARCHAR"/>-->
-        <!--<result column="numberOfTrades" property="numberOfTrades" jdbcType="VARCHAR"/>-->
-        <!--<result column="takerBuyBaseAssetVolume" property="takerBuyBaseAssetVolume" jdbcType="VARCHAR"/>-->
-        <!--<result column="takerBuyQuoteAssetVolume" property="takerBuyQuoteAssetVolume" jdbcType="VARCHAR"/>-->
+        <result column="high" property="high" jdbcType="VARCHAR"/>
+        <result column="close" property="close" jdbcType="VARCHAR"/>
+        <result column="low" property="low" jdbcType="VARCHAR"/>
+        <result column="closeTime" property="chg" jdbcType="VARCHAR"/>
+        <result column="volume" property="volume" jdbcType="VARCHAR"/>
+        <result column="quoteAssetVolume" property="quoteAssetVolume" jdbcType="VARCHAR"/>
+        <result column="numberOfTrades" property="numberOfTrades" jdbcType="VARCHAR"/>
+        <result column="takerBuyBaseAssetVolume" property="takerBuyBaseAssetVolume" jdbcType="VARCHAR"/>
+        <result column="takerBuyQuoteAssetVolume" property="takerBuyQuoteAssetVolume" jdbcType="VARCHAR"/>
+
+        <result column="ma5" property="ma5" jdbcType="VARCHAR"/>
+        <result column="ma7" property="ma7" jdbcType="VARCHAR"/>
+        <result column="ma10" property="ma10" jdbcType="VARCHAR"/>
+        <result column="ma14" property="ma14" jdbcType="VARCHAR"/>
+        <result column="ma20" property="ma20" jdbcType="VARCHAR"/>
+        <result column="ma30" property="ma30" jdbcType="VARCHAR"/>
+        <result column="ma60" property="ma60" jdbcType="VARCHAR"/>
+        <result column="cci" property="cci" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="queryInfoForLimit_symbol" resultMap="BaseResultMap_symbol">
@@ -80,9 +98,13 @@
         ORDER BY ${orderField} limit ${limitStart},${limitEnd}
     </select>
 
-    <select id="queryInfoForLimit_coin" resultMap="BaseResultMap">
+    <select id="queryInfoForLimit_coin" resultMap="BaseResultMap_coin">
         SELECT * from  ${tableName}
         ORDER BY closeTime limit ${limitStart},${limitEnd}
+    </select>
+
+    <select id="queryInfoFo_account" resultType="com.chris.mechanization.domain.Account">
+        SELECT * from account
     </select>
 
     <select id="queryInfoForSum" resultType="FLOAT">
@@ -144,6 +166,9 @@
         <result column="lot_volume" property="lot_volume" jdbcType="VARCHAR"/>
         <result column="timestamp" property="timestamp" jdbcType="VARCHAR"/>
         <result column="time" property="time" jdbcType="VARCHAR"/>
+
+        <result column="ma60" property="ma60" jdbcType="VARCHAR"/>
+        <result column="cci" property="cci" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="addBinanceStock">

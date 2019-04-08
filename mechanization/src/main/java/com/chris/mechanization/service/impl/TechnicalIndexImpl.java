@@ -34,6 +34,7 @@ public class TechnicalIndexImpl {
             int size = list.size();
             for (int i = 0; i < size; i++) {
                 float avg = iOperateTableDao.queryInfoForAvg(tableName, "timestamp", "t.close", 0 + i, ma);
+//                avg = avg + 0.01f;
                 ItemStock itemStock = list.get(i);
                 iOperateTableDao.updateInfo(tableName, updateField, fnum2.format(avg),"timestamp", itemStock.getTimestamp());
             }
