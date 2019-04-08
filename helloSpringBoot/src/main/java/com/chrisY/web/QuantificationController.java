@@ -37,19 +37,25 @@ public class QuantificationController {
 
     public static final Map<String, String> symbolMap_ = new HashMap<String, String>() {
         {
+//            put("SH510300", "300ETF");
+//            put("SH510500", "500ETF");
+//            put("SZ159915", "创业板");
+            put("SH510050", "50ETF");
+//            put("SH512800", "银行ETF");
+//            put("SH512000", "券商ETF");
+//            put("SH518880", "黄金ETF");
+
 //            put("SH600196", "复兴医药");
 //            put("SH600436","片子癀");
 //            put("SZ002007", "华兰生物");
-//
-//            put("SZ000002", "万科A");
+//            put("SH600276","恒瑞医药");
 //            put("SZ000963","华东医药");
-            put("SH600276","恒瑞医药");
-//            put("SZ300015","爱尔眼科");
+
 //            put("SH600518","康美药业");
+//            put("SZ000002", "万科A");
+//            put("SZ300015","爱尔眼科");
 //            put("SZ000538","云南白药");
 ////
-//            put("SZ159915", "创业板");
-//            put("SH510300", "沪深300");
 //            put("SZ000651", "格力电器");
 //            put("SH601318", "中国平安");
 //            put("SH601398", "工商银行");
@@ -88,7 +94,7 @@ public class QuantificationController {
         StringBuilder str = new StringBuilder();
 
         for (String symbol : symbolMap_.keySet()) {
-            str.append(quantification.initQuantification(symbol, "60m", begin, end, false, false));
+            str.append(quantification.initQuantification(symbol, "60m", begin, end, true, false));
         }
 
         return str.toString();

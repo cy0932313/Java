@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 public class HttpClient {
     public String client(String url) {
         HttpHeaders requestHeaders = new HttpHeaders();
-        requestHeaders.add("Cookie", "xq_a_token=839343b0d4e4de6c50a055f7927e214b8afa75f6");
+        requestHeaders.add("Cookie", "xq_a_token=c90503da9578c457eaef9b92e49c94a54932e81d");
         HttpEntity requestEntity = new HttpEntity(null, requestHeaders);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String>  responses = restTemplate.exchange(url,

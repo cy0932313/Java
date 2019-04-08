@@ -168,7 +168,7 @@ public class QuantificationServiceImpl implements IQuantificationService {
             sellResult = this.iSellConditionService.sellCondition(openPrice,"cci", indexHash, previousIndexHash);
             buyResult = this.iBuyConditionService.buyCondition(openPrice,"cci", indexHash, previousIndexHash);
         }
-//        this.getDayOpenPrice();
+        this.getDayOpenPrice();
         if (buyResult) {
             this.handleAccount(indexHash, previousIndexHash, "buy");
         }
