@@ -37,6 +37,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             put("SH601186", "中国铁建");
             put("SH600660", "福耀玻璃");
             put("SZ000002", "万科A");
+            put("SZ000002", "万科A");
             put("SZ002415", "海威康视");
             put("SH600036", "招商银行");
 
@@ -98,7 +99,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
     public void TechnicalIndex() {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("period", "60m");
-        param.put("begin", "1552011341000");
+        param.put("begin", "1554689741000");
 
         this.initHoldSymbol();
         this.emailContent.delete(0, this.emailContent.length());
