@@ -66,6 +66,7 @@ public class QuantificationServiceImpl implements IQuantificationService {
     @Override
     public String initQuantification(String symbol, String period, long begin, long end, boolean logContent, boolean summary) {
         String dataSource = httpClient.client(sendRequest(symbol, period, begin, end));
+        QuantificationController.test1_2 = 0;
         //账号准备就绪
 //        this.account = iAccountService.initAccount("chris", 50000.00, false,true,0.33);
         this.account = iAccountService.initAccount("chris", 50000.00, false);
@@ -168,7 +169,7 @@ public class QuantificationServiceImpl implements IQuantificationService {
             sellResult = this.iSellConditionService.sellCondition(openPrice,"cci", indexHash, previousIndexHash);
             buyResult = this.iBuyConditionService.buyCondition(openPrice,"cci", indexHash, previousIndexHash);
         }
-        this.getDayOpenPrice();
+//        this.getDayOpenPrice();
         if (buyResult) {
             this.handleAccount(indexHash, previousIndexHash, "buy");
         }
@@ -216,7 +217,14 @@ public class QuantificationServiceImpl implements IQuantificationService {
     }
 
     public StringBuilder calculation(String symbol, double stratPrice, double endPrice) {
+
         StringBuilder resultString = new StringBuilder();
+        if(this.account.getSucessNum() + this.account.getFailNum() <= 0)
+        {
+            resultString.append(symbol +"失败");
+            resultString.append("</font></br>");
+            return resultString;
+        }
 
         String symbolName = QuantificationController.symbolMap_.get(symbol);
         resultString.append("股票名称：<font color=\"blue\">" + symbolName);
@@ -232,7 +240,10 @@ public class QuantificationServiceImpl implements IQuantificationService {
         }
         resultString.append("<br />");
         DecimalFormat df = new DecimalFormat("0.00");
+
         resultString.append("成功率" + Float.parseFloat(df.format((float) this.account.getSucessNum() / (this.account.getSucessNum() + this.account.getFailNum()))) * 100 + "%");
+        resultString.append("<br />");
+        resultString.append("执行次数"+QuantificationController.test1_2);
         resultString.append("<br />");
         double b = (endPrice / stratPrice - 1) * 100;
         resultString.append("本次回测区间涨幅为<font color=\"green\">" + new BigDecimal(b).setScale(2, RoundingMode.UP) + "%</font>");

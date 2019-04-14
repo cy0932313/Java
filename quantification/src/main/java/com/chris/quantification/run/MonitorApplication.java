@@ -36,8 +36,10 @@ public class MonitorApplication {
 //        }
 //    }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 6000000)
     public void startMonitor_CCI() {
+        cci_monitorCenter.TechnicalIndex();
+
         String currentTimeStamp = ChrisDateUtils.timeStamp();
         String currentTime = ChrisDateUtils.timeStamp2Date(
                 currentTimeStamp, null);

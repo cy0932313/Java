@@ -28,4 +28,10 @@ public class HelloController {
         System.out.println(user);
         return  userService.addUser(user);
     }
+
+//    @PostMapping("/test")
+//    public void test()
+//    {
+//        System.out.println(user);
+//    }
 }

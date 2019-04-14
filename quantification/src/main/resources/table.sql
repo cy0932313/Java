@@ -11,7 +11,122 @@
  Target Server Version : 80015
  File Encoding         : 65001
 
- Date: 12/04/2019 23:39:52
+ Date: 14/04/2019 23:36:08
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for hold_record
+-- ----------------------------
+DROP TABLE IF EXISTS `hold_record`;
+CREATE TABLE `hold_record`  (
+  `symbolCode` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `symbolName` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `open` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `close` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `high` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `low` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `previous_cci` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `cci` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `time` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `groupID` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`symbolCode`, `time`, `groupID`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : Chris
+ Source Server Type    : MySQL
+ Source Server Version : 80015
+ Source Host           : localhost:3306
+ Source Schema         : chris
+
+ Target Server Type    : MySQL
+ Target Server Version : 80015
+ File Encoding         : 65001
+
+ Date: 14/04/2019 23:36:19
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for hold_symbol
+-- ----------------------------
+DROP TABLE IF EXISTS `hold_symbol`;
+CREATE TABLE `hold_symbol`  (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `symbolCode` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `symbolName` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `buyPrice` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `buyTime` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `isETF` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hold_symbol
+-- ----------------------------
+INSERT INTO `hold_symbol` VALUES (1, 'SZ000002', '万科A', '32.01', '2019-04-9', 'false');
+INSERT INTO `hold_symbol` VALUES (2, 'SZ002415', '海威康视', '34.42', '2019-04-12', 'false');
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : Chris
+ Source Server Type    : MySQL
+ Source Server Version : 80015
+ Source Host           : localhost:3306
+ Source Schema         : chris
+
+ Target Server Type    : MySQL
+ Target Server Version : 80015
+ File Encoding         : 65001
+
+ Date: 14/04/2019 23:36:25
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for monitor_record
+-- ----------------------------
+DROP TABLE IF EXISTS `monitor_record`;
+CREATE TABLE `monitor_record`  (
+  `symbolCode` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `symbolName` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `cci` float NULL DEFAULT NULL,
+  `time` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`symbolCode`, `time`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : Chris
+ Source Server Type    : MySQL
+ Source Server Version : 80015
+ Source Host           : localhost:3306
+ Source Schema         : chris
+
+ Target Server Type    : MySQL
+ Target Server Version : 80015
+ File Encoding         : 65001
+
+ Date: 14/04/2019 23:36:34
 */
 
 SET NAMES utf8mb4;
@@ -79,123 +194,3 @@ INSERT INTO `monitor_symbol` VALUES ('SZ300059', '东方财富');
 INSERT INTO `monitor_symbol` VALUES ('SZ300730', '科创信息');
 
 SET FOREIGN_KEY_CHECKS = 1;
-
-
-
-/*
- Navicat Premium Data Transfer
-
- Source Server         : Chris
- Source Server Type    : MySQL
- Source Server Version : 80015
- Source Host           : localhost:3306
- Source Schema         : chris
-
- Target Server Type    : MySQL
- Target Server Version : 80015
- File Encoding         : 65001
-
- Date: 12/04/2019 23:40:59
-*/
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for hold_symbol
--- ----------------------------
-DROP TABLE IF EXISTS `hold_symbol`;
-CREATE TABLE `hold_symbol`  (
-  `symbolCode` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `symbolName` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `buyPrice` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `buyTime` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `isETF` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`symbolCode`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of hold_symbol
--- ----------------------------
-INSERT INTO `hold_symbol` VALUES ('SZ000002', '万科A', '32.01', '2019-04-9', 'false');
-INSERT INTO `hold_symbol` VALUES ('SZ002415', '海威康视', '34.42', '2019-04-12', 'false');
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-/*
- Navicat Premium Data Transfer
-
- Source Server         : Chris
- Source Server Type    : MySQL
- Source Server Version : 80015
- Source Host           : localhost:3306
- Source Schema         : chris
-
- Target Server Type    : MySQL
- Target Server Version : 80015
- File Encoding         : 65001
-
- Date: 12/04/2019 23:41:10
-*/
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for monitor_record
--- ----------------------------
-DROP TABLE IF EXISTS `monitor_record`;
-CREATE TABLE `monitor_record`  (
-  `symbolCode` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `symbolName` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `cci` float NULL DEFAULT NULL,
-  `time` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-
-
-
-/*
- Navicat Premium Data Transfer
-
- Source Server         : Chris
- Source Server Type    : MySQL
- Source Server Version : 80015
- Source Host           : localhost:3306
- Source Schema         : chris
-
- Target Server Type    : MySQL
- Target Server Version : 80015
- File Encoding         : 65001
-
- Date: 12/04/2019 23:41:16
-*/
-
-SET NAMES utf8mb4;
-SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for hold_record
--- ----------------------------
-DROP TABLE IF EXISTS `hold_record`;
-CREATE TABLE `hold_record`  (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `symbolCode` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `symbolName` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `open` float NULL DEFAULT NULL,
-  `close` float NULL DEFAULT NULL,
-  `high` float NULL DEFAULT NULL,
-  `low` float NULL DEFAULT NULL,
-  `previous_cci` float NULL DEFAULT NULL,
-  `cci` float NULL DEFAULT NULL,
-  `time` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `groupID` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-
-

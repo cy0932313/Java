@@ -1,6 +1,8 @@
 package com.chris.quantification.service.impl.monitor.CCI;
 
-import com.chris.quantification.domain.SymbolHold;
+import com.chris.quantification.dao.IOperateTableDao;
+import com.chris.quantification.domain.*;
+import com.chris.quantification.enumType.TipsEnum;
 import com.chris.quantification.service.IMonitorCenter;
 import com.chris.quantification.service.impl.EmailServiceImpl;
 import com.chris.quantification.service.impl.XueqiuSixtyDataImpl;
@@ -19,81 +21,19 @@ import java.util.*;
 
 @Service
 public class CCI_MonitorCenterImpl implements IMonitorCenter {
-
-    private Map<String, String> symbolMap = new HashMap<String, String>() {
-        {
-            put("SH600196", "复兴医药");
-            put("SZ002007", "华兰生物");
-            put("SH600276", "恒瑞医药");
-            put("SH600436", "片子癀");
-            put("SZ300015", "爱尔眼科");
-
-
-            put("SZ000651", "格力电器");
-            put("SZ000333", "美的集团");
-
-            put("SH601318", "中国平安");
-            put("SH600887", "伊利股份");
-            put("SH601186", "中国铁建");
-            put("SH600660", "福耀玻璃");
-            put("SZ000002", "万科A");
-            put("SZ000002", "万科A");
-            put("SZ002415", "海威康视");
-            put("SH600036", "招商银行");
-
-            put("SH600519", "贵州茅台");
-            put("SZ000858", "五粮液");
-
-            put("SH600585", "海螺水泥");
-            put("SH600309", "万华化学");
-
-            put("SH601890", "亚星锚链");
-
-            put("SH600030", "中信证券");
-            put("SZ300059", "东方财富");
-
-            put("SH600028", "中国石化");
-            put("SH601111", "中国国航");
-
-            put("SH600570", "恒生电子");
-            put("SZ000725", "京东方A");
-            put("SZ000063", "中兴通讯");
-            put("SZ002138", "顺络电子");
-            put("SH600460", "士兰微");
-            put("SZ300730", "科创信息");
-            put("SH600547", "山东黄金");
-
-            put("SH601398", "工商银行");
-
-            put("SH510300", "300ETF");
-            put("SH510500", "500ETF");
-            put("SZ159915", "创业板");
-            put("SH510050", "50ETF");
-            put("SH512800", "银行ETF");
-            put("SH512000", "券商ETF");
-            put("SH518880", "黄金ETF");
-        }
-    };
-
     @Autowired
     XueqiuSixtyDataImpl xueqiuSixtyData;
     @Autowired
     CCI_StrategyCenterImpl cci_strategyCenter;
     @Autowired
     EmailServiceImpl emailService;
-
-    private boolean trigger = false;
+    @Autowired
+    IOperateTableDao iOperateTableDao;
 
     private StringBuilder emailContent = new StringBuilder();
 
-    private Map<String, SymbolHold> buySymbolMap = new HashMap<String, SymbolHold>();
-    public void initHoldSymbol()
-    {
-
-        buySymbolMap.put("复兴医药",new SymbolHold("SH600196","复兴医药", "2019-04-8",29.7,false));
-//        buySymbolMap.put("格力电器",new SymbolHold("SZ000651","格力电器", "2019-03-26",45.15));
-//        buySymbolMap.put("50ETF",new SymbolHold("SH510050","50ETF", "2019-03-29",2.757,true));
-    }
+    private List<SymbolMonitor> symbolMonitorList;
+    private List<SymbolHold> symbolHoldList;
 
     @Override
     public void TechnicalIndex() {
@@ -101,71 +41,131 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         param.put("period", "60m");
         param.put("begin", "1554689741000");
 
-        this.initHoldSymbol();
         this.emailContent.delete(0, this.emailContent.length());
 
-        for (String symbol : this.symbolMap.keySet()) {
-            param.put("symbol", symbol);
+        symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
+        symbolHoldList = iOperateTableDao.queryInfoForHoldSymbol();
+
+        int symbolMonitorSize = symbolMonitorList.size();
+        for (int i = 0; i < symbolMonitorSize; i++) {
+            SymbolMonitor item = symbolMonitorList.get(i);
+            param.put("symbol", item.getSymbolCode());
             xueqiuSixtyData.setParameter(param);
             xueqiuSixtyData.getDataSoruce();
-            handle(this.symbolMap.get(symbol), xueqiuSixtyData.getHandleDataResult());
+            handle(item, xueqiuSixtyData.getHandleDataResult());
         }
 
-        if (!this.trigger) {
-            emailService.sendMail("安心上班", ChrisDateUtils.timeStamp2Date(
-                    ChrisDateUtils.timeStamp(), null) + "监控结束");
-//            System.out.println("安心上班" + ChrisDateUtils.timeStamp2Date(
-//                    ChrisDateUtils.timeStamp(), null) + "监控结束");
-        } else {
-            emailService.sendMail("[交易提醒]" + ChrisDateUtils.timeStamp2Date(
-                    ChrisDateUtils.timeStamp(), null), this.emailContent.toString());
-            this.trigger = false;
+        List<Tips> tips = this.iOperateTableDao.queryInfoForTips();
+        if (tips.size() > 0) {
+            this.emailContent.append("行情分析:共监控" + this.symbolMonitorList.size() + "只股票\n");
+            this.emailContent.append("这个小时超买" + tips.get(0).getOverbought() + "只，正常" + tips.get(0).getNormal() + "只，超卖" + tips.get(0).getOversold() + "只\n");
+            if (tips.size() > 1) {
+                this.emailContent.append("上个小时超买" + tips.get(1).getOverbought() + "只，正常" + tips.get(1).getNormal() + "只，超卖" + tips.get(1).getOversold() + "只\n");
+            }
+            if (tips.size() > 2) {
+                this.emailContent.append("上上个小时超买" + tips.get(2).getOverbought() + "只，正常" + tips.get(2).getNormal() + "只，超卖" + tips.get(2).getOversold() + "只\n");
+
+                if (tips.get(0).getOverbought() > tips.get(1).getOverbought() && tips.get(1).getOverbought() > tips.get(2).getOverbought()) {
+                    this.emailContent.append("当前行情处于持续上升阶段,建议持股待涨" + "\n");
+                } else if (tips.get(0).getOversold() < tips.get(1).getOversold() && tips.get(1).getOversold() < tips.get(2).getOversold()) {
+                    this.emailContent.append("当前行情处于反弹阶段,建议轻仓参与" + "\n");
+                } else if (tips.get(0).getOversold() > tips.get(1).getOversold() && tips.get(1).getOversold() > tips.get(2).getOversold()) {
+                    this.emailContent.append("当前行情处于下降阶段,建议持币观望" + "\n");
+                } else {
+                    int reference = this.symbolMonitorList.size() / 3;
+                    if (tips.get(0).getOverbought() > reference) {
+                        this.emailContent.append("当前行情处于超买阶段" + "\n");
+                    } else if (tips.get(0).getNormal() > reference) {
+                        this.emailContent.append("当前行情处于正常波动阶段" + "\n");
+                    } else if (tips.get(0).getOversold() > reference) {
+                        this.emailContent.append("当前行情处于超卖阶段" + "\n");
+                    }
+                }
+            }
         }
+
+        emailService.sendMail("[监控结果]" + ChrisDateUtils.timeStamp2Date(
+                    ChrisDateUtils.timeStamp(), null), this.emailContent.toString());
     }
 
-    private void handle(String symbolName, ArrayList<HashMap<String, String>> resultDataList) {
+    private void handle(SymbolMonitor symbolMonitor, ArrayList<HashMap<String, String>> resultDataList) {
         if (resultDataList.size() > 2) {
             Collections.reverse(resultDataList);
 
             cci_strategyCenter.currentData = resultDataList.get(0);
             cci_strategyCenter.previousData = resultDataList.get(1);
+            saveCCILog(symbolMonitor);
 
-            if (this.isHold(symbolName, cci_strategyCenter.currentData.get("timestamp"))) {
+            SymbolHold symbolHold = this.isHold(symbolMonitor.getSymbolCode(), cci_strategyCenter.currentData.get("timestamp"));
+            if (symbolHold != null) {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
-                cci_strategyCenter.symbolHold = this.buySymbolMap.get(symbolName);
-                System.out.println("监控内容：" + symbolName + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "当前价为：" + cci_strategyCenter.currentData.get("close"));
-                if (cci_strategyCenter.sellCondition()) {
-                    this.emailContent.append(symbolName + ",卖出卖出卖出!!!" + "\n");
+                cci_strategyCenter.symbolHold = symbolHold;
+                System.out.println("监控内容：<" + symbolHold.getSymbolName() + ">买入价：" + symbolHold.buyPrice + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice +
+                        "当前价为：" + cci_strategyCenter.currentData.get("close")
+                        + "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
+                        + "%\n\n"
+                );
+                this.emailContent.append("监控内容：<" + symbolHold.getSymbolName() + ">买入价：" + symbolHold.buyPrice + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice +
+                        "当前价为：" + cci_strategyCenter.currentData.get("close")
+                        + "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
+                        + "%\n\n");
+
+                TipsEnum tipsEnum = cci_strategyCenter.sellCondition();
+                if (tipsEnum != TipsEnum.PASS) {
+                    String tempTips = symbolHold.getSymbolName()
+                            + ",卖出卖出卖出!!!" + "\n"
+                            + "卖出时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null) + "\n"
+                            + "卖出参考价：" + cci_strategyCenter.currentData.get("close") + "\n";
+                    if (tipsEnum == TipsEnum.SELL_1) {
+                        tempTips = tempTips + "卖出条件：CCI数据大于250" + "\n\n";
+                    } else if (tipsEnum == TipsEnum.SELL_2) {
+                        tempTips = tempTips + "卖出条件：CCI数据小于-100" + "\n\n";
+                    } else if (tipsEnum == TipsEnum.SELL_3) {
+                        tempTips = tempTips + "卖出条件：当天涨幅超过%5（ETF为%3）" + "\n\n";
+                    } else if (tipsEnum == TipsEnum.SELL_4) {
+                        tempTips = tempTips + "卖出条件：盈利超过10%(ETF为%5)" + "\n\n";
+                    } else if (tipsEnum == TipsEnum.SELL_5) {
+                        tempTips = tempTips + "卖出条件：利润超过%3之后又回踩了%3" + "\n\n";
+                    } else if (tipsEnum == TipsEnum.SELL_6) {
+                        tempTips = tempTips + "卖出条件：利润超过%5之后又回踩了%5" + "\n\n";
+                    } else if (tipsEnum == TipsEnum.SELL_7) {
+                        tempTips = tempTips + "卖出条件：利润超过%7之后又回踩了%7" + "\n\n";
+                    } else if (tipsEnum == TipsEnum.SELL_8) {
+                        tempTips = tempTips + "卖出条件：利润超过%10之后又回踩了%10" + "\n\n";
+                    }
+
+                    this.emailContent.append(tempTips);
+                }
+                else
+                {
+                    this.emailContent.append("继续持有"+ "\n\n");
+                }
+            } else {
+                if (cci_strategyCenter.buyCondition()) {
+                    this.emailContent.append(symbolMonitor.getSymbolName() + ",买入买入买入!!!" + "\n");
                     this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
                             + "\n" +
-                            "卖入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
-                            + "\n" + "卖入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
-
-                    this.buySymbolMap.remove(symbolName);
-                    this.trigger = true;
+                            "买入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
+                            + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
                 }
-            }
-
-            if (cci_strategyCenter.buyCondition()) {
-                this.emailContent.append(symbolName + ",买入买入买入!!!" + "\n");
-                this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
-                        + "\n" +
-                        "买入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
-                        + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
-
-                this.trigger = true;
             }
         }
     }
 
-    private boolean isHold(String symbolName, String buyDate) {
-        for (String symbol : this.buySymbolMap.keySet()) {
-            SymbolHold symbolHold = this.buySymbolMap.get(symbol);
-            if (symbol.equals(symbolName) && ChrisDateUtils.compare_date(symbolHold.getSymbolBuyTime(), this.getTime(buyDate, "yyyy-MM-dd"), "yyyy-MM-dd") == -1) {
-                return true;
+    private void saveCCILog(SymbolMonitor symbolMonitor) {
+        MonitorRecord monitorRecord = new MonitorRecord(symbolMonitor.getSymbolCode(), symbolMonitor.getSymbolName(), cci_strategyCenter.currentData.get("cci"), cci_strategyCenter.currentData.get("timestamp"));
+        iOperateTableDao.addMonitorRecord(monitorRecord);
+    }
+
+    private SymbolHold isHold(String symbolCode, String symbolDate) {
+        for (int i = 0; i < symbolHoldList.size(); i++) {
+            SymbolHold item = symbolHoldList.get(i);
+            if (item.getSymbolCode().equals(symbolCode) && ChrisDateUtils.compare_date(item.getBuyTime(), this.getTime(symbolDate, "yyyy-MM-dd"), "yyyy-MM-dd") == -1) {
+                return item;
             }
         }
-        return false;
+
+        return null;
     }
 
     private double getCurrentOpenPirce(ArrayList<HashMap<String, String>> resultDataList) {

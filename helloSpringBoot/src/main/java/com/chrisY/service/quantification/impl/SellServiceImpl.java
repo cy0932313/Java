@@ -38,7 +38,6 @@ this.openPrice = openPrice;
         double cciClose = Double.parseDouble(indexHash.get("close"));
         double cciOpen = Double.parseDouble(indexHash.get("open"));
 
-
         double kdjk = Double.parseDouble(indexHash.get("kdjk"));
         double kdjd = Double.parseDouble(indexHash.get("kdjd"));
         double kdjj = Double.parseDouble(indexHash.get("kdjj"));
@@ -56,25 +55,44 @@ this.openPrice = openPrice;
             ++once;
         }
 
-        if (cciData > 250) {
-            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "这个小时CCI数据：" + cciData+",CCI大于250");
-            printLog.append("<br />");
-            return true;
-        }
-        else
-            if (cciData < -100) {
-
+        if (cciData < -100) {
             printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合卖出条件，上一个小时CCI数据：" +previouscciData + "，这个小时CCI数据：" +cciData);
             printLog.append("<br />");
             return true;
         }
+//        else
+//        if(this.openPrice != null &&(cciClose/Double.parseDouble(this.openPrice)) - 1> 0.05)
+//        {
+//            QuantificationController.test = this.openPrice;
+//            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "当天开盘价为:"+this.openPrice+"当前时间收盘价："+cciClose);
+//            printLog.append("<br />");
+//            return true;
+//        }
+        else  if(QuantificationController.test1 != 0 && (cciClose/QuantificationController.test1) - 1> 0.01)
+        {
+            QuantificationController.test1 = 0;
+            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "买入价为:"+QuantificationController.test1+"当前时间收盘价："+cciClose);
+            printLog.append("<br />");
+            return true;
+        }
+        else if( QuantificationController.test1 != 0 && (cciClose/QuantificationController.test1) - 1 < 0)
+        {
+            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "买入价为:"+QuantificationController.test1+"当前时间收盘价："+cciClose);
+            printLog.append("<br />");
+            return true;
+        }
+//        else if (cciData > 250) {
+//            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "这个小时CCI数据：" + cciData+",CCI大于250");
+//            printLog.append("<br />");
+//            return true;
+//        }
 //        else if(kdjd >= 80 && cciData <100 && cciData > -100)
 //        {
 //            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "KDJ卖出:"+once);
 //            printLog.append("<br />");
 //            return true;
 //        }
-//        else if(this.openPrice != null && 1 - (cciClose/Double.parseDouble(this.openPrice)) > 0.03)
+//        else if(this.openPrice != null && 1 - (cciClose/Double.parseDouble(this.openPrice)) > 0.05)
 //        {
 //            QuantificationController.test = this.openPrice;
 //            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "当天开盘价为:"+this.openPrice+"当前时间收盘价："+cciClose);
@@ -87,20 +105,6 @@ this.openPrice = openPrice;
 //            printLog.append("<br />");
 //            return true;
 //        }
-        else if(this.openPrice != null &&(cciClose/Double.parseDouble(this.openPrice)) - 1> 0.03)
-        {
-            QuantificationController.test = this.openPrice;
-            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "当天开盘价为:"+this.openPrice+"当前时间收盘价："+cciClose);
-            printLog.append("<br />");
-            return true;
-        }
-        else if(this.openPrice != null && QuantificationController.test1 != 0 && (cciClose/QuantificationController.test1) - 1> 0.05)
-        {
-            QuantificationController.test1 = 0;
-            printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "买入价为:"+QuantificationController.test1+"当前时间收盘价："+cciClose);
-            printLog.append("<br />");
-            return true;
-        }
 
         if(QuantificationController.test1 > 0)
         {

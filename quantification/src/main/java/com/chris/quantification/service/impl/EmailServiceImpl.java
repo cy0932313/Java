@@ -28,7 +28,7 @@ public class EmailServiceImpl implements IEmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from); // 发送人的邮箱
         message.setSubject(title); //标题
-        message.setTo("chris0932313@163.com"); //发给谁  对方邮箱
+        message.setTo("chris0932313@163.com","979526610@qq.com"); //发给谁  对方邮箱
         message.setText(text); //内容
         mailSender.send(message); //发送
     }

@@ -34,12 +34,12 @@ public class QuantificationController {
     public static String test = "";
     public static double test1 = 0;
     public static double test1_1 = 0;
-
+    public static int test1_2 = 0;
     public static final Map<String, String> symbolMap_ = new HashMap<String, String>() {
         {
-//            put("SH510300", "300ETF");
-//            put("SH510500", "500ETF");
-//            put("SZ159915", "创业板");
+            put("SH510300", "300ETF");
+            put("SH510500", "500ETF");
+            put("SZ159915", "创业板");
             put("SH510050", "50ETF");
 //            put("SH512800", "银行ETF");
 //            put("SH512000", "券商ETF");
@@ -48,21 +48,32 @@ public class QuantificationController {
 //            put("SH600196", "复兴医药");
 //            put("SH600436","片子癀");
 //            put("SZ002007", "华兰生物");
-//            put("SH600276","恒瑞医药");
+            put("SH600276","恒瑞医药");
 //            put("SZ000963","华东医药");
 
 //            put("SH600518","康美药业");
-//            put("SZ000002", "万科A");
+            put("SZ000002", "万科A");
 //            put("SZ300015","爱尔眼科");
 //            put("SZ000538","云南白药");
-////
-//            put("SZ000651", "格力电器");
-//            put("SH601318", "中国平安");
-//            put("SH601398", "工商银行");
-//            put("SZ000858", "五粮液");
-//            put("SH600030", "中信证券");
-//            put("SZ000333", "美的集团");
 //
+            put("SZ000651", "格力电器");
+            put("SH601318", "中国平安");
+            put("SH601398", "工商银行");
+            put("SZ000858", "五粮液");
+            put("SH600030", "中信证券");
+            put("SZ000333", "美的集团");
+
+            put("SH600887", "伊利股份");
+            put("SH601186", "中国铁建");
+            put("SH600660", "福耀玻璃");
+            put("SZ002415", "海威康视");
+            put("SH600036", "招商银行");
+
+
+            put("SH600585", "海螺水泥");
+            put("SH600309", "万华化学");
+
+
 //            put("SZ300730","科创信息");
 //            put("SZ300059","东方财富");
 //            put("SH601890","亚星锚链");
@@ -78,7 +89,7 @@ public class QuantificationController {
 //        begin = 1552011341000l;
         StringBuilder str = new StringBuilder();
         for (String symbol : symbolMap_.keySet()) {
-            str.append(quantification.initQuantification(symbol, "60m", begin, end, true, true));
+            str.append(quantification.initQuantification(symbol, "60m", begin, end, false, true));
         }
 
         return str.toString();

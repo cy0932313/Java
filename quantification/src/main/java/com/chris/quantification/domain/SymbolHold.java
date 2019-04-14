@@ -7,26 +7,12 @@ package com.chris.quantification.domain;
  */
 
 public class SymbolHold {
-    public String symbolId;
-    public String symbolName;
-    public String symbolBuyTime;
-    public double symbolBuyPrice;
-    public boolean isETF;
-
-    public SymbolHold(String symbolId, String symbolName, String symbolBuyTime, double symbolBuyPrice, boolean isETF) {
-        this.symbolId = symbolId;
-        this.symbolName = symbolName;
-        this.symbolBuyTime = symbolBuyTime;
-        this.symbolBuyPrice = symbolBuyPrice;
-        this.isETF = isETF;
+    public String getSymbolCode() {
+        return symbolCode;
     }
 
-    public String getSymbolId() {
-        return symbolId;
-    }
-
-    public void setSymbolId(String symbolId) {
-        this.symbolId = symbolId;
+    public void setSymbolCode(String symbolCode) {
+        this.symbolCode = symbolCode;
     }
 
     public String getSymbolName() {
@@ -37,20 +23,20 @@ public class SymbolHold {
         this.symbolName = symbolName;
     }
 
-    public String getSymbolBuyTime() {
-        return symbolBuyTime;
+    public String getBuyTime() {
+        return buyTime;
     }
 
-    public void setSymbolBuyTime(String symbolBuyTime) {
-        this.symbolBuyTime = symbolBuyTime;
+    public void setBuyTime(String buyTime) {
+        this.buyTime = buyTime;
     }
 
-    public double getSymbolBuyPrice() {
-        return symbolBuyPrice;
+    public double getBuyPrice() {
+        return buyPrice;
     }
 
-    public void setSymbolBuyPrice(double symbolBuyPrice) {
-        this.symbolBuyPrice = symbolBuyPrice;
+    public void setBuyPrice(double buyPrice) {
+        this.buyPrice = buyPrice;
     }
 
     public boolean isETF() {
@@ -60,4 +46,21 @@ public class SymbolHold {
     public void setETF(boolean ETF) {
         isETF = ETF;
     }
+    public int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String symbolCode;
+    public String symbolName;
+    public String buyTime;
+    public double buyPrice;
+    public boolean isETF;
+
+
 }

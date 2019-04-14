@@ -36,18 +36,23 @@ public class BuyServiceImpl implements IBuyConditionService {
 
     private boolean cci() {
         double cciData = Double.parseDouble(indexHash.get("cci"));
-        double previouscciData = Double.parseDouble(previousIndexHash.get("cci"));
-        double previouscciClose = Double.parseDouble(previousIndexHash.get("close"));
+        double volume  = Double.parseDouble(indexHash.get("volume"));
         double cciClose = Double.parseDouble(indexHash.get("close"));
+        double cciOpen = Double.parseDouble(indexHash.get("open"));
+
+        double previouscciData = Double.parseDouble(previousIndexHash.get("cci"));
+        double previousvolume  = Double.parseDouble(previousIndexHash.get("volume"));
+        double previouscciClose = Double.parseDouble(previousIndexHash.get("close"));
 
         double kdjd = Double.parseDouble(indexHash.get("kdjd"));
         double previouskdjd = Double.parseDouble(previousIndexHash.get("kdjd"));
 
 
-        if (cciData > -100 && previouscciData < -100 &&!ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "HH").equals("15") ) {
+        if (cciClose > cciOpen && volume > previousvolume &&  cciData > -100 && previouscciData < -100 &&!ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "HH").equals("15") ) {
             QuantificationController.test1 = cciClose;
             printLog.append("触发交易：时间点" + ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(indexHash.get("timestamp")) / 1000), "yyyy-MM-dd HH:mm:ss") + "，CCI技术指标符合买入条件，上一个小时CCI数据：" + previouscciData + "，这个小时CCI数据：" + cciData);
             printLog.append("<br />");
+            ++QuantificationController.test1_2;
             return true;
         }
 //        if(QuantificationController.test != "" && cciClose < Double.parseDouble( QuantificationController.test))
