@@ -31,6 +31,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
     IOperateTableDao iOperateTableDao;
 
     private StringBuilder emailContent = new StringBuilder();
+    private StringBuilder holdSymbolContent = new StringBuilder();
 
     private List<SymbolMonitor> symbolMonitorList;
     private List<SymbolHold> symbolHoldList;
@@ -85,7 +86,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         }
 
         emailService.sendMail("[监控结果]" + ChrisDateUtils.timeStamp2Date(
-                    ChrisDateUtils.timeStamp(), null), this.emailContent.toString());
+                    ChrisDateUtils.timeStamp(), null),this.holdSymbolContent.toString() + this.emailContent.toString());
     }
 
     private void handle(SymbolMonitor symbolMonitor, ArrayList<HashMap<String, String>> resultDataList) {
@@ -100,14 +101,14 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             if (symbolHold != null) {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
                 cci_strategyCenter.symbolHold = symbolHold;
-                System.out.println("监控内容：<" + symbolHold.getSymbolName() + ">买入价：" + symbolHold.buyPrice + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice +
+                System.out.println("监控持有股票：<" + symbolHold.getSymbolName() + ">"+ "\n"+"买入价：" + symbolHold.buyPrice+ "\n" + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "\n"+
                         "当前价为：" + cci_strategyCenter.currentData.get("close")
-                        + "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
+                        + "\n"+ "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
                         + "%\n\n"
                 );
-                this.emailContent.append("监控内容：<" + symbolHold.getSymbolName() + ">买入价：" + symbolHold.buyPrice + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice +
+                this.holdSymbolContent.append("监控持有股票：<" + symbolHold.getSymbolName() + ">"+ "\n"+"买入价：" + symbolHold.buyPrice+ "\n" + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "\n"+
                         "当前价为：" + cci_strategyCenter.currentData.get("close")
-                        + "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
+                        + "\n"+ "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
                         + "%\n\n");
 
                 TipsEnum tipsEnum = cci_strategyCenter.sellCondition();
@@ -134,11 +135,11 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
                         tempTips = tempTips + "卖出条件：利润超过%10之后又回踩了%10" + "\n\n";
                     }
 
-                    this.emailContent.append(tempTips);
+                    this.holdSymbolContent.append(tempTips);
                 }
                 else
                 {
-                    this.emailContent.append("继续持有"+ "\n\n");
+                    this.holdSymbolContent.append("继续持有"+ "\n\n");
                 }
             } else {
                 if (cci_strategyCenter.buyCondition()) {
