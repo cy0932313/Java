@@ -31,16 +31,24 @@ public class Transaction {
         this.transactionTime = transactionTime;
     }
 
-    public String getCoinName() {
-        return coinName;
+    public String getReason() {
+        return reason;
     }
 
-    public void setCoinName(String coinName) {
-        this.coinName = coinName;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     String price;
+
+    public Transaction(String price, String transactionType, String transactionTime, String reason) {
+        this.price = price;
+        this.transactionType = transactionType;
+        this.transactionTime = transactionTime;
+        this.reason = reason;
+    }
+
     String transactionType;
     String transactionTime;
-    String coinName;
+    String reason;
 }

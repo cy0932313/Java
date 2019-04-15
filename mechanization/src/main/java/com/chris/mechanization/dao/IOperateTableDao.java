@@ -3,6 +3,7 @@ package com.chris.mechanization.dao;
 
 import com.binance.api.client.domain.market.Candlestick;
 import com.chris.mechanization.domain.Account;
+import com.chris.mechanization.domain.Transaction;
 import com.chris.mechanization.domain.xueqiuData.ItemStock;
 import org.apache.ibatis.annotations.Param;
 
@@ -40,4 +41,8 @@ public interface IOperateTableDao {
     List<ItemStock> queryInfoForLimit_symbol(@Param("tableName") String tableName,@Param("orderField")String orderField, @Param("limitStart") int limitStart, @Param("limitEnd") int limitEnd);
     List<Candlestick> queryInfoForLimit_coin(@Param("tableName") String tableName,@Param("orderField")String orderField, @Param("limitStart") int limitStart, @Param("limitEnd") int limitEnd);
     Account queryInfoFo_account();
+
+    int addTransaction(@Param("transaction") Transaction transaction);
+
+
 }

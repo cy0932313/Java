@@ -189,4 +189,16 @@
         )
     </insert>
 
+
+    <insert id="addTransaction">
+        insert ignore into transaction
+        values
+        (#{transaction.reason},
+        #{transaction.price},
+        #{transaction.transactionType},
+        #{transaction.transactionTime}
+        )
+    </insert>
+
+
 </mapper>

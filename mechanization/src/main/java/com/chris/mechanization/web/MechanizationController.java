@@ -1,7 +1,9 @@
 package com.chris.mechanization.web;
 
+import com.chris.mechanization.enumType.MakeMoney;
 import com.chris.mechanization.service.impl.CoinDataImpl;
 import com.chris.mechanization.service.impl.SymbolDataImpl;
+import com.chris.mechanization.service.impl.strategy.StrategyCCI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ public class MechanizationController {
     private SymbolDataImpl symbolData;
     @Autowired
     private CoinDataImpl coinData;
+    @Autowired
+    private StrategyCCI strategyCCI;
 
     @PostMapping("/downloadSymbol")
 
@@ -34,6 +38,13 @@ public class MechanizationController {
     public String coin(String symbol,String period,String beginTime,String endTime,boolean update) {
 //        1514736000000
         return coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
+    }
+
+    @PostMapping("/backTestCCI_Symbol")
+    public String backTestCCI() {
+        strategyCCI.setData("SH600196","1day", MakeMoney.SYMBOL);
+        strategyCCI.strategy();
+        return "";
     }
 
 }

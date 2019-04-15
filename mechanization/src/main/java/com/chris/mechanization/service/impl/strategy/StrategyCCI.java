@@ -30,24 +30,54 @@ public class StrategyCCI implements IBackTest {
     public String strategy()
      {
          boolean transactionStatus = true;
-
+         float buyPrice = 0;
+         iOperateTableDao.trancateTable("transaction");
 
          if(symbolList != null && symbolList.size() > 0)
          {
              int size = symbolList.size();
              for(int i = 0;i < size;i++)
              {
-                 Transaction transaction = new Transaction();
-                 ItemStock itemStock = symbolList.get(i);
-                 float cci = Float.parseFloat(itemStock.getCci());
-                 if(cci > -100 && transactionStatus)
+                 if(i > 1)
                  {
-                     transaction.setCoinName(tableName);
-                     transaction.setPrice(itemStock.getClose());
-                     transaction.setTransactionTime(itemStock.getTime());
-                     transaction.setTransactionType("BUY");
-                 }
+                     ItemStock previousItemStock = symbolList.get(i - 1);
+                     ItemStock itemStock = symbolList.get(i);
+                     if(itemStock.getCci().equals("") || previousItemStock.getCci().equals(""))
+                     {
+                         continue;
+                     }
+                     float close = Float.parseFloat(itemStock.getClose());
+                     float open = Float.parseFloat(itemStock.getOpen());
+                     float volume = Float.parseFloat(itemStock.getVolume());
+                     float previousvolume = Float.parseFloat(previousItemStock.getVolume());
+                     float cci = Float.parseFloat(itemStock.getCci());
+                     float previousCci = Float.parseFloat(previousItemStock.getCci());
+                     String time = itemStock.getTime();
+                     if(transactionStatus && close > open && volume > previousvolume && cci > -100 && previousCci < -100)
+                     {
+                         Transaction transaction = new Transaction(itemStock.getClose(),"BUY",time,"CCI数据大于-100");
+                         iOperateTableDao.addTransaction(transaction);
+                         buyPrice = close;
+                         transactionStatus = false;
+                     }
 
+                     if(!transactionStatus)
+                     {
+                         if(close/buyPrice - 1 > 0.01)
+                         {
+                             Transaction transaction = new Transaction(itemStock.getClose(),"SELL",time,"赚钱");
+                             iOperateTableDao.addTransaction(transaction);
+                             transactionStatus = true;
+                         }
+                         else if(cci < -100)
+                         {
+                             Transaction transaction = new Transaction(itemStock.getClose(),"SELL",time,"亏钱");
+                             iOperateTableDao.addTransaction(transaction);
+                             transactionStatus = true;
+                         }
+                     }
+
+                 }
 
              }
          }
@@ -64,7 +94,7 @@ public class StrategyCCI implements IBackTest {
      {
         if(makeMoney == MakeMoney.SYMBOL)
         {
-            tableName = "symbol_"+period+"_" + symbol;;
+            tableName = "symbol_"+period+"_" + symbol;
             this.symbolList = iOperateTableDao.queryInfoForLimit_symbol(tableName, "timestamp", 0, 100000000);
         }
         else if(makeMoney == MakeMoney.COIN)
@@ -72,5 +102,10 @@ public class StrategyCCI implements IBackTest {
             tableName = "coin_" + period + "_" + symbol;
             this.coinList = iOperateTableDao.queryInfoForLimit_coin(tableName,"closeTime", 0, 100000000);
         }
+     }
+
+     private void outPrint()
+     {
+
      }
 }
