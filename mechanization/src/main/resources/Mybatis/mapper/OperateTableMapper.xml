@@ -201,4 +201,13 @@
     </insert>
 
 
+    <resultMap id="BaseResultMap_symbolMonitor" type="com.chris.mechanization.domain.SymbolMonitor">
+        <result column="symbolCode" property="symbolCode" jdbcType="VARCHAR"/>
+        <result column="symbolName" property="symbolName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryInfoForMonitorSymbol" resultMap="BaseResultMap_symbolMonitor">
+        SELECT * from monitor_symbol
+    </select>
+
 </mapper>
