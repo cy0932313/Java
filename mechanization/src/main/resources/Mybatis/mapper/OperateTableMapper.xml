@@ -193,10 +193,16 @@
     <insert id="addTransaction">
         insert ignore into transaction
         values
-        (#{transaction.reason},
-        #{transaction.price},
-        #{transaction.transactionType},
-        #{transaction.transactionTime}
+        (#{transaction.symbolCode},
+        #{transaction.symbolName},
+        #{transaction.buyTime},
+        #{transaction.buyPrice},
+        #{transaction.buyNextPrice},
+        #{transaction.buyReason},
+        #{transaction.sellTime},
+        #{transaction.sellPrice},
+        #{transaction.sellReason},
+        #{transaction.profit}
         )
     </insert>
 
@@ -210,4 +216,47 @@
         SELECT * from monitor_symbol
     </select>
 
+
+    <resultMap id="BaseResultMap_transaction" type="com.chris.mechanization.domain.Transaction">
+        <result column="symbolCode" property="symbolCode" jdbcType="VARCHAR"/>
+        <result column="symbolName" property="symbolName" jdbcType="VARCHAR"/>
+        <result column="buyTime" property="buyTime" jdbcType="VARCHAR"/>
+        <result column="buyPrice" property="buyPrice" jdbcType="VARCHAR"/>
+        <result column="buyNextPrice" property="buyNextPrice" jdbcType="VARCHAR"/>
+        <result column="buyReason" property="buyReason" jdbcType="VARCHAR"/>
+        <result column="sellTime" property="sellTime" jdbcType="VARCHAR"/>
+        <result column="sellPrice" property="sellPrice" jdbcType="VARCHAR"/>
+        <result column="sellReason" property="sellReason" jdbcType="VARCHAR"/>
+        <result column="profit" property="profit" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+
+    <select id="queryInfoForTransaction" resultMap="BaseResultMap_transaction">
+        SELECT * from transaction ORDER BY buyTime
+    </select>
+
+
+    <insert id="addBackTestResult">
+        insert ignore into back_test_result
+        values
+        (#{backTestResult.symbolCode},
+        #{backTestResult.symbolName},
+        #{backTestResult.plan},
+        #{backTestResult.countProfit},
+        #{backTestResult.transactionNum},
+        #{backTestResult.holdDay},
+        #{backTestResult.md},
+        #{backTestResult.lossNum},
+        #{backTestResult.winProfit},
+        #{backTestResult.t},
+        #{backTestResult.immobility}
+        )
+    </insert>
+
+
 </mapper>
+
+
+
+

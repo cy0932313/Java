@@ -7,48 +7,96 @@ package com.chris.mechanization.domain;
  */
 
 public class Transaction {
-    public String getPrice() {
-        return price;
+    public String getSymbolCode() {
+        return symbolCode;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setSymbolCode(String symbolCode) {
+        this.symbolCode = symbolCode;
     }
 
-    public String getTransactionType() {
-        return transactionType;
+    public String getSymbolName() {
+        return symbolName;
     }
 
-    public void setTransactionType(String transactionType) {
-        this.transactionType = transactionType;
+    public void setSymbolName(String symbolName) {
+        this.symbolName = symbolName;
     }
 
-    public String getTransactionTime() {
-        return transactionTime;
+    public String getBuyTime() {
+        return buyTime;
     }
 
-    public void setTransactionTime(String transactionTime) {
-        this.transactionTime = transactionTime;
+    public void setBuyTime(String buyTime) {
+        this.buyTime = buyTime;
     }
 
-    public String getReason() {
-        return reason;
+    public String getBuyPrice() {
+        return buyPrice;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setBuyPrice(String buyPrice) {
+        this.buyPrice = buyPrice;
     }
 
-    String price;
-
-    public Transaction(String price, String transactionType, String transactionTime, String reason) {
-        this.price = price;
-        this.transactionType = transactionType;
-        this.transactionTime = transactionTime;
-        this.reason = reason;
+    public String getBuyNextPrice() {
+        return buyNextPrice;
     }
 
-    String transactionType;
-    String transactionTime;
-    String reason;
+    public void setBuyNextPrice(String buyNextPrice) {
+        this.buyNextPrice = buyNextPrice;
+    }
+
+    public String getBuyReason() {
+        return buyReason;
+    }
+
+    public void setBuyReason(String buyReason) {
+        this.buyReason = buyReason;
+    }
+
+    public String getSellTime() {
+        return sellTime;
+    }
+
+    public void setSellTime(String sellTime) {
+        this.sellTime = sellTime;
+    }
+
+    public String getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(String sellPrice) {
+        this.sellPrice = sellPrice;
+    }
+
+    public String getSellReason() {
+        return sellReason;
+    }
+
+    public void setSellReason(String sellReason) {
+        this.sellReason = sellReason;
+    }
+
+    public String getProfit() {
+        return profit;
+    }
+
+    public void setProfit(String profit) {
+        this.profit = profit;
+    }
+
+    private String symbolCode;
+    private String symbolName;
+    private String buyTime;
+    private String buyPrice;
+    private String buyNextPrice;
+    private String buyReason;
+    private String sellTime;
+    private String sellPrice;
+    private String sellReason;
+    private String profit;
+
+    
 }

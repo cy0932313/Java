@@ -62,7 +62,7 @@ public class MechanizationController {
 
     @PostMapping("/backTestCCI_Symbol")
     public String backTestCCI() {
-        strategyCCI.setData("SH510050","1day", MakeMoney.SYMBOL);
+        strategyCCI.setData("SH600196","复星医药","1day", MakeMoney.SYMBOL);
         strategyCCI.strategy();
         return "";
     }

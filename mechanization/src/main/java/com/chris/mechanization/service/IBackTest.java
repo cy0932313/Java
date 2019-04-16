@@ -9,6 +9,6 @@ import com.chris.mechanization.enumType.MakeMoney;
  */
 
 public interface IBackTest {
-    public void setData(String symbol, String period, MakeMoney makeMoney);
+    public void setData(String symbolCode,String symbolName, String period, MakeMoney makeMoney);
     public String strategy();
 }

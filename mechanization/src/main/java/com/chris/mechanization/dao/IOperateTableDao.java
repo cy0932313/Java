@@ -3,6 +3,7 @@ package com.chris.mechanization.dao;
 
 import com.binance.api.client.domain.market.Candlestick;
 import com.chris.mechanization.domain.Account;
+import com.chris.mechanization.domain.BackTestResult;
 import com.chris.mechanization.domain.SymbolMonitor;
 import com.chris.mechanization.domain.Transaction;
 import com.chris.mechanization.domain.xueqiuData.ItemStock;
@@ -45,6 +46,10 @@ public interface IOperateTableDao {
 
     int addTransaction(@Param("transaction") Transaction transaction);
 
+    List<Transaction> queryInfoForTransaction();
+
     List<SymbolMonitor> queryInfoForMonitorSymbol();
+
+    int addBackTestResult(@Param("backTestResult") BackTestResult backTestResult);
 
 }

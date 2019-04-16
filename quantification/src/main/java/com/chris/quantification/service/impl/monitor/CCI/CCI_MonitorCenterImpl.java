@@ -97,10 +97,11 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             cci_strategyCenter.previousData = resultDataList.get(1);
             saveCCILog(symbolMonitor);
 
-            SymbolHold symbolHold = this.isHold(symbolMonitor.getSymbolCode(), cci_strategyCenter.currentData.get("timestamp"));
+            SymbolHold symbolHold = this.isHold(symbolMonitor.getSymbolCode());
             if (symbolHold != null) {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
                 cci_strategyCenter.symbolHold = symbolHold;
+
                 System.out.println("监控持有股票：<" + symbolHold.getSymbolName() + ">"+ "\n"+"买入价：" + symbolHold.buyPrice+ "\n" + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "\n"+
                         "当前价为：" + cci_strategyCenter.currentData.get("close")
                         + "\n"+ "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
@@ -110,6 +111,12 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
                         "当前价为：" + cci_strategyCenter.currentData.get("close")
                         + "\n"+ "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
                         + "%\n\n");
+
+                if(ChrisDateUtils.compare_date(symbolHold.getBuyTime(), this.getTime(cci_strategyCenter.currentData.get("timestamp"), "yyyy-MM-dd"), "yyyy-MM-dd") != -1)
+                {
+                    this.holdSymbolContent.append("当天买入，继续持有"+ "\n\n");
+                    return;
+                }
 
                 TipsEnum tipsEnum = cci_strategyCenter.sellCondition();
                 if (tipsEnum != TipsEnum.PASS) {
@@ -158,10 +165,10 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         iOperateTableDao.addMonitorRecord(monitorRecord);
     }
 
-    private SymbolHold isHold(String symbolCode, String symbolDate) {
+    private SymbolHold isHold(String symbolCode) {
         for (int i = 0; i < symbolHoldList.size(); i++) {
             SymbolHold item = symbolHoldList.get(i);
-            if (item.getSymbolCode().equals(symbolCode) && ChrisDateUtils.compare_date(item.getBuyTime(), this.getTime(symbolDate, "yyyy-MM-dd"), "yyyy-MM-dd") == -1) {
+            if (item.getSymbolCode().equals(symbolCode)) {
                 return item;
             }
         }
