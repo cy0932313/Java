@@ -238,7 +238,7 @@
 
 
     <insert id="addBackTestResult">
-        insert ignore into back_test_result
+        replace  into back_test_result
         values
         (#{backTestResult.symbolCode},
         #{backTestResult.symbolName},

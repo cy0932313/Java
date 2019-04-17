@@ -144,7 +144,7 @@ public class StrategyCCI implements IBackTest {
 
             countProfit = Float.parseFloat(transaction.getProfit()) + countProfit;
             transactionNum = size;
-            holdDay = ChrisDateUtils.differentDaysByMillisecond(transaction.getBuyTime(), transaction.getSellTime(), "yyyy-MM-dd");
+            holdDay = holdDay + ChrisDateUtils.differentDaysByMillisecond(transaction.getBuyTime(), transaction.getSellTime(), "yyyy-MM-dd");
             if (countProfit > maxProfit) {
                 maxProfit = countProfit;
                 minxProfit = 0;
@@ -172,13 +172,14 @@ public class StrategyCCI implements IBackTest {
         }
         Transaction fistTransaction = transactionList.get(0);
         Transaction lastTransaction = transactionList.get(size-1);
-        immobility = String.format("%.2f", Float.valueOf(fistTransaction.getBuyPrice()) / Float.valueOf(fistTransaction.getSellPrice()));
-        t = String.format("%.2f", Float.valueOf(holdDay / ChrisDateUtils.differentDaysByMillisecond
+        immobility = String.format("%.2f", (Float.valueOf(lastTransaction.getSellPrice()) / Float.valueOf(fistTransaction.getBuyPrice()) -1 )*100);
+
+        t = String.format("%.2f", Float.valueOf(holdDay*100 / ChrisDateUtils.differentDaysByMillisecond
                 (fistTransaction.getBuyTime(), lastTransaction.getSellTime(), "yyyy-MM-dd")));
 
         BackTestResult backTestResult = new BackTestResult(symbolCode, symbolName, "A",
-                String.format("%.2f", countProfit) + "%", String.valueOf(transactionNum), String.valueOf(holdDay), String.format("%.2f", md) + "%",
-                String.valueOf(lossNum), winProfit, t, immobility);
+                String.format("%.2f", countProfit * 100) + "%", String.valueOf(transactionNum), String.valueOf(holdDay), String.format("%.2f", md) + "%",
+                String.valueOf(lossNum), winProfit, t+"%", immobility+"%");
         iOperateTableDao.addBackTestResult(backTestResult);
     }
 }
