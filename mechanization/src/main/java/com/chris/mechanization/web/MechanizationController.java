@@ -40,15 +40,15 @@ public class MechanizationController {
     public String downloadSymbol(String symbol,String period,String beginTime,String endTime,boolean update) {
         //        1230739200000
 //        1555344000000
-        symbolData.saveSymbolData("SH600196", period,"1230739200000","1555344000000",true);
-//        List<SymbolMonitor> symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
-//        int size = symbolMonitorList.size();
-//        for(int i = 0;i < size;i++)
-//        {
-//            SymbolMonitor symbolMonitor = symbolMonitorList.get(i);
-//            System.out.println(symbolData.saveSymbolData(symbolMonitor.getSymbolCode(), period,"1230739200000","1555344000000",true));
-////            symbolData.saveSymbolData(symbol, period,beginTime,endTime,update)
-//        }
+//        symbolData.saveSymbolData("SH600196", period,"1230739200000","1555344000000",true);
+        List<SymbolMonitor> symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
+        int size = symbolMonitorList.size();
+        for(int i = 0;i < size;i++)
+        {
+            SymbolMonitor symbolMonitor = symbolMonitorList.get(i);
+            System.out.println(symbolData.saveSymbolData(symbolMonitor.getSymbolCode(), period,"1230739200000","1555344000000",true));
+//            symbolData.saveSymbolData(symbol, period,beginTime,endTime,update)
+        }
 
         return "success";
     }
