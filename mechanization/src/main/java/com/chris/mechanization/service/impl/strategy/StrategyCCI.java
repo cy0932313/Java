@@ -42,6 +42,9 @@ public class StrategyCCI implements IBackTest {
 
         if (symbolList != null && symbolList.size() > 0) {
             int size = symbolList.size();
+
+            String nextPrice = "0";
+            int isNextDay = 0;
             for (int i = 0; i < size; i++) {
                 if (i > 1) {
                     ItemStock previousItemStock = symbolList.get(i - 1);
@@ -56,8 +59,9 @@ public class StrategyCCI implements IBackTest {
                     float cci = Float.parseFloat(itemStock.getCci());
                     float previousCci = Float.parseFloat(previousItemStock.getCci());
                     String time = itemStock.getTime();
+                    ++isNextDay;
                     if (transactionStatus && close > open && volume > previousvolume && cci > -100 && previousCci < -100) {
-                        String nextPrice = "0";
+
                         if (i + 1 < size) {
                             nextPrice = symbolList.get(i + 1).getClose();
                         }
@@ -72,18 +76,28 @@ public class StrategyCCI implements IBackTest {
                         transaction.setBuyReason("cci>-100");
                         buyPrice = close;
                         transactionStatus = false;
+                        isNextDay = 0;
+                        continue;
                     }
 
                     if (!transactionStatus) {
                         transaction.setSellPrice(String.valueOf(close));
                         transaction.setSellTime(time);
                         transaction.setProfit(String.format("%.2f", close / buyPrice - 1));
-                        if (close / buyPrice - 1 > 0.01) {
-                            transaction.setSellReason("盈利1个点");
+
+                            if (cci < -100) {
+                            transaction.setSellReason("cci<-100");
                             iOperateTableDao.addTransaction(transaction);
                             transactionStatus = true;
-                        } else if (cci < -100) {
-                            transaction.setSellReason("cci<-100");
+                        }
+                            else if(Float.parseFloat(nextPrice) < buyPrice && isNextDay == 1)
+                            {
+                                transaction.setSellReason("第二天跌了");
+                                iOperateTableDao.addTransaction(transaction);
+                                transactionStatus = true;
+                            }
+                       else if (close / buyPrice - 1 > 0.03) {
+                            transaction.setSellReason("盈利3个点");
                             iOperateTableDao.addTransaction(transaction);
                             transactionStatus = true;
                         }
@@ -144,15 +158,14 @@ public class StrategyCCI implements IBackTest {
 
             countProfit = Float.parseFloat(transaction.getProfit()) + countProfit;
             transactionNum = size;
-            holdDay = ChrisDateUtils.differentDaysByMillisecond(transaction.getBuyTime(), transaction.getSellTime(), "yyyy-MM-dd");
+            holdDay = holdDay + ChrisDateUtils.differentDaysByMillisecond(transaction.getBuyTime(), transaction.getSellTime(), "yyyy-MM-dd");
             if (countProfit > maxProfit) {
                 maxProfit = countProfit;
                 minxProfit = 0;
             }
-
-            if (countProfit < minxProfit) {
+            else
+            {
                 minxProfit = countProfit;
-
                 if (maxProfit - minxProfit > md) {
                     md = maxProfit - minxProfit;
                 }
@@ -172,13 +185,14 @@ public class StrategyCCI implements IBackTest {
         }
         Transaction fistTransaction = transactionList.get(0);
         Transaction lastTransaction = transactionList.get(size-1);
-        immobility = String.format("%.2f", Float.valueOf(fistTransaction.getBuyPrice()) / Float.valueOf(fistTransaction.getSellPrice()));
-        t = String.format("%.2f", Float.valueOf(holdDay / ChrisDateUtils.differentDaysByMillisecond
+        immobility = String.format("%.2f", (Float.valueOf(lastTransaction.getSellPrice()) / Float.valueOf(fistTransaction.getBuyPrice()))*100);
+
+        t = String.format("%.2f", Float.valueOf(holdDay*100 / ChrisDateUtils.differentDaysByMillisecond
                 (fistTransaction.getBuyTime(), lastTransaction.getSellTime(), "yyyy-MM-dd")));
 
         BackTestResult backTestResult = new BackTestResult(symbolCode, symbolName, "A",
-                String.format("%.2f", countProfit) + "%", String.valueOf(transactionNum), String.valueOf(holdDay), String.format("%.2f", md) + "%",
-                String.valueOf(lossNum), winProfit, t, immobility);
+                String.format("%.2f", countProfit * 100) + "%", String.valueOf(transactionNum), String.valueOf(holdDay), String.format("%.2f", md*100) + "%",
+                String.valueOf(lossNum), winProfit, t+"%", immobility+"%");
         iOperateTableDao.addBackTestResult(backTestResult);
     }
 }
