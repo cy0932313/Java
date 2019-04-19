@@ -43,6 +43,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         param.put("begin", "1554689741000");
 
         this.emailContent.delete(0, this.emailContent.length());
+        this.holdSymbolContent.delete(0, this.holdSymbolContent.length());
 
         symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
         symbolHoldList = iOperateTableDao.queryInfoForHoldSymbol();
@@ -86,7 +87,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         }
 
         emailService.sendMail("[监控结果]" + ChrisDateUtils.timeStamp2Date(
-                    ChrisDateUtils.timeStamp(), null),this.holdSymbolContent.toString() + this.emailContent.toString());
+                ChrisDateUtils.timeStamp(), null), this.holdSymbolContent.toString() + this.emailContent.toString());
     }
 
     private void handle(SymbolMonitor symbolMonitor, ArrayList<HashMap<String, String>> resultDataList) {
@@ -102,51 +103,51 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
                 cci_strategyCenter.symbolHold = symbolHold;
 
-                System.out.println("监控持有股票：<" + symbolHold.getSymbolName() + ">"+ "\n"+"买入价：" + symbolHold.buyPrice+ "\n" + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "\n"+
-                        "当前价为：" + cci_strategyCenter.currentData.get("close")
-                        + "\n"+ "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
+                System.out.println("监控持有股票：<" + symbolHold.getSymbolName() + ">" + "\n" + "买入价：" + symbolHold.buyPrice + "\n" + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "\n" +
+                        "当前价为：" + cci_strategyCenter.currentData.get("close") + "\n"
+                        + "持股天数：" + ChrisDateUtils.differentDaysByMillisecond(symbolHold.buyTime, this.getTime(cci_strategyCenter.currentData.get("timestamp"), "yyyy-MM-dd"), "yyyy-MM-dd") + "\n" +
+                        "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
                         + "%\n\n"
                 );
-                this.holdSymbolContent.append("监控持有股票：<" + symbolHold.getSymbolName() + ">"+ "\n"+"买入价：" + symbolHold.buyPrice+ "\n" + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "\n"+
-                        "当前价为：" + cci_strategyCenter.currentData.get("close")
-                        + "\n"+ "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
+                this.holdSymbolContent.append("监控持有股票：<" + symbolHold.getSymbolName() + ">"
+                        + "\n" + "买入价：" + symbolHold.buyPrice + "\n"
+                        + "开盘价为：" + cci_strategyCenter.currentDayOpenPrice + "\n"
+                        + "当前价为：" + cci_strategyCenter.currentData.get("close") + "\n"
+                        + "持股天数：" + ChrisDateUtils.differentDaysByMillisecond(symbolHold.buyTime, this.getTime(cci_strategyCenter.currentData.get("timestamp"), "yyyy-MM-dd"), "yyyy-MM-dd") + "\n"
+                        + "盈亏:" + String.format("%.2f", (Float.parseFloat(cci_strategyCenter.currentData.get("close")) / symbolHold.buyPrice - 1) * 100)
                         + "%\n\n");
 
-                if(ChrisDateUtils.compare_date(symbolHold.getBuyTime(), this.getTime(cci_strategyCenter.currentData.get("timestamp"), "yyyy-MM-dd"), "yyyy-MM-dd") != -1)
-                {
-                    this.holdSymbolContent.append("当天买入，继续持有"+ "\n\n");
+                if (ChrisDateUtils.compare_date(symbolHold.getBuyTime(), this.getTime(cci_strategyCenter.currentData.get("timestamp"), "yyyy-MM-dd"), "yyyy-MM-dd") != -1) {
+                    this.holdSymbolContent.append("当天买入，继续持有" + "\n\n");
                     return;
                 }
 
                 TipsEnum tipsEnum = cci_strategyCenter.sellCondition();
                 if (tipsEnum != TipsEnum.PASS) {
-                    String tempTips = symbolHold.getSymbolName()
-                            + ",卖出卖出卖出!!!" + "\n"
+                    String tempTips = "卖出卖出卖出!!!" + "\n"
                             + "卖出时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null) + "\n"
                             + "卖出参考价：" + cci_strategyCenter.currentData.get("close") + "\n";
                     if (tipsEnum == TipsEnum.SELL_1) {
-                        tempTips = tempTips + "卖出条件：CCI数据大于250" + "\n\n";
+                        tempTips = tempTips + "卖出原因：CCI数据大于250" + "\n\n";
                     } else if (tipsEnum == TipsEnum.SELL_2) {
-                        tempTips = tempTips + "卖出条件：CCI数据小于-100" + "\n\n";
+                        tempTips = tempTips + "卖出原因：CCI数据小于-100" + "\n\n";
                     } else if (tipsEnum == TipsEnum.SELL_3) {
-                        tempTips = tempTips + "卖出条件：当天涨幅超过%5（ETF为%3）" + "\n\n";
+                        tempTips = tempTips + "卖出原因：当天涨幅超过%5（ETF为%3）" + "\n\n";
                     } else if (tipsEnum == TipsEnum.SELL_4) {
-                        tempTips = tempTips + "卖出条件：盈利超过10%(ETF为%5)" + "\n\n";
+                        tempTips = tempTips + "卖出原因：盈利超过10%(ETF为%5)" + "\n\n";
                     } else if (tipsEnum == TipsEnum.SELL_5) {
-                        tempTips = tempTips + "卖出条件：利润超过%3之后又回踩了%3" + "\n\n";
+                        tempTips = tempTips + "卖出原因：利润超过%3之后又回踩了%3" + "\n\n";
                     } else if (tipsEnum == TipsEnum.SELL_6) {
-                        tempTips = tempTips + "卖出条件：利润超过%5之后又回踩了%5" + "\n\n";
+                        tempTips = tempTips + "卖出原因：利润超过%5之后又回踩了%5" + "\n\n";
                     } else if (tipsEnum == TipsEnum.SELL_7) {
-                        tempTips = tempTips + "卖出条件：利润超过%7之后又回踩了%7" + "\n\n";
+                        tempTips = tempTips + "卖出原因：利润超过%7之后又回踩了%7" + "\n\n";
                     } else if (tipsEnum == TipsEnum.SELL_8) {
-                        tempTips = tempTips + "卖出条件：利润超过%10之后又回踩了%10" + "\n\n";
+                        tempTips = tempTips + "卖出原因：利润超过%10之后又回踩了%10" + "\n\n";
                     }
 
                     this.holdSymbolContent.append(tempTips);
-                }
-                else
-                {
-                    this.holdSymbolContent.append("继续持有"+ "\n\n");
+                } else {
+                    this.holdSymbolContent.append("继续持有" + "\n\n");
                 }
             } else {
                 if (cci_strategyCenter.buyCondition()) {

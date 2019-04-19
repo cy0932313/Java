@@ -1,6 +1,7 @@
 package com.chrisY.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -119,4 +120,26 @@ public class ChrisDateUtils {
         return 0;
     }
 
+    /**
+     * 通过时间秒毫秒数判断两个时间的间隔
+     *
+     * @param strDate1
+     * @param strDate2
+     * @return
+     */
+    public static int differentDaysByMillisecond(String strDate1, String strDate2, String dateFormat) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+
+            Date date1 = format.parse(strDate1);
+            Date date2 = format.parse(strDate2);
+
+            int days = (int) ((date2.getTime() - date1.getTime()) / (1000 * 3600 * 24));
+
+            return days;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

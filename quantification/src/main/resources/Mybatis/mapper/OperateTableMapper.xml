@@ -51,15 +51,19 @@
     </resultMap>
 
     <select id="queryInfoForTips" resultMap="BaseResultMap_tips">
-        select IFNULL(t.cci,0) as'oversold',IFNULL(t1.cci,0) as 'normal',IFNULL(t2.cci,0)as 'overbought',t.time as 'time'
-        FROM ( SELECT count(*) as cci,time FROM monitor_record t
-         WHERE cci &lt; -100 GROUP BY time ORDER BY time DESC LIMIT 3 ) t
-        LEFT JOIN (SELECT count(*) as cci,time FROM monitor_record
-        WHERE cci &gt; -100 and cci &lt; 100 GROUP BY time ORDER BY time DESC LIMIT 3) t1
+        select IFNULL(t.cci,0) as'oversold',IFNULL(t1.cci,0) as 'normal',IFNULL(t2.cci,0) as 'overbought',t.time as 'time'
+        FROM (
+        SELECT count(*) as cci,time FROM monitor_record t
+        WHERE cci &lt; -100 GROUP BY time ) t
+        LEFT JOIN (
+        SELECT count(*) as cci,time FROM monitor_record
+        WHERE cci &gt; -100 and cci &lt; 100  GROUP BY time
+        ) t1
         ON t.time = t1.time
         LEFT JOIN (SELECT count(*) as cci,time FROM monitor_record
-         WHERE cci &gt; 100 GROUP BY time ORDER BY time DESC LIMIT 3) t2
-        ON t.time = t2.time
+        WHERE cci &gt; 100 GROUP BY time ) t2
+        ON t.time = t2.time and t1.time = t2.time
+        ORDER BY  time desc LIMIT 3
     </select>
 
     <!--<update id="updateInfo">-->
