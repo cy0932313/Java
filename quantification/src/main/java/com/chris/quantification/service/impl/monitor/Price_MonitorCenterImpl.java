@@ -69,4 +69,10 @@ public class Price_MonitorCenterImpl implements IMonitorCenter {
             }
         }
     }
+
+    @Override
+    public void testEnvironmental()
+    {
+
+    }
 }

@@ -40,7 +40,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
     public void TechnicalIndex() {
         HashMap<String, String> param = new HashMap<String, String>();
         param.put("period", "60m");
-        param.put("begin", "1554689741000");
+        param.put("begin", "1555516800000");
 
         this.emailContent.delete(0, this.emailContent.length());
         this.holdSymbolContent.delete(0, this.holdSymbolContent.length());
@@ -66,23 +66,6 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             }
             if (tips.size() > 2) {
                 this.emailContent.append("上上个小时超买" + tips.get(2).getOverbought() + "只，正常" + tips.get(2).getNormal() + "只，超卖" + tips.get(2).getOversold() + "只\n");
-
-                if (tips.get(0).getOverbought() > tips.get(1).getOverbought() && tips.get(1).getOverbought() > tips.get(2).getOverbought()) {
-                    this.emailContent.append("当前行情处于持续上升阶段,建议持股待涨" + "\n");
-                } else if (tips.get(0).getOversold() < tips.get(1).getOversold() && tips.get(1).getOversold() < tips.get(2).getOversold()) {
-                    this.emailContent.append("当前行情处于反弹阶段,建议轻仓参与" + "\n");
-                } else if (tips.get(0).getOversold() > tips.get(1).getOversold() && tips.get(1).getOversold() > tips.get(2).getOversold()) {
-                    this.emailContent.append("当前行情处于下降阶段,建议持币观望" + "\n");
-                } else {
-                    int reference = this.symbolMonitorList.size() / 3;
-                    if (tips.get(0).getOverbought() > reference) {
-                        this.emailContent.append("当前行情处于超买阶段" + "\n");
-                    } else if (tips.get(0).getNormal() > reference) {
-                        this.emailContent.append("当前行情处于正常波动阶段" + "\n");
-                    } else if (tips.get(0).getOversold() > reference) {
-                        this.emailContent.append("当前行情处于超卖阶段" + "\n");
-                    }
-                }
             }
         }
 
@@ -152,7 +135,7 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
             } else {
                 if (cci_strategyCenter.buyCondition()) {
                     this.emailContent.append(symbolMonitor.getSymbolName() + ",买入买入买入!!!" + "\n");
-                    this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + cci_strategyCenter.previousData.get("cci") + "\n这个小时：" + cci_strategyCenter.currentData.get("cci")
+                    this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" +  String.format("%.2f", cci_strategyCenter.previousData.get("cci")) + "\n这个小时：" +  String.format("%.2f", cci_strategyCenter.currentData.get("cci"))
                             + "\n" +
                             "买入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
                             + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
@@ -197,4 +180,34 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         return ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(timestamp) / 1000), formate);
     }
 
+    @Override
+    public void testEnvironmental()
+    {
+        HashMap<String, String> param = new HashMap<String, String>();
+        param.put("period", "60m");
+        param.put("begin", "1555516800000");
+
+        symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
+        symbolHoldList = iOperateTableDao.queryInfoForHoldSymbol();
+
+        if(symbolMonitorList.size() > 0 && symbolHoldList.size() > 0)
+        {
+            SymbolMonitor item = symbolMonitorList.get(0);
+            param.put("symbol", item.getSymbolCode());
+            xueqiuSixtyData.setParameter(param);
+            xueqiuSixtyData.getDataSoruce();
+            if(xueqiuSixtyData.getHandleDataResult().size() != 0)
+            {
+                System.out.println("程序启动正常");
+            }
+            else
+            {
+                System.out.println("程序启动异常：没有获取到接口数据");
+            }
+        }
+        else
+        {
+            System.out.println("程序启动异常：数据库连接失败或目前持没有股票");
+        }
+    }
 }

@@ -71,7 +71,7 @@
     <!--</update>-->
 
     <insert id="addMonitorRecord">
-        insert ignore into monitor_record
+        replace into monitor_record
         (symbolCode, symbolName,cci,time)
         values
         (#{monitorRecord.symbolCode},
@@ -82,7 +82,7 @@
     </insert>
 
     <insert id="addHoldRecord">
-        insert ignore into hold_record
+        replace into hold_record
         (symbolCode, symbolName,open,close,high,low,previous_cci,cci,time,groupID)
         values
         (#{holdRecord.symbolCode},
