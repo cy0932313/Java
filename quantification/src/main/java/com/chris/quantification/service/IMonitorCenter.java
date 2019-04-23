@@ -8,5 +8,4 @@ package com.chris.quantification.service;
 
 public interface IMonitorCenter {
     public void TechnicalIndex();
-    public void testEnvironmental();
 }

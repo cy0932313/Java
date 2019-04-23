@@ -21,8 +21,6 @@ public class MonitorApplication {
     @Autowired
     Price_MonitorCenterImpl price_monitorCenter;
 
-    private boolean isTestEnvironmental = false;
-
 //    @Scheduled(fixedRate = 30000)
 //    public void startMonitor_symbolPrice()
 //    {
@@ -40,12 +38,6 @@ public class MonitorApplication {
 
     @Scheduled(fixedRate = 60000)
     public void startMonitor_CCI() {
-        if(!this.isTestEnvironmental)
-        {
-            cci_monitorCenter.testEnvironmental();
-            this.isTestEnvironmental = true;
-        }
-
         String currentTimeStamp = ChrisDateUtils.timeStamp();
         String currentTime = ChrisDateUtils.timeStamp2Date(
                 currentTimeStamp, null);
@@ -58,13 +50,25 @@ public class MonitorApplication {
 
         if (week < 6 && hour > 8 && hour < 15) {
             /**
+             * 昨天行情回顾
+             */
+            if(hour == 9 && minute == 28)
+            {
+
+                System.out.println("监控时间：" + currentTime);
+                cci_monitorCenter.isHistory = true;
+                cci_monitorCenter.TechnicalIndex();
+            }
+
+            /**
              * 小时周期快走完监控
              */
-            if ( (hour == 10 && minute == 28) ||
+            if ((hour == 10 && minute == 28) ||
                     (hour == 11 && minute == 28) ||
                     (hour == 13 && minute == 58) ||
                     (hour == 14 && minute == 53)) {
                 System.out.println("监控时间：" + currentTime);
+                cci_monitorCenter.isHistory = false;
                 cci_monitorCenter.TechnicalIndex();
             }
 

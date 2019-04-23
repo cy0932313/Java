@@ -36,6 +36,8 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
     private List<SymbolMonitor> symbolMonitorList;
     private List<SymbolHold> symbolHoldList;
 
+    public boolean isHistory;
+
     @Override
     public void TechnicalIndex() {
         HashMap<String, String> param = new HashMap<String, String>();
@@ -60,17 +62,24 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         List<Tips> tips = this.iOperateTableDao.queryInfoForTips();
         if (tips.size() > 0) {
             this.emailContent.append("行情分析:共监控" + this.symbolMonitorList.size() + "只股票\n");
-            this.emailContent.append("这个小时超买" + tips.get(0).getOverbought() + "只，正常" + tips.get(0).getNormal() + "只，超卖" + tips.get(0).getOversold() + "只\n");
+            this.emailContent.append(this.getTime(tips.get(0).getTime(), null)+"：\n超买" + tips.get(0).getOverbought() + "只，正常" + tips.get(0).getNormal() + "只，超卖" + tips.get(0).getOversold() + "只\n");
             if (tips.size() > 1) {
-                this.emailContent.append("上个小时超买" + tips.get(1).getOverbought() + "只，正常" + tips.get(1).getNormal() + "只，超卖" + tips.get(1).getOversold() + "只\n");
+                this.emailContent.append(this.getTime(tips.get(1).getTime(), null)+"：\n超买" + tips.get(1).getOverbought() + "只，正常" + tips.get(1).getNormal() + "只，超卖" + tips.get(1).getOversold() + "只\n");
             }
             if (tips.size() > 2) {
-                this.emailContent.append("上上个小时超买" + tips.get(2).getOverbought() + "只，正常" + tips.get(2).getNormal() + "只，超卖" + tips.get(2).getOversold() + "只\n");
+                this.emailContent.append(this.getTime(tips.get(2).getTime(), null)+"：\n超买" + tips.get(2).getOverbought() + "只，正常" + tips.get(2).getNormal() + "只，超卖" + tips.get(2).getOversold() + "只\n");
             }
         }
 
-        emailService.sendMail("[监控结果]" + ChrisDateUtils.timeStamp2Date(
-                ChrisDateUtils.timeStamp(), null), this.holdSymbolContent.toString() + this.emailContent.toString());
+        if(this.isHistory)
+        {
+            emailService.sendMail("[昨日复盘]" + ChrisDateUtils.timeStamp2Date(
+                    ChrisDateUtils.timeStamp(), null),"对于15点提示的买入股票需要看早盘的走势在做决定\n"+ this.emailContent.toString());
+        }
+        else {
+            emailService.sendMail("[监控结果]" + ChrisDateUtils.timeStamp2Date(
+                    ChrisDateUtils.timeStamp(), null), this.holdSymbolContent.toString() + this.emailContent.toString());
+        }
     }
 
     private void handle(SymbolMonitor symbolMonitor, ArrayList<HashMap<String, String>> resultDataList) {
@@ -178,36 +187,5 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         }
 
         return ChrisDateUtils.timeStamp2Date(String.valueOf(Long.parseLong(timestamp) / 1000), formate);
-    }
-
-    @Override
-    public void testEnvironmental()
-    {
-        HashMap<String, String> param = new HashMap<String, String>();
-        param.put("period", "60m");
-        param.put("begin", "1555516800000");
-
-        symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
-        symbolHoldList = iOperateTableDao.queryInfoForHoldSymbol();
-
-        if(symbolMonitorList.size() > 0 && symbolHoldList.size() > 0)
-        {
-            SymbolMonitor item = symbolMonitorList.get(0);
-            param.put("symbol", item.getSymbolCode());
-            xueqiuSixtyData.setParameter(param);
-            xueqiuSixtyData.getDataSoruce();
-            if(xueqiuSixtyData.getHandleDataResult().size() != 0)
-            {
-                System.out.println("程序启动正常");
-            }
-            else
-            {
-                System.out.println("程序启动异常：没有获取到接口数据");
-            }
-        }
-        else
-        {
-            System.out.println("程序启动异常：数据库连接失败或目前持没有股票");
-        }
     }
 }
