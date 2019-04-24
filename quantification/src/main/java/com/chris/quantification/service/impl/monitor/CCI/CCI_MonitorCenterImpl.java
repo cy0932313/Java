@@ -36,7 +36,10 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
     private List<SymbolMonitor> symbolMonitorList;
     private List<SymbolHold> symbolHoldList;
 
+    private HashMap<String,List> tempSavesymbol = new HashMap<>();
     public boolean isHistory;
+    public boolean isRecord;
+    private String recordCurrTime = "";
 
     @Override
     public void TechnicalIndex() {
@@ -48,37 +51,56 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
         this.holdSymbolContent.delete(0, this.holdSymbolContent.length());
 
         symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
-        symbolHoldList = iOperateTableDao.queryInfoForHoldSymbol();
 
         int symbolMonitorSize = symbolMonitorList.size();
-        for (int i = 0; i < symbolMonitorSize; i++) {
+
+        outer:for (int i = 0; i < symbolMonitorSize; i++) {
             SymbolMonitor item = symbolMonitorList.get(i);
+
+            if(!this.isRecord && !this.recordCurrTime.equals(""))
+            {
+                List list = this.tempSavesymbol.get(this.recordCurrTime);
+                if(list != null)
+                {
+                    for(int j = 0;j < list.size();j++)
+                    {
+                        if(list.get(j).equals(item.symbolCode))
+                        {
+                            continue outer;
+                        }
+                    }
+                }
+            }
+
             param.put("symbol", item.getSymbolCode());
             xueqiuSixtyData.setParameter(param);
             xueqiuSixtyData.getDataSoruce();
             handle(item, xueqiuSixtyData.getHandleDataResult());
         }
 
-        List<Tips> tips = this.iOperateTableDao.queryInfoForTips();
-        if (tips.size() > 0) {
-            this.emailContent.append("行情分析:共监控" + this.symbolMonitorList.size() + "只股票\n");
-            this.emailContent.append(this.getTime(tips.get(0).getTime(), null)+"：\n超买" + tips.get(0).getOverbought() + "只，正常" + tips.get(0).getNormal() + "只，超卖" + tips.get(0).getOversold() + "只\n");
-            if (tips.size() > 1) {
-                this.emailContent.append(this.getTime(tips.get(1).getTime(), null)+"：\n超买" + tips.get(1).getOverbought() + "只，正常" + tips.get(1).getNormal() + "只，超卖" + tips.get(1).getOversold() + "只\n");
-            }
-            if (tips.size() > 2) {
-                this.emailContent.append(this.getTime(tips.get(2).getTime(), null)+"：\n超买" + tips.get(2).getOverbought() + "只，正常" + tips.get(2).getNormal() + "只，超卖" + tips.get(2).getOversold() + "只\n");
-            }
-        }
-
-        if(this.isHistory)
-        {
-            emailService.sendMail("[昨日复盘]" + ChrisDateUtils.timeStamp2Date(
-                    ChrisDateUtils.timeStamp(), null),"对于15点提示的买入股票需要看早盘的走势在做决定\n"+ this.emailContent.toString());
-        }
-        else {
+        if (!this.isRecord && this.emailContent.length() > 0) {
             emailService.sendMail("[监控结果]" + ChrisDateUtils.timeStamp2Date(
                     ChrisDateUtils.timeStamp(), null), this.holdSymbolContent.toString() + this.emailContent.toString());
+        } else if(this.isRecord) {
+            List<Tips> tips = this.iOperateTableDao.queryInfoForTips();
+            if (tips.size() > 0) {
+                this.emailContent.append("行情分析:共监控" + this.symbolMonitorList.size() + "只股票\n");
+                this.emailContent.append(this.getTime(tips.get(0).getTime(), null) + "：\n超买" + tips.get(0).getOverbought() + "只，正常" + tips.get(0).getNormal() + "只，超卖" + tips.get(0).getOversold() + "只\n");
+                if (tips.size() > 1) {
+                    this.emailContent.append(this.getTime(tips.get(1).getTime(), null) + "：\n超买" + tips.get(1).getOverbought() + "只，正常" + tips.get(1).getNormal() + "只，超卖" + tips.get(1).getOversold() + "只\n");
+                }
+                if (tips.size() > 2) {
+                    this.emailContent.append(this.getTime(tips.get(2).getTime(), null) + "：\n超买" + tips.get(2).getOverbought() + "只，正常" + tips.get(2).getNormal() + "只，超卖" + tips.get(2).getOversold() + "只\n");
+                }
+            }
+
+            if (this.isHistory) {
+                emailService.sendMail("[昨日复盘]" + ChrisDateUtils.timeStamp2Date(
+                        ChrisDateUtils.timeStamp(), null), "对于15点提示的买入股票需要看早盘的走势在做决定\n" + this.emailContent.toString());
+            } else {
+                emailService.sendMail("[监控结果]" + ChrisDateUtils.timeStamp2Date(
+                        ChrisDateUtils.timeStamp(), null), this.holdSymbolContent.toString() + this.emailContent.toString());
+            }
         }
     }
 
@@ -88,10 +110,11 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
 
             cci_strategyCenter.currentData = resultDataList.get(0);
             cci_strategyCenter.previousData = resultDataList.get(1);
+            this.recordCurrTime = cci_strategyCenter.currentData.get("timestamp");
             saveCCILog(symbolMonitor);
 
             SymbolHold symbolHold = this.isHold(symbolMonitor.getSymbolCode());
-            if (symbolHold != null) {
+            if (symbolHold != null && this.isRecord) {
                 cci_strategyCenter.currentDayOpenPrice = this.getCurrentOpenPirce(resultDataList);
                 cci_strategyCenter.symbolHold = symbolHold;
 
@@ -143,8 +166,23 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
                 }
             } else {
                 if (cci_strategyCenter.buyCondition()) {
+
+                    if(!this.isRecord)
+                    {
+                        List addSavesymbolList = this.tempSavesymbol.get(cci_strategyCenter.currentData.get("timestamp"));
+                        if(addSavesymbolList == null)
+                        {
+                            addSavesymbolList = new ArrayList();
+                        }
+
+                        addSavesymbolList.add(symbolMonitor.getSymbolCode());
+                        this.tempSavesymbol.put(cci_strategyCenter.currentData.get("timestamp"),addSavesymbolList);
+                    }
+
+
                     this.emailContent.append(symbolMonitor.getSymbolName() + ",买入买入买入!!!" + "\n");
-                    this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" +  String.format("%.2f", cci_strategyCenter.previousData.get("cci")) + "\n这个小时：" +  String.format("%.2f", cci_strategyCenter.currentData.get("cci"))
+
+                    this.emailContent.append("通过指标监控到\nCCI数据\n上个小时：" + String.format("%.2f", Float.parseFloat(cci_strategyCenter.previousData.get("cci"))) + "\n这个小时：" + String.format("%.2f", Float.parseFloat(cci_strategyCenter.currentData.get("cci")))
                             + "\n" +
                             "买入时间：" + this.getTime(cci_strategyCenter.currentData.get("timestamp"), null)
                             + "\n" + "买入参考价：" + cci_strategyCenter.currentData.get("close") + "\n\n");
@@ -154,11 +192,18 @@ public class CCI_MonitorCenterImpl implements IMonitorCenter {
     }
 
     private void saveCCILog(SymbolMonitor symbolMonitor) {
-        MonitorRecord monitorRecord = new MonitorRecord(symbolMonitor.getSymbolCode(), symbolMonitor.getSymbolName(), cci_strategyCenter.currentData.get("cci"), cci_strategyCenter.currentData.get("timestamp"));
-        iOperateTableDao.addMonitorRecord(monitorRecord);
+        if(this.isRecord)
+        {
+            MonitorRecord monitorRecord = new MonitorRecord(symbolMonitor.getSymbolCode(), symbolMonitor.getSymbolName(), cci_strategyCenter.currentData.get("cci"), cci_strategyCenter.currentData.get("timestamp"));
+            iOperateTableDao.addMonitorRecord(monitorRecord);
+        }
     }
 
     private SymbolHold isHold(String symbolCode) {
+        if(symbolHoldList == null)
+        {
+            symbolHoldList = iOperateTableDao.queryInfoForHoldSymbol();
+        }
         for (int i = 0; i < symbolHoldList.size(); i++) {
             SymbolHold item = symbolHoldList.get(i);
             if (item.getSymbolCode().equals(symbolCode)) {

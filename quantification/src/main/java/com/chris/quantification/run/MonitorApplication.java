@@ -54,10 +54,9 @@ public class MonitorApplication {
              */
             if(hour == 9 && minute == 28)
             {
-
-                System.out.println("监控时间：" + currentTime);
                 cci_monitorCenter.isHistory = true;
-                cci_monitorCenter.TechnicalIndex();
+                cci_monitorCenter.isRecord = true;
+                this.technicalIndex(currentTime);
             }
 
             /**
@@ -67,24 +66,32 @@ public class MonitorApplication {
                     (hour == 11 && minute == 28) ||
                     (hour == 13 && minute == 58) ||
                     (hour == 14 && minute == 53)) {
-                System.out.println("监控时间：" + currentTime);
                 cci_monitorCenter.isHistory = false;
-                cci_monitorCenter.TechnicalIndex();
+                cci_monitorCenter.isRecord = true;
+                this.technicalIndex(currentTime);
             }
-
-            /**
-               每分钟都监控
-             */
-//            if (hour == 9 && minute >= 30) {
-//                System.out.println("监控时间：" + currentTime);
-//                cci_monitorCenter.TechnicalIndex();
-//            } else if (hour == 14 && minute <= 53) {
-//                System.out.println("监控时间：" + currentTime);
-//                cci_monitorCenter.TechnicalIndex();
-//            } else if (hour > 9 && hour < 14) {
-//                System.out.println("监控时间：" + currentTime);
-//                cci_monitorCenter.TechnicalIndex();
+//            else
+//            {
+//                /**
+//                 每分钟都监控
+//                 */
+//
+//                cci_monitorCenter.isRecord = false;
+//                if (hour == 9 && minute >= 30) {
+//                    this.technicalIndex(currentTime);
+//                } else if (hour == 14 && minute <= 55) {
+//                    this.technicalIndex(currentTime);
+//                } else if (hour > 9 && hour < 14) {
+//                    this.technicalIndex(currentTime);
+//                }
 //            }
+
         }
+    }
+
+    private void technicalIndex(String currentTime)
+    {
+        System.out.println("监控时间：" + currentTime);
+        cci_monitorCenter.TechnicalIndex();
     }
 }
