@@ -64,10 +64,15 @@ public class MechanizationController {
 
     @PostMapping("/backTestCCI_Symbol")
     public String backTestCCI() {
-//        strategyCCI.setData("SH600196","复星医药","1day", MakeMoney.SYMBOL);
-//        strategyCCI.strategy();
-        strategyMA.setData("SH600196","复星医药","1day", MakeMoney.SYMBOL);
-        strategyMA.strategy();
+        List<SymbolMonitor> symbolMonitorList = iOperateTableDao.queryInfoForMonitorSymbol();
+        int size = symbolMonitorList.size();
+        for(int i = 0;i < size;i++)
+        {
+            SymbolMonitor symbolMonitor = symbolMonitorList.get(i);
+            strategyMA.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1day", MakeMoney.SYMBOL);
+            System.out.println(symbolMonitor.symbolName+"完成");
+        }
+
         return "";
     }
 

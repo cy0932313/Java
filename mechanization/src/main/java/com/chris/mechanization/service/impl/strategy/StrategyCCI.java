@@ -34,7 +34,6 @@ public class StrategyCCI implements IBackTest {
 
     Transaction transaction;
 
-    @Override
     public String strategy() {
         boolean transactionStatus = true;
         float buyPrice = 0;
