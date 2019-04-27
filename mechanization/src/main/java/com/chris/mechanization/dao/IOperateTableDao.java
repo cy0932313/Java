@@ -2,6 +2,7 @@ package com.chris.mechanization.dao;
 
 
 import com.binance.api.client.domain.market.Candlestick;
+import com.chris.mechanization.domain.CandlestickCopy;
 import com.chris.mechanization.domain.Account;
 import com.chris.mechanization.domain.BackTestResult;
 import com.chris.mechanization.domain.SymbolMonitor;
@@ -41,7 +42,7 @@ public interface IOperateTableDao {
     int addBinanceStock(@Param("tableName") String tableName, @Param("itemStock") Candlestick itemStock);
 
     List<ItemStock> queryInfoForLimit_symbol(@Param("tableName") String tableName,@Param("orderField")String orderField, @Param("limitStart") int limitStart, @Param("limitEnd") int limitEnd);
-    List<Candlestick> queryInfoForLimit_coin(@Param("tableName") String tableName,@Param("orderField")String orderField, @Param("limitStart") int limitStart, @Param("limitEnd") int limitEnd);
+    List<CandlestickCopy> queryInfoForLimit_coin(@Param("tableName") String tableName, @Param("orderField")String orderField, @Param("limitStart") int limitStart, @Param("limitEnd") int limitEnd);
     Account queryInfoFo_account();
 
     int addTransaction(@Param("transaction") Transaction transaction);

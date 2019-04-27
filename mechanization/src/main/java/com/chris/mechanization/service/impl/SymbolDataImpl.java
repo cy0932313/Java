@@ -36,7 +36,8 @@ public class SymbolDataImpl implements ISymbolDataService {
             this.getTechnicalIndex(tableName);
         } else {
             if (isExist == 1) {
-                iOperateTableDao.trancateTable(tableName);
+//                iOperateTableDao.trancateTable(tableName);
+                return "已存在";
             } else {
                 iOperateTableDao.createNewTable_symbol(tableName);
             }
@@ -63,6 +64,8 @@ public class SymbolDataImpl implements ISymbolDataService {
     private void getTechnicalIndex(String tableName) {
         TechnicalIndexImpl technicalIndex = new TechnicalIndexImpl(this.iOperateTableDao);
         technicalIndex.ma(tableName,60,"ma60", MakeMoney.SYMBOL);
+        technicalIndex.ma(tableName,22,"ma22", MakeMoney.SYMBOL);
+        technicalIndex.ma(tableName,55,"ma55", MakeMoney.SYMBOL);
         technicalIndex.cci(tableName,14,MakeMoney.SYMBOL);
     }
 }

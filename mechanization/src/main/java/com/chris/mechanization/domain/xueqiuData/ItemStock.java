@@ -188,5 +188,23 @@ public class ItemStock {
     String ma60;
     String cci;
 
+    public String getMa22() {
+        return ma22;
+    }
+
+    public void setMa22(String ma22) {
+        this.ma22 = ma22;
+    }
+
+    public String getMa55() {
+        return ma55;
+    }
+
+    public void setMa55(String ma55) {
+        this.ma55 = ma55;
+    }
+
+    String ma22;
+    String ma55;
 
 }

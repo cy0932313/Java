@@ -4,10 +4,12 @@ import com.binance.api.client.domain.market.Candlestick;
 import com.chris.mechanization.dao.IOperateTableDao;
 import com.chris.mechanization.domain.Account;
 import com.chris.mechanization.domain.BackTestResult;
+import com.chris.mechanization.domain.CandlestickCopy;
 import com.chris.mechanization.domain.Transaction;
 import com.chris.mechanization.domain.xueqiuData.ItemStock;
 import com.chris.mechanization.enumType.MakeMoney;
 import com.chris.mechanization.service.IBackTest;
+import com.chris.mechanization.utils.ChrisCalculationUtils;
 import com.chris.mechanization.utils.ChrisDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class StrategyCCI implements IBackTest {
     IOperateTableDao iOperateTableDao;
 
     List<ItemStock> symbolList;
-    List<Candlestick> coinList;
+    List<CandlestickCopy> coinList;
 
     String tableName;
     String symbolCode;
@@ -82,7 +84,7 @@ public class StrategyCCI implements IBackTest {
                     if (!transactionStatus) {
                         transaction.setSellPrice(String.valueOf(close));
                         transaction.setSellTime(time);
-                        transaction.setProfit(String.format("%.2f", close / buyPrice - 1));
+                        transaction.setProfit(String.valueOf( close / buyPrice - 1));
 
                             if (cci < -100) {
                             transaction.setSellReason("cci<-100");
@@ -105,7 +107,8 @@ public class StrategyCCI implements IBackTest {
                 }
 
             }
-            this.outPrint();
+            ChrisCalculationUtils.outPrint(iOperateTableDao,this.symbolCode,this.symbolName,"cci");
+
         } else if (coinList != null && coinList.size() > 0) {
             int size = coinList.size();
         }
@@ -124,74 +127,5 @@ public class StrategyCCI implements IBackTest {
             tableName = "coin_" + period + "_" + symbolCode;
             this.coinList = iOperateTableDao.queryInfoForLimit_coin(tableName, "closeTime", 0, 100000000);
         }
-    }
-
-    private void outPrint() {
-        List<Transaction> transactionList = iOperateTableDao.queryInfoForTransaction();
-        int size = transactionList.size();
-        //总收益
-        float countProfit = 0;
-        //交易次数
-        int transactionNum = 0;
-        //持仓天数
-        int holdDay = 0;
-        //最大回调
-        float md = 0;
-        //最大连续亏损次数
-        int lossNum = 0;
-        int tempLossNum = 0;
-        //胜率
-        String winProfit = "0";
-        int tempTrue = 0;
-        //持仓与区间时间的百分比
-        String t;
-        //区间涨幅
-        String immobility;
-
-        float maxProfit = 0;
-        float minxProfit = 0;
-
-
-        for (int i = 0; i < size; i++) {
-            Transaction transaction = transactionList.get(i);
-
-            countProfit = Float.parseFloat(transaction.getProfit()) + countProfit;
-            transactionNum = size;
-            holdDay = holdDay + ChrisDateUtils.differentDaysByMillisecond(transaction.getBuyTime(), transaction.getSellTime(), "yyyy-MM-dd");
-            if (countProfit > maxProfit) {
-                maxProfit = countProfit;
-                minxProfit = 0;
-            }
-            else
-            {
-                minxProfit = countProfit;
-                if (maxProfit - minxProfit > md) {
-                    md = maxProfit - minxProfit;
-                }
-            }
-
-            if (Float.parseFloat(transaction.getProfit()) < 0) {
-                ++tempLossNum;
-            } else {
-                tempLossNum = 0;
-                ++tempTrue;
-            }
-            if (tempLossNum > lossNum) {
-                lossNum = tempLossNum;
-            }
-
-            winProfit = String.format("%.2f", (float) tempTrue / size * 100) + "%";
-        }
-        Transaction fistTransaction = transactionList.get(0);
-        Transaction lastTransaction = transactionList.get(size-1);
-        immobility = String.format("%.2f", (Float.valueOf(lastTransaction.getSellPrice()) / Float.valueOf(fistTransaction.getBuyPrice()))*100);
-
-        t = String.format("%.2f", Float.valueOf(holdDay*100 / ChrisDateUtils.differentDaysByMillisecond
-                (fistTransaction.getBuyTime(), lastTransaction.getSellTime(), "yyyy-MM-dd")));
-
-        BackTestResult backTestResult = new BackTestResult(symbolCode, symbolName, "A",
-                String.format("%.2f", countProfit * 100) + "%", String.valueOf(transactionNum), String.valueOf(holdDay), String.format("%.2f", md*100) + "%",
-                String.valueOf(lossNum), winProfit, t+"%", immobility+"%");
-        iOperateTableDao.addBackTestResult(backTestResult);
     }
 }

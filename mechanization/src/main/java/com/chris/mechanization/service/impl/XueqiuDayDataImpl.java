@@ -31,7 +31,7 @@ public class XueqiuDayDataImpl implements IGetDataSource {
 
     @Override
     public void getDataSoruce() {
-        String cookie = "xq_a_token=c90503da9578c457eaef9b92e49c94a54932e81d";
+        String cookie = "xq_a_token=3b62c641e434c60b188ec4a38cd0518983095585";
         String baseUrl = "https://xueqiu.com/stock/forchartk/stocklist.json?"
                 + "symbol=" + symbol
                 + "&begin=" + begin
