@@ -8,6 +8,24 @@ package com.chris.mechanization.domain;
 public class CandlestickCopy {
     private String ma5 ;
     private String ma7 ;
+    private String ma25 ;
+    private String ma27 ;
+
+    public String getMa25() {
+        return ma25;
+    }
+
+    public void setMa25(String ma25) {
+        this.ma25 = ma25;
+    }
+
+    public String getMa27() {
+        return ma27;
+    }
+
+    public void setMa27(String ma27) {
+        this.ma27 = ma27;
+    }
 
     public String getMa5() {
         return ma5;

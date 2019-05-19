@@ -8,24 +8,30 @@
         <outputRelativeToContentRoot value="true" />
         <module name="binance-api-client" />
         <module name="helloSpringBoot" />
+        <module name="huobi-client" />
         <module name="mechanization" />
         <module name="quantification" />
+        <module name="trading" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="binance-api-client" target="1.8" />
       <module name="helloSpringBoot" target="1.8" />
+      <module name="huobi-client" target="1.8" />
       <module name="mechanization" target="1.8" />
       <module name="monitor" target="1.8" />
       <module name="quantification" target="1.8" />
+      <module name="trading" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="helloSpringBoot" options="-parameters" />
+      <module name="huobi-client" options="-Xlint:unchecked" />
       <module name="mechanization" options="-parameters" />
       <module name="monitor" options="-parameters" />
       <module name="quantification" options="-parameters" />
+      <module name="trading" options="-parameters" />
     </option>
   </component>
 </project>

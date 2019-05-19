@@ -158,7 +158,19 @@ public class StrategyMA implements IBackTest {
                         continue;
                     }
                     tempMA = Float.parseFloat(itemStock.getMa60());
+                }else if (maValue.equals("ma25")) {
+                    if (itemStock.getMa25() == null) {
+                        continue;
+                    }
+                    tempMA = Float.parseFloat(itemStock.getMa25());
                 }
+                else if (maValue.equals("ma27")) {
+                    if (itemStock.getMa27() == null) {
+                        continue;
+                    }
+                    tempMA = Float.parseFloat(itemStock.getMa27());
+                }
+
 
                 String time = itemStock.getTime() + "";
                 ++isNextDay;
@@ -204,7 +216,7 @@ public class StrategyMA implements IBackTest {
         String tableName = "";
 //        String[] str = new String[]{"ma5", "ma10", "ma20", "ma30", "ma60"};
 
-        String[] str = new String[]{"ma5", "ma7", "ma10", "ma14", "ma20", "ma22", "ma30", "ma55", "ma60"};
+        String[] str = new String[]{"ma5", "ma7", "ma10", "ma14", "ma20", "ma22", "ma30", "ma55", "ma60", "ma25", "ma27"};
 //        String[] str = new String[]{"ma20"};
 
         if (makeMoney == MakeMoney.SYMBOL) {

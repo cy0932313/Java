@@ -102,12 +102,14 @@ public class CoinDataImpl implements ISymbolDataService {
 
     private void getTechnicalIndex(String tableName) {
         TechnicalIndexImpl technicalIndex = new TechnicalIndexImpl(this.iOperateTableDao);
-        int[] ma = {5,7,10,14,20,30,60,22,55};
+
+//        technicalIndex.cci(tableName, 14, MakeMoney.COIN);
+//        int[] ma = {5,7,10,14,20,30,60,22,55,25,27};
+        int[] ma = {25,27};
         for(int i = 0;i < ma.length;i++)
         {
             System.out.println("我还在动");
             technicalIndex.ma(tableName, ma[i], "ma"+ma[i],MakeMoney.COIN);
         }
-        technicalIndex.cci(tableName, 14, MakeMoney.COIN);
     }
 }

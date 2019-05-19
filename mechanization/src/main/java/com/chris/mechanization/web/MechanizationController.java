@@ -64,13 +64,13 @@ public class MechanizationController {
 //        1230739200000
 //        1555344000000
         String[] test = new String[]{"bchabcusdt","btcusdt","etcusdt","ethusdt","iostusdt","ltcusdt","trxusdt","xrpusdt","eosusdt"};
-//
-//        for(int i = 0;i < test.length;i++)
-//        {
-//            coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
-//        }
-//        return "success";
-        return coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
+
+        for(int i = 0;i < test.length;i++)
+        {
+            coinData.saveSymbolData(test[i],period,beginTime,endTime,update);
+        }
+        return "success";
+//        return coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
     }
 
     @PostMapping("/backTestCCI_Symbol")
@@ -83,7 +83,9 @@ public class MechanizationController {
         for(int i = 0;i < size;i++)
         {
             SymbolMonitor symbolMonitor = symbolMonitorList.get(i);
-            strategyMA.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1d", makeMoney);
+//            strategyMA.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1d", makeMoney);
+            strategySH.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1d", makeMoney);
+
 //            strategySH.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1day", makeMoney);
             System.out.println(symbolMonitor.symbolName+"完成");
         }
