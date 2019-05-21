@@ -8,8 +8,6 @@ import com.chris.automated.trading.utils.JsonWrapperArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @description:
@@ -18,9 +16,7 @@ import java.util.List;
  **/
 public class Average
 {
-    private HashMap<String,ArrayList> threeAvgMap = new HashMap();
-    private HashMap<String,ArrayList>  SevenAvgMap = new HashMap();
-    private HashMap<String,ArrayList>  TwentyTwoAvgMap = new HashMap();
+    private HashMap<String,ArrayList> avgMap = new HashMap();
     private UrlParamsBuilder builder = UrlParamsBuilder.build();
 
     private String getAvgUrl(String symbol,String period,int size)
@@ -28,33 +24,64 @@ public class Average
         return "/market/history/kline?period=" + period + "&size=" + size + "&symbol=" + symbol;
     }
 
-    public float getThreeAvg(String symbol)
+    public float getCustomAvg(String symbol,int size,float currentPrice)
     {
-        String key = symbol+ ChrisDateUtils.timeStamp2Date(ChrisDateUtils.timeStamp(),"yyyymmdd");
-        ArrayList threeAvgList = threeAvgMap.get("key");
-        if(threeAvgList == null)
+        String key = symbol+"_"+size+"_"+ ChrisDateUtils.timeStamp2Date(ChrisDateUtils.timeStamp(),"yyyyMMdd");
+        ArrayList avgArray = avgMap.get("key");
+        float resultAvg = 0.0f;
+
+        if(avgArray == null || avgArray.size() != size - 1)
         {
-            String reqStr = new ApiRequest().sendReq(this.getAvgUrl(symbol,"1day",3),builder,false);
+            String reqStr = new ApiRequest().sendReq(this.getAvgUrl(symbol,"60min",(size - 1) * 24),builder,false);
 
             JsonWrapper jsonWrapper = JsonWrapper.parseFromString(reqStr);
             JsonWrapperArray jsonWrapperArray = jsonWrapper.getJsonArray("data");
+
+            ArrayList tempItemArray = new ArrayList();
             jsonWrapperArray.forEach((item) -> {
-                System.out.println(item.getString("close"));
+                if(ChrisDateUtils.timeStamp2Date(item.getString("id"),"HH").equals("08"))
+                {
+                    tempItemArray.add(item);
+                }
             });
+            avgMap.put(key,tempItemArray);
+            if(tempItemArray.size() != size - 1)
+            {
+                return 0;
+            }
+
+            resultAvg = (this.handleAvgVal(tempItemArray) + currentPrice)/size;
+            System.out.println(resultAvg);
+            return resultAvg;
         }
-        return 0.0f;
+        else
+        {
+            resultAvg = (this.handleAvgVal(avgArray) + currentPrice)/size;
+            System.out.println(resultAvg);
+            return resultAvg;
+        }
     }
-    public float getSevenAvg(String symbol)
+
+    private float handleAvgVal(ArrayList avgList)
     {
-        return 0.0f;
-    }
-    public float getTwentyTwoAvg(String symbol)
-    {
-        return 0.0f;
+        int size = avgList.size();
+        float sumOpen = 0.0f;
+        for(int i = 0;i < size;i++)
+        {
+            JsonWrapper objItem = (JsonWrapper)avgList.get(i);
+
+            sumOpen = sumOpen + Float.parseFloat(objItem.getString("open"));
+        }
+        return sumOpen;
     }
 
     public static void main(String[] args) {
         Average average = new Average();
-        average.getThreeAvg("xrpusdt");
+
+        average.getCustomAvg("xrpusdt",3,0.3957f);
+
+        average.getCustomAvg("xrpusdt",7,0.3957f);
+
+        average.getCustomAvg("xrpusdt",22,0.3957f);
     }
 }
