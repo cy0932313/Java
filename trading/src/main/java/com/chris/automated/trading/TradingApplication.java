@@ -1,13 +1,22 @@
 package com.chris.automated.trading;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-public class TradingApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(TradingApplication.class, args);
+@EnableScheduling
+public class TradingApplication extends SpringBootServletInitializer {
+	public static void main(String[] args)
+	{
+		new SpringApplicationBuilder(TradingApplication.class).web(WebApplicationType.NONE).run(args);
 	}
 
+	@Override//为了打包springboot项目
+	protected SpringApplicationBuilder configure(
+			SpringApplicationBuilder builder) {
+		return builder.sources(this.getClass());
+	}
 }

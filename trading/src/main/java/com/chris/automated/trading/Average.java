@@ -16,7 +16,7 @@ import java.util.HashMap;
  **/
 public class Average
 {
-    private HashMap<String,ArrayList> avgMap = new HashMap();
+    private static HashMap<String,ArrayList> avgMap = new HashMap();
     private UrlParamsBuilder builder = UrlParamsBuilder.build();
 
     private String getAvgUrl(String symbol,String period,int size)
@@ -27,7 +27,7 @@ public class Average
     public float getCustomAvg(String symbol,int size,float currentPrice)
     {
         String key = symbol+"_"+size+"_"+ ChrisDateUtils.timeStamp2Date(ChrisDateUtils.timeStamp(),"yyyyMMdd");
-        ArrayList avgArray = avgMap.get("key");
+        ArrayList avgArray = avgMap.get(key);
         float resultAvg = 0.0f;
 
         if(avgArray == null || avgArray.size() != size - 1)
@@ -51,13 +51,11 @@ public class Average
             }
 
             resultAvg = (this.handleAvgVal(tempItemArray) + currentPrice)/size;
-            System.out.println(resultAvg);
             return resultAvg;
         }
         else
         {
             resultAvg = (this.handleAvgVal(avgArray) + currentPrice)/size;
-            System.out.println(resultAvg);
             return resultAvg;
         }
     }
@@ -78,10 +76,10 @@ public class Average
     public static void main(String[] args) {
         Average average = new Average();
 
-        average.getCustomAvg("xrpusdt",3,0.3957f);
+        average.getCustomAvg("xrpusdt",3,0.3905f);
 
-        average.getCustomAvg("xrpusdt",7,0.3957f);
+        average.getCustomAvg("xrpusdt",7,0.3905f);
 
-        average.getCustomAvg("xrpusdt",22,0.3957f);
+        average.getCustomAvg("xrpusdt",22,0.3905f);
     }
 }

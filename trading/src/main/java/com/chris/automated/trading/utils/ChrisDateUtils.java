@@ -26,7 +26,7 @@ public class ChrisDateUtils {
         }
         if (format == null || format.isEmpty()) format = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(new Date(Long.valueOf(seconds + "000")));
+        return sdf.format(new Date(Long.valueOf(seconds)));
     }
 
     /**
