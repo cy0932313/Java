@@ -29,8 +29,8 @@ class ApiSignature {
             .ofPattern("uuuu-MM-dd'T'HH:mm:ss");
     private static final ZoneId ZONE_GMT = ZoneId.of("Z");
 
-    private static final String accessKey = "ht4tgq1e4t-c6cecdb5-8d573de4-c1e0e" ;
-    private static final String secretKey = "9a6b487d-5a9aa8a6-06b9b1b9-3f8bf" ;
+    private static final String accessKey = "" ;
+    private static final String secretKey = "" ;
     private static final String host = "api.huobi.pro" ;
 
 

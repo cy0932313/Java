@@ -21,8 +21,8 @@ import java.util.HashMap;
 @Component
 public class Monitor {
     private static final String[] leverArray = new String[]
-            {"btc"};
-//                    ,"eth","xrp","ltc","bch","eos","etc"};
+            {"xrp"};
+//                    "btc","eth","xrp","ltc","bch","eos","etc"};
 //    ,"ada",
 //                    "omg","zec","dash","trx","atom","iost",
 //                    "ont","btt","neo","zil","btm","qtum",
@@ -43,7 +43,7 @@ public class Monitor {
         return "/market/detail/merged?symbol="+ symbol;
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 10000)
     public void startMonitor_symbols()
     {
         if(this.monitorSymbolsArray.size() == 0)

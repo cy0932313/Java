@@ -29,6 +29,15 @@ public class ChrisDateUtils {
         return sdf.format(new Date(Long.valueOf(seconds)));
     }
 
+    public static String timeStamp2Date000(String seconds, String format) {
+        if (seconds == null || seconds.isEmpty() || seconds.equals("null")) {
+            return "";
+        }
+        if (format == null || format.isEmpty()) format = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(new Date(Long.valueOf(seconds+"000")));
+    }
+
     /**
      * 日期格式字符串转换成时间戳
      *

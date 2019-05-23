@@ -1,5 +1,6 @@
 package com.chris.automated.trading.requestManager;
 
+import com.alibaba.fastjson.JSON;
 import unirest.Config;
 import unirest.HttpResponse;
 import unirest.UnirestInstance;
@@ -49,13 +50,13 @@ public class ApiRequest {
         {
             resultUrl = url + address;
         }
-
+        HttpResponse<String> response;
         if (builder.hasPostParam()) {
+            response = unirestInstancePost.post(resultUrl).body(JSON.toJSONString(builder.postBodyMap.map)).asString();
         } else {
-            HttpResponse<String> response = unirestInstanceGet.get(resultUrl).asString();
-            return response.getBody();
+            response = unirestInstanceGet.get(resultUrl).asString();
         }
 
-        return "[UrlParamsBuilder] builder.hasPostParam() is error";
+        return response.getBody();
     }
 }

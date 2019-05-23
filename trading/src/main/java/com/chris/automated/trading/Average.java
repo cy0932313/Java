@@ -39,7 +39,7 @@ public class Average
 
             ArrayList tempItemArray = new ArrayList();
             jsonWrapperArray.forEach((item) -> {
-                if(ChrisDateUtils.timeStamp2Date(item.getString("id"),"HH").equals("08"))
+                if(ChrisDateUtils.timeStamp2Date000(item.getString("id"),"HH").equals("08"))
                 {
                     tempItemArray.add(item);
                 }
