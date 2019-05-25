@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/binance-java-api-master/binance-api-client.iml" filepath="$PROJECT_DIR$/binance-java-api-master/binance-api-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/helloSpringBoot/helloSpringBoot.iml" filepath="$PROJECT_DIR$/helloSpringBoot/helloSpringBoot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/huobi_Java-master/huobi-client.iml" filepath="$PROJECT_DIR$/huobi_Java-master/huobi-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaCore/javaCore.iml" filepath="$PROJECT_DIR$/javaCore/javaCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/mechanization/mechanization.iml" filepath="$PROJECT_DIR$/mechanization/mechanization.iml" />
       <module fileurl="file://$PROJECT_DIR$/quantification/quantification.iml" filepath="$PROJECT_DIR$/quantification/quantification.iml" />

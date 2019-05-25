@@ -5,6 +5,7 @@ import com.chris.automated.trading.requestManager.ApiRequest;
 import com.chris.automated.trading.requestManager.UrlParamsBuilder;
 import com.chris.automated.trading.utils.JsonWrapper;
 import com.chris.automated.trading.utils.JsonWrapperArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,9 @@ import java.util.HashMap;
 
 @Component
 public class Monitor {
+    @Autowired
+    Transaction transaction;
+
     private static final String[] leverArray = new String[]
             {"xrp"};
 //                    "btc","eth","xrp","ltc","bch","eos","etc"};
@@ -32,7 +36,6 @@ public class Monitor {
     private ArrayList monitorSymbolsArray = new ArrayList();
     private HashMap<String, SymbolInfo> hashMapSymbol = new HashMap();
     private Average average = new Average();
-    private Transaction transaction = new Transaction();
     private String getSymbolsUrl()
     {
         return "/v1/common/symbols";

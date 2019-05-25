@@ -4,9 +4,9 @@ import com.chris.automated.trading.domian.SymbolInfo;
 import com.chris.automated.trading.domian.TransactionInfo;
 import com.chris.automated.trading.requestManager.ApiRequest;
 import com.chris.automated.trading.requestManager.UrlParamsBuilder;
-import com.chris.automated.trading.utils.ChrisDateUtils;
-import com.chris.automated.trading.utils.JsonWrapper;
-import com.chris.automated.trading.utils.JsonWrapperArray;
+import com.chris.automated.trading.utils.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -16,11 +16,15 @@ import java.util.HashMap;
  * @author: Chris.Y
  * @create: 2019-05-22 23:26
  **/
+@Component
 public class Transaction {
     private Account account = new Account();
     private UrlParamsBuilder builder = UrlParamsBuilder.build();
     private BigDecimal balance = new BigDecimal(0);
     private static HashMap<String, TransactionInfo> transactionMap = new HashMap();
+
+    @Autowired
+    EmailUtils emailService;
 
     private void getUsdt(JsonWrapper accountInfo)
     {
@@ -90,23 +94,18 @@ public class Transaction {
             }
             transactionInfo.setBusinessType(type);
             transactionMap.put(transactionSymbol.getSymbol(),transactionInfo);
+
+            this.emailService.sendMail("您有一条新的订单",Remind.remindMailForTransactionInfo(transactionInfo,transactionSymbol.getSymbol()));
         }
         else
         {
-            System.out.println("下单失败,"+resultStr);
+          this.emailService.sendMail("您有一条新的订单","下单失败,"+resultStr);
         }
     }
 
     //是否需要交易
-    private boolean calculationProfit(SymbolInfo transactionSymbol)
+    private boolean calculationProfit(TransactionInfo transactionInfo,SymbolInfo transactionSymbol)
     {
-        TransactionInfo transactionInfo = transactionMap.get(transactionSymbol.getSymbol());
-
-        if(transactionInfo == null)
-        {
-            return false;
-        }
-
         float currentPrice = transactionSymbol.getCurrentPrice().floatValue();
         float buyPrice = transactionInfo.getBuyingPrice().floatValue();
         float maxProfit  = transactionInfo.getMaxProfit();
@@ -125,6 +124,7 @@ public class Transaction {
         if(currentProfit > maxProfit)
         {
             transactionInfo.setMaxProfit(currentProfit);
+            transactionMap.put(transactionSymbol.getSymbol(),transactionInfo);
         }
         else
         {
@@ -150,33 +150,78 @@ public class Transaction {
 
     public void calculationTransaction(SymbolInfo transactionSymbol)
     {
-        System.out.println(transactionSymbol.getSymbol()+"_"+ ChrisDateUtils.timeStamp2Date(transactionSymbol.getCurrentTime(),null)+"\n" +"当前价：" +
-                transactionSymbol.getCurrentPrice()+"\n" + "上一个价格："+
-                transactionSymbol.getLastPrice() +"==" +
-                ChrisDateUtils.timeStamp2Date(transactionSymbol.getLastTime(),null) +"\n" + "3日均线：" +
-                transactionSymbol.getThreeAvg()+"\n");
+        Remind.remindLogForSymbolInfo(transactionSymbol);
 
-
-        TransactionInfo transactionInfoTest = new TransactionInfo();
-        transactionInfoTest.setBuyingPrice(new BigDecimal("0.4"));
-        transactionInfoTest.setBuyingAmount(balance);
-        transactionInfoTest.setBuyingTime(transactionSymbol.getCurrentTime());
-        transactionInfoTest.setMaxProfit(6.5f);
-        transactionInfoTest.setCurrentProfit(0);
-        transactionInfoTest.setReferenceModel("3");
-        transactionInfoTest.setCustomPrice(0);
-        transactionInfoTest.setBusinessType("sell-market");
-        transactionMap.put(transactionSymbol.getSymbol(),transactionInfoTest);
-
+        /**
+         * TEST
+         */
+//        transactionSymbol.setCurrentPrice(new BigDecimal(0.39));
+//        transactionSymbol.setLastPrice(new BigDecimal(0.4));
+//        transactionSymbol.setThreeAvg(0.3f);
+//
+//        if(transactionMap.size() == 0)
+//        {
+//            TransactionInfo transactionInfoTest = new TransactionInfo();
+//            transactionInfoTest.setBuyingPrice(new BigDecimal("0.4"));
+//            transactionInfoTest.setBuyingAmount(balance);
+//            transactionInfoTest.setBuyingTime(transactionSymbol.getCurrentTime());
+//            transactionInfoTest.setMaxProfit(0);
+//            transactionInfoTest.setCurrentProfit(0);
+//            transactionInfoTest.setReferenceModel("custom");
+//            transactionInfoTest.setCustomPrice(0.4f);
+//            transactionInfoTest.setBusinessType("sell-market");
+//            transactionMap.put(transactionSymbol.getSymbol(),transactionInfoTest);
+//            Remind.remindMailForTransactionInfo(transactionInfoTest,transactionSymbol.getSymbol());
+//        }
+//        else
+//        {
+//            transactionSymbol.setCurrentPrice(new BigDecimal(0.3));
+//            transactionSymbol.setLastPrice(new BigDecimal(0.4));
+//        }
+//
+        /**
+         * END TEST
+         */
 
         //如果有单子在手上需要计算收益
-        if(this.calculationProfit(transactionSymbol))
-        {
-            //如果收益有回测交易单，那么设置完自定义基准线后，下次在循环进行买卖判断
-            return;
-        }
-
         TransactionInfo transactionInfo = transactionMap.get(transactionSymbol.getSymbol());
+
+        if(transactionInfo != null)
+        {
+            Remind.remindLogForTransactionInfo(transactionInfo,transactionSymbol.getSymbol());
+
+            if(this.calculationProfit(transactionInfo,transactionSymbol))
+            {
+                //如果收益有回测交易单，那么设置完自定义基准线后，下次在循环进行买卖判断
+                return;
+            }
+        }
+        else
+        {
+//            //有订单的时候
+//            TransactionInfo tempTransactionInfo = new TransactionInfo();
+//            tempTransactionInfo.setBuyingPrice(new BigDecimal("0.3854"));
+//            tempTransactionInfo.setBuyingAmount(new BigDecimal("100.954"));
+//            tempTransactionInfo.setBuyingTime("");
+//            tempTransactionInfo.setMaxProfit(0);
+//            tempTransactionInfo.setCurrentProfit(0);
+//            tempTransactionInfo.setCustomPrice(new BigDecimal("0.3854").floatValue());
+//            tempTransactionInfo.setBusinessType("buy-market");
+//            transactionMap.put(transactionSymbol.getSymbol(),tempTransactionInfo);
+//
+//            //没有订单的时候
+//            if(transactionSymbol.getCurrentPrice().floatValue() > transactionSymbol.getThreeAvg())
+//            {
+//                this.setOrdersPlace(account.getAccountMoney(),transactionSymbol,"buy-market","3");
+//                return;
+//            }
+//
+//            if(transactionSymbol.getCurrentPrice().floatValue() < transactionSymbol.getThreeAvg())
+//            {
+//                this.setOrdersPlace(account.getAccountMoney(),transactionSymbol,"sell-market","3");
+//                return;
+//            }
+        }
 
         //当没有单子时直接进行3日线模式判断买入
         if(transactionInfo == null || transactionInfo.getReferenceModel().equals("3"))
@@ -199,14 +244,15 @@ public class Transaction {
             if(transactionInfo.getBusinessType().equals("sell-market"))
             {
                 //如果上一次监控的价格小于自定义基准线且当前的价格大于自定义基准线，那么买入反手做多
-                if(transactionSymbol.getLastPrice().floatValue() < transactionInfo.getCustomPrice() &&  transactionSymbol.getCurrentPrice().floatValue() > transactionInfo.getCustomPrice()) {
+                if(transactionSymbol.getLastPrice().floatValue() <= transactionInfo.getCustomPrice() &&  transactionSymbol.getCurrentPrice().floatValue() > transactionInfo.getCustomPrice()) {
                     this.setOrdersPlace(account.getAccountMoney(),transactionSymbol,"buy-market","custom");
                 }
                 else
                 {
+                    //如果做空的时候当前价格在3日线上，那么当快接近3日线的时候（0.5个点），反手做多，并调整为3日线基准
                     if(transactionSymbol.getCurrentPrice().floatValue() > transactionSymbol.getThreeAvg())
                     {
-                        if(transactionSymbol.getCurrentPrice().floatValue() < transactionSymbol.getThreeAvg() * 1.005)
+                        if(transactionSymbol.getCurrentPrice().floatValue() < transactionSymbol.getThreeAvg() * 1.01 && transactionSymbol.getCurrentPrice().floatValue() > transactionSymbol.getThreeAvg())
                         {
                             this.setOrdersPlace(account.getAccountMoney(),transactionSymbol,"buy-market","3");
                         }
@@ -217,16 +263,16 @@ public class Transaction {
             else
             {
                 //如果上一次监控的价格大于自定义基准线且当前的价格小于自定义基准线，那么卖出入反手做空
-                if(transactionSymbol.getLastPrice().floatValue() > transactionInfo.getCustomPrice() &&  transactionSymbol.getCurrentPrice().floatValue() < transactionInfo.getCustomPrice())
+                if(transactionSymbol.getLastPrice().floatValue() >= transactionInfo.getCustomPrice() &&  transactionSymbol.getCurrentPrice().floatValue() < transactionInfo.getCustomPrice())
                 {
                     this.setOrdersPlace(account.getAccountMoney(),transactionSymbol,"sell-market","custom");
-
                 }
                 else
                 {
-                    if(transactionSymbol.getCurrentPrice().floatValue() < transactionSymbol.getThreeAvg() && transactionInfo.getBusinessType().equals("buy-market"))
+                    //如果做多的时候当前价格在3日线下，那么当快接近3日线的时候（0.5个点），反手做空，并调整为3日线基准
+                    if(transactionSymbol.getCurrentPrice().floatValue() < transactionSymbol.getThreeAvg())
                     {
-                        if(transactionSymbol.getCurrentPrice().floatValue() > transactionSymbol.getThreeAvg() * 0.995)
+                        if(transactionSymbol.getCurrentPrice().floatValue() > transactionSymbol.getThreeAvg() * 0.99 && transactionSymbol.getCurrentPrice().floatValue() < transactionSymbol.getThreeAvg())
                         {
                             this.setOrdersPlace(account.getAccountMoney(),transactionSymbol,"sell-market","3");
                         }
@@ -240,5 +286,6 @@ public class Transaction {
         int tempProfit = (int)(1.2/3);
 
         System.out.println(tempProfit);
+
     }
 }

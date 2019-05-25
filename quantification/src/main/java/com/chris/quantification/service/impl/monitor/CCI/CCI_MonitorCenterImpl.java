@@ -6,7 +6,6 @@ import com.chris.quantification.enumType.TipsEnum;
 import com.chris.quantification.service.IMonitorCenter;
 import com.chris.quantification.service.impl.EmailServiceImpl;
 import com.chris.quantification.service.impl.XueqiuSixtyDataImpl;
-import com.chris.quantification.utils.LogUtils;
 import com.chrisY.util.ChrisDateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
