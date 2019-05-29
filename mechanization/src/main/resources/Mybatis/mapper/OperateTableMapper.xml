@@ -72,7 +72,7 @@
              ma22   varchar(32),
              ma55   varchar(32),
              ma25   varchar(32),
-             ma27   varchar(32)
+             ma27   varchar(32),
           PRIMARY KEY (openTime))
     </update>
 

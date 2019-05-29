@@ -8,6 +8,7 @@ import com.chris.mechanization.service.impl.SymbolDataImpl;
 import com.chris.mechanization.service.impl.strategy.StrategyCCI;
 import com.chris.mechanization.service.impl.strategy.StrategyMA;
 import com.chris.mechanization.service.impl.strategy.StrategySH;
+import com.chris.mechanization.service.impl.strategy.StrategyTQA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,8 @@ public class MechanizationController {
     @Autowired
     private StrategySH strategySH;
     @Autowired
+    private StrategyTQA strategyTQA;
+    @Autowired
     private IOperateTableDao iOperateTableDao;
 
     @PostMapping("/downloadSymbol")
@@ -61,14 +64,16 @@ public class MechanizationController {
 
     @PostMapping("/downloadCoin")
     public String coin(String symbol,String period,String beginTime,String endTime,boolean update) {
+
+        coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
 //        1230739200000
 //        1555344000000
-        String[] test = new String[]{"bchabcusdt","btcusdt","etcusdt","ethusdt","iostusdt","ltcusdt","trxusdt","xrpusdt","eosusdt"};
-
-        for(int i = 0;i < test.length;i++)
-        {
-            coinData.saveSymbolData(test[i],period,beginTime,endTime,update);
-        }
+//        String[] test = new String[]{"bchabcusdt","btcusdt","etcusdt","ethusdt","iostusdt","ltcusdt","trxusdt","xrpusdt","eosusdt"};
+//
+//        for(int i = 0;i < test.length;i++)
+//        {
+//            coinData.saveSymbolData(test[i],period,beginTime,endTime,update);
+//        }
         return "success";
 //        return coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
     }
@@ -89,6 +94,19 @@ public class MechanizationController {
 //            strategySH.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1day", makeMoney);
             System.out.println(symbolMonitor.symbolName+"完成");
         }
+        return "";
+    }
+
+    @PostMapping("/backTestTQA_Symbol")
+    public String backTestTQA(String symbol) {
+        List<SymbolMonitor> symbolMonitorList = this.getCoinList();
+        MakeMoney makeMoney = MakeMoney.COIN;
+        SymbolMonitor symbolMonitor = new SymbolMonitor();
+        symbolMonitor.setSymbolCode(symbol);
+        symbolMonitor.setSymbolName(symbol);
+        symbolMonitorList.add(symbolMonitor);
+        strategyTQA.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1h", makeMoney);
+        System.out.println(symbolMonitor.symbolName+"完成");
         return "";
     }
 

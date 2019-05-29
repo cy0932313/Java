@@ -55,7 +55,7 @@ public class SymbolDataImpl implements ISymbolDataService {
                 iOperateTableDao.addXueqiuStock(tableName, itemStock);
             }
 
-            this.getTechnicalIndex(tableName);
+//            this.getTechnicalIndex(tableName);
         }
 
         return "成功更新数据" + arrayList.size() + "条";
