@@ -39,9 +39,9 @@ public class StrategyTQA implements IBackTest {
 
         String transactionType = "";
         CandlestickCopy shangItemStock = new CandlestickCopy();
-        for (int i = 16; i < size; i++) {
+        for (int i = 18; i < size; i++) {
             CandlestickCopy itemStock = coinList.get(i);
-            this.setTQATD(coinList.subList(i - 16,i),itemStock);
+            this.setTQATD(coinList.subList(i - 18,i),itemStock);
 
                 if(transactionType.equals("buy-market"))
                 {
@@ -141,7 +141,7 @@ public class StrategyTQA implements IBackTest {
 
     public void setTQATD(List<CandlestickCopy> tempItemArray,CandlestickCopy itemStock)
     {
-        List maxArrayList = tempItemArray.subList(0,16);
+        List maxArrayList = tempItemArray.subList(0,18);
         float max22OpenPrice = 0.0f;
         float min22OpenPrice = 0.0f;
 
@@ -168,7 +168,7 @@ public class StrategyTQA implements IBackTest {
 
         }
 
-        List minArrayList = tempItemArray.subList(8,16);
+        List minArrayList = tempItemArray.subList(9,18);
         float min10OpenPrice = 0.0f;
         float max10OpenPrice = 0.0f;
         for(int i = 0;i < minArrayList.size();i++)
