@@ -65,15 +65,17 @@ public class MechanizationController {
     @PostMapping("/downloadCoin")
     public String coin(String symbol,String period,String beginTime,String endTime,boolean update) {
 
-        coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
+//        coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
 //        1230739200000
 //        1555344000000
-//        String[] test = new String[]{"bchabcusdt","btcusdt","etcusdt","ethusdt","iostusdt","ltcusdt","trxusdt","xrpusdt","eosusdt"};
-//
-//        for(int i = 0;i < test.length;i++)
-//        {
-//            coinData.saveSymbolData(test[i],period,beginTime,endTime,update);
-//        }
+//        "btcusdt","bchabcusdt","etcusdt","ethusdt","ltcusdt","xrpusdt",
+        String[] test = new String[]{"eosusdt"};
+//        String[] test = new String[]{"btcusdt"};
+
+        for(int i = 0;i < test.length;i++)
+        {
+            coinData.saveSymbolData(test[i].toUpperCase(),period,beginTime,endTime,update);
+        }
         return "success";
 //        return coinData.saveSymbolData(symbol,period,beginTime,endTime,update);
     }
@@ -101,19 +103,19 @@ public class MechanizationController {
     public String backTestTQA(String symbol) {
         List<SymbolMonitor> symbolMonitorList = this.getCoinList();
         MakeMoney makeMoney = MakeMoney.COIN;
-        SymbolMonitor symbolMonitor = new SymbolMonitor();
-        symbolMonitor.setSymbolCode(symbol);
-        symbolMonitor.setSymbolName(symbol);
-        symbolMonitorList.add(symbolMonitor);
-        strategyTQA.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1h", makeMoney);
-        System.out.println(symbolMonitor.symbolName+"完成");
+        int size = symbolMonitorList.size();
+        for(int i = 0;i < size;i++) {
+            SymbolMonitor symbolMonitor = symbolMonitorList.get(i);
+            strategyTQA.setData(symbolMonitor.symbolCode,symbolMonitor.symbolName,"1h", makeMoney);
+            System.out.println(symbolMonitor.symbolName+"完成");
+        }
         return "";
     }
 
     private List<SymbolMonitor> getCoinList()
     {
         List<SymbolMonitor> symbolMonitorList= new ArrayList<>();
-        String[] listStr = new String[]{"bchabcusdt","btcusdt","etcusdt","ethusdt","iostusdt","ltcusdt","trxusdt","xrpusdt","eosusdt","bnbusdt"};
+        String[] listStr = new String[]{"bchabcusdt","btcusdt","etcusdt","ethusdt","ltcusdt","xrpusdt","eosusdt"};
 
 //        String[] listStr = new String[]{"btcusdt"};
         for(int i = 0;i < listStr.length;i++)

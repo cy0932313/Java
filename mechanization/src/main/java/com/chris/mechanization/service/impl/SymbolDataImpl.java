@@ -33,7 +33,7 @@ public class SymbolDataImpl implements ISymbolDataService {
         ArrayList arrayList = new ArrayList();
         int isExist = iOperateTableDao.existTable(tableName);
         if (isExist == 1 && !update) {
-            this.getTechnicalIndex(tableName);
+//            this.getTechnicalIndex(tableName);
         } else {
             if (isExist == 1) {
 //                iOperateTableDao.trancateTable(tableName);

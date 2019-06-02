@@ -28,7 +28,7 @@ public class CoinDataImpl implements ISymbolDataService {
         ArrayList arrayList = new ArrayList();
         int isExist = iOperateTableDao.existTable(tableName);
         if (isExist == 1 && !update) {
-            this.getTechnicalIndex(tableName);
+//            this.getTechnicalIndex(tableName);
         } else {
             if (isExist == 1) {
                 iOperateTableDao.trancateTable(tableName);
@@ -38,7 +38,7 @@ public class CoinDataImpl implements ISymbolDataService {
             BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance("mdAZ2oLE1vfchDc7zvFrlJm9zPMQeDIAj40zDmKVKFoG7ZIbcF1Tp7YUaOk6fnsE", "8B66Yfd92hWTFHu72gIF745gRf9QASy3dH8fDzqaIDaLsVh1yPdyw7sCTr2WZKLj");
             BinanceApiRestClient client = factory.newRestClient();
             this.makeUpData(tableName, symbolName, period, beginTime, endTime, client);
-            this.getTechnicalIndex(tableName);
+//            this.getTechnicalIndex(tableName);
         }
         return "成功更新数据" + arrayList.size() + "条";
     }
@@ -87,6 +87,7 @@ public class CoinDataImpl implements ISymbolDataService {
         List<Candlestick> list = client.getCandlestickBars(symbolName, candlestickInterval, 1000, Long.parseLong(beginTime), client.getServerTime());
 
         int size = list.size();
+        System.out.println("我还在下载数据==="+size);
         long lastTime = 0L;
         for (int i = 0; i < size; i++) {
             Candlestick candlestick = list.get(i);

@@ -10,8 +10,6 @@ import com.chris.mechanization.utils.ChrisCalculationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,9 +25,10 @@ public class StrategyTQA implements IBackTest {
 
     String symbolCode;
     String symbolName;
-
+    String pVolume;
 
     Transaction transaction;
+
 
     public String strategy(List<ItemStock> symbolList, List<CandlestickCopy> coinList) {
         boolean transactionStatus = true;
@@ -39,64 +38,103 @@ public class StrategyTQA implements IBackTest {
         int size = coinList.size();
 
         String transactionType = "";
-
+        CandlestickCopy shangItemStock = new CandlestickCopy();
         for (int i = 16; i < size; i++) {
             CandlestickCopy itemStock = coinList.get(i);
-
             this.setTQATD(coinList.subList(i - 16,i),itemStock);
 
                 if(transactionType.equals("buy-market"))
                 {
-                    if(Float.parseFloat(itemStock.getLow()) < Float.parseFloat(itemStock.getMa5()))
+                        if(Float.parseFloat(itemStock.getLow()) < Float.parseFloat(itemStock.getMa5()))
+                        {
+                            transaction.setSellPrice(itemStock.getMa5());
+                            transaction.setSellTime(itemStock.getTime());
+                            transaction.setProfit(String.valueOf((Float.parseFloat(itemStock.getMa5()) / buyPrice - 1)* 100));
+                            iOperateTableDao.addTransaction(transaction);
+                            transactionType = "";
+                        }
+                        //止盈
+                    if((Float.parseFloat(itemStock.getHigh()) / buyPrice - 1) * 100 > 10)
                     {
                         transaction.setSellPrice(itemStock.getMa5());
                         transaction.setSellTime(itemStock.getTime());
-                        transaction.setProfit(String.valueOf((Float.parseFloat(itemStock.getMa5()) / buyPrice - 1)* 100));
+                        transaction.setProfit(String.valueOf(10));
                         iOperateTableDao.addTransaction(transaction);
                         transactionType = "";
                     }
+
+                    //3个点止损
+//                    if((Float.parseFloat(itemStock.getLow()) / buyPrice - 1) * 100 < -3)
+//                    {
+//                        transaction.setSellPrice(itemStock.getMa5());
+//                        transaction.setSellTime(itemStock.getTime());
+//                        transaction.setProfit(String.valueOf(-3));
+//                        iOperateTableDao.addTransaction(transaction);
+//                        transactionType = "";
+//                    }
                 }
 
                 if(transactionType.equals("sell-market"))
                 {
-                    if(Float.parseFloat(itemStock.getHigh()) > Float.parseFloat(itemStock.getMa7()))
+                        if(Float.parseFloat(itemStock.getHigh()) > Float.parseFloat(itemStock.getMa7()))
+                        {
+                            transaction.setSellPrice(itemStock.getMa7());
+                            transaction.setSellTime(itemStock.getTime());
+                            transaction.setProfit(String.valueOf((1 - Float.parseFloat(itemStock.getMa7()) / buyPrice)* 100));
+                            iOperateTableDao.addTransaction(transaction);
+                            transactionType = "";
+                        }
+
+                    //止盈
+                    if((1 - Float.parseFloat(itemStock.getLow()) / buyPrice)* 100 > 10)
                     {
-                        transaction.setSellPrice(itemStock.getMa7());
+                        transaction.setSellPrice(itemStock.getMa5());
                         transaction.setSellTime(itemStock.getTime());
-                        transaction.setProfit(String.valueOf((1 - Float.parseFloat(itemStock.getMa7()) / buyPrice)* 100));
+                        transaction.setProfit(String.valueOf(10));
                         iOperateTableDao.addTransaction(transaction);
                         transactionType = "";
                     }
+                    //3个点止损
+//                    if((1 - Float.parseFloat(itemStock.getLow()) / buyPrice)* 100 < -3)
+//                    {
+//                        transaction.setSellPrice(itemStock.getMa5());
+//                        transaction.setSellTime(itemStock.getTime());
+//                        transaction.setProfit(String.valueOf(-3));
+//                        iOperateTableDao.addTransaction(transaction);
+//                        transactionType = "";
+//                    }
                 }
 
             if(transactionType.equals(""))
             {
                 if(Float.parseFloat(itemStock.getHigh()) > Float.parseFloat(itemStock.getMa14()))
                 {
-                    transaction = new Transaction();
-                    transaction.setSymbolCode(symbolCode);
-                    transaction.setSymbolName(symbolName);
-                    transactionType = "buy-market";
-                    transaction.setBuyReason("做多");
-                    transaction.setBuyTime(itemStock.getTime());
-                    transaction.setBuyPrice(itemStock.getMa14());
-                    buyPrice = Float.parseFloat(itemStock.getMa14());
+                        transaction = new Transaction();
+                        transaction.setSymbolCode(symbolCode);
+                        transaction.setSymbolName(symbolName);
+                        transactionType = "buy-market";
+                        transaction.setBuyReason("做多");
+                        transaction.setBuyTime(itemStock.getTime());
+                        transaction.setBuyPrice(itemStock.getMa14());
+                        buyPrice = Float.parseFloat(itemStock.getMa14());
                 }
 
                 if(Float.parseFloat(itemStock.getLow()) < Float.parseFloat(itemStock.getMa10()))
                 {
-                    transaction = new Transaction();
-                    transaction.setSymbolCode(symbolCode);
-                    transaction.setSymbolName(symbolName);
-                    transaction.setBuyReason("做空");
-                    transactionType = "sell-market";
-                    transaction.setBuyTime(itemStock.getTime());
-                    transaction.setBuyPrice(itemStock.getMa10());
-                    buyPrice = Float.parseFloat(itemStock.getMa10());
+                        transaction = new Transaction();
+                        transaction.setSymbolCode(symbolCode);
+                        transaction.setSymbolName(symbolName);
+                        transaction.setBuyReason("做空");
+                        transactionType = "sell-market";
+                        transaction.setBuyTime(itemStock.getTime());
+                        transaction.setBuyPrice(itemStock.getMa10());
+                        buyPrice = Float.parseFloat(itemStock.getMa10());
                 }
             }
+
+            pVolume = itemStock.getVolume();
         }
-        ChrisCalculationUtils.outPrint(iOperateTableDao, this.symbolCode, this.symbolName, "TQA");
+        ChrisCalculationUtils.outPrint(iOperateTableDao, this.symbolCode, this.symbolName, "8-16区间做多止盈10点做空止盈10点的正常操作");
 
         return "success";
     }

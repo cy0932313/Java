@@ -5,7 +5,7 @@
     <select id="existTable" resultType="Integer">
         select count(*)
         from information_schema.TABLES
-        where LCASE(table_name)=#{tableName}
+        where table_name=#{tableName}
     </select>
 
     <update id="dropTable">
@@ -43,7 +43,7 @@
              dea varchar(32) NOT NULL,
              timestamp varchar(32) NOT NULL,
              time varchar(32) NOT NULL,
-          PRIMARY KEY (time))
+          PRIMARY KEY (time)) ENGINE=InnoDB AUTO_INCREMENT=2000001 DEFAULT CHARSET=utf8;
     </update>
 
 
@@ -73,7 +73,7 @@
              ma55   varchar(32),
              ma25   varchar(32),
              ma27   varchar(32),
-          PRIMARY KEY (openTime))
+          PRIMARY KEY (openTime))   ENGINE=InnoDB AUTO_INCREMENT=2000001 DEFAULT CHARSET=utf8;
     </update>
 
     <resultMap id="BaseResultMap_coin" type="com.chris.mechanization.domain.CandlestickCopy">
@@ -185,7 +185,7 @@
     </resultMap>
 
     <insert id="addBinanceStock">
-        insert ignore into ${tableName}
+        insert delayed into ${tableName}
         (openTime, open,high,close,low,closeTime,volume,quoteAssetVolume,numberOfTrades,takerBuyBaseAssetVolume,takerBuyQuoteAssetVolume,time)
         values
         (#{itemStock.openTime},
@@ -205,7 +205,7 @@
 
 
     <insert id="addTransaction">
-        insert ignore into transaction
+        insert delayed into transaction
         values
         (#{transaction.symbolCode},
         #{transaction.symbolName},
