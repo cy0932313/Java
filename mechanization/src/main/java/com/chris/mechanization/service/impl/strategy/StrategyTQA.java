@@ -29,6 +29,9 @@ public class StrategyTQA implements IBackTest {
 
     Transaction transaction;
 
+    boolean test = false;
+    String testPrice = "0";
+
 
     public String strategy(List<ItemStock> symbolList, List<CandlestickCopy> coinList) {
         boolean transactionStatus = true;
@@ -56,11 +59,13 @@ public class StrategyTQA implements IBackTest {
                         //止盈
                     if((Float.parseFloat(itemStock.getHigh()) / buyPrice - 1) * 100 > 10)
                     {
-                        transaction.setSellPrice(itemStock.getMa5());
+                        transaction.setSellPrice(transaction.getBuyNextPrice());
                         transaction.setSellTime(itemStock.getTime());
                         transaction.setProfit(String.valueOf(10));
                         iOperateTableDao.addTransaction(transaction);
                         transactionType = "";
+                        test = true;
+                        testPrice = transaction.getBuyNextPrice();
                     }
 
                     //3个点止损
@@ -88,11 +93,13 @@ public class StrategyTQA implements IBackTest {
                     //止盈
                     if((1 - Float.parseFloat(itemStock.getLow()) / buyPrice)* 100 > 10)
                     {
-                        transaction.setSellPrice(itemStock.getMa5());
+                        transaction.setSellPrice(transaction.getBuyNextPrice());
                         transaction.setSellTime(itemStock.getTime());
                         transaction.setProfit(String.valueOf(10));
                         iOperateTableDao.addTransaction(transaction);
                         transactionType = "";
+                        test = true;
+                        testPrice = transaction.getBuyNextPrice();
                     }
                     //3个点止损
 //                    if((1 - Float.parseFloat(itemStock.getLow()) / buyPrice)* 100 < -3)
@@ -115,8 +122,19 @@ public class StrategyTQA implements IBackTest {
                         transactionType = "buy-market";
                         transaction.setBuyReason("做多");
                         transaction.setBuyTime(itemStock.getTime());
-                        transaction.setBuyPrice(itemStock.getMa14());
-                        buyPrice = Float.parseFloat(itemStock.getMa14());
+                        if(test)
+                        {
+                            transaction.setBuyPrice(testPrice);
+                            transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(testPrice) *1.1));
+                            test = false;
+                            buyPrice = Float.parseFloat(testPrice);
+                        }
+                        else {
+                            transaction.setBuyPrice(itemStock.getMa14());
+                            transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(itemStock.getMa14()) *1.1));
+                            buyPrice = Float.parseFloat(itemStock.getMa14());
+                        }
+
                 }
 
                 if(Float.parseFloat(itemStock.getLow()) < Float.parseFloat(itemStock.getMa10()))
@@ -127,14 +145,25 @@ public class StrategyTQA implements IBackTest {
                         transaction.setBuyReason("做空");
                         transactionType = "sell-market";
                         transaction.setBuyTime(itemStock.getTime());
+
+                    if(test)
+                    {
+                        transaction.setBuyPrice(testPrice);
+                        transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(testPrice) *0.9));
+                        test = false;
+                        buyPrice = Float.parseFloat(testPrice);
+                    }
+                    else {
                         transaction.setBuyPrice(itemStock.getMa10());
+                        transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(itemStock.getMa10()) *0.9));
                         buyPrice = Float.parseFloat(itemStock.getMa10());
+                    }
                 }
             }
-
+            test = false;
             pVolume = itemStock.getVolume();
         }
-        ChrisCalculationUtils.outPrint(iOperateTableDao, this.symbolCode, this.symbolName, "8-16区间做多止盈10点做空止盈10点的正常操作");
+        ChrisCalculationUtils.outPrint(iOperateTableDao, this.symbolCode, this.symbolName, "9-18区间做多止盈10点做空止盈10点的正常操作");
 
         return "success";
     }

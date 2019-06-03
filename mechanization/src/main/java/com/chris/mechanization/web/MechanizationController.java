@@ -117,7 +117,7 @@ public class MechanizationController {
         List<SymbolMonitor> symbolMonitorList= new ArrayList<>();
         String[] listStr = new String[]{"bchabcusdt","btcusdt","etcusdt","ethusdt","ltcusdt","xrpusdt","eosusdt"};
 
-//        String[] listStr = new String[]{"btcusdt"};
+//        String[] listStr = new String[]{"eosusdt"};
         for(int i = 0;i < listStr.length;i++)
         {
             SymbolMonitor symbolMonitor = new SymbolMonitor();
