@@ -29,10 +29,6 @@ public class StrategyTQA implements IBackTest {
 
     Transaction transaction;
 
-    boolean test = false;
-    String testPrice = "0";
-
-
     public String strategy(List<ItemStock> symbolList, List<CandlestickCopy> coinList) {
         boolean transactionStatus = true;
         float buyPrice = 0f;
@@ -48,26 +44,6 @@ public class StrategyTQA implements IBackTest {
 
                 if(transactionType.equals("buy-market"))
                 {
-                        if(Float.parseFloat(itemStock.getLow()) < Float.parseFloat(itemStock.getMa5()))
-                        {
-                            transaction.setSellPrice(itemStock.getMa5());
-                            transaction.setSellTime(itemStock.getTime());
-                            transaction.setProfit(String.valueOf((Float.parseFloat(itemStock.getMa5()) / buyPrice - 1)* 100));
-                            iOperateTableDao.addTransaction(transaction);
-                            transactionType = "";
-                        }
-                        //止盈
-                    if((Float.parseFloat(itemStock.getHigh()) / buyPrice - 1) * 100 > 10)
-                    {
-                        transaction.setSellPrice(transaction.getBuyNextPrice());
-                        transaction.setSellTime(itemStock.getTime());
-                        transaction.setProfit(String.valueOf(10));
-                        iOperateTableDao.addTransaction(transaction);
-                        transactionType = "";
-                        test = true;
-                        testPrice = transaction.getBuyNextPrice();
-                    }
-
                     //3个点止损
 //                    if((Float.parseFloat(itemStock.getLow()) / buyPrice - 1) * 100 < -3)
 //                    {
@@ -76,11 +52,46 @@ public class StrategyTQA implements IBackTest {
 //                        transaction.setProfit(String.valueOf(-3));
 //                        iOperateTableDao.addTransaction(transaction);
 //                        transactionType = "";
+//                        continue;
 //                    }
+
+                        if(Float.parseFloat(itemStock.getLow()) < Float.parseFloat(itemStock.getMa5()))
+                        {
+                            transaction.setSellPrice(itemStock.getMa5());
+                            transaction.setSellTime(itemStock.getTime());
+                            transaction.setProfit(String.valueOf((Float.parseFloat(itemStock.getMa5()) / buyPrice - 1)* 100));
+                            iOperateTableDao.addTransaction(transaction);
+                            transactionType = "";
+                            continue;
+                        }
+//                        //止盈
+//                    if((Float.parseFloat(itemStock.getHigh()) / buyPrice - 1) * 100 > 10)
+//                    {
+//                        transaction.setSellPrice(transaction.getBuyNextPrice());
+//                        transaction.setSellTime(itemStock.getTime());
+//                        transaction.setProfit(String.valueOf(10));
+//                        iOperateTableDao.addTransaction(transaction);
+//                        transactionType = "";
+//                        continue;
+//                    }
+
+
                 }
 
                 if(transactionType.equals("sell-market"))
                 {
+
+                    //3个点止损
+//                    if((1 - Float.parseFloat(itemStock.getHigh()) / buyPrice)* 100 < -3)
+//                    {
+//                        transaction.setSellPrice(itemStock.getMa5());
+//                        transaction.setSellTime(itemStock.getTime());
+//                        transaction.setProfit(String.valueOf(-3));
+//                        iOperateTableDao.addTransaction(transaction);
+//                        transactionType = "";
+//                        continue;
+//                    }
+
                         if(Float.parseFloat(itemStock.getHigh()) > Float.parseFloat(itemStock.getMa7()))
                         {
                             transaction.setSellPrice(itemStock.getMa7());
@@ -88,27 +99,18 @@ public class StrategyTQA implements IBackTest {
                             transaction.setProfit(String.valueOf((1 - Float.parseFloat(itemStock.getMa7()) / buyPrice)* 100));
                             iOperateTableDao.addTransaction(transaction);
                             transactionType = "";
+                            continue;
                         }
 
                     //止盈
-                    if((1 - Float.parseFloat(itemStock.getLow()) / buyPrice)* 100 > 10)
-                    {
-                        transaction.setSellPrice(transaction.getBuyNextPrice());
-                        transaction.setSellTime(itemStock.getTime());
-                        transaction.setProfit(String.valueOf(10));
-                        iOperateTableDao.addTransaction(transaction);
-                        transactionType = "";
-                        test = true;
-                        testPrice = transaction.getBuyNextPrice();
-                    }
-                    //3个点止损
-//                    if((1 - Float.parseFloat(itemStock.getLow()) / buyPrice)* 100 < -3)
+//                    if((1 - Float.parseFloat(itemStock.getLow()) / buyPrice)* 100 > 10)
 //                    {
-//                        transaction.setSellPrice(itemStock.getMa5());
+//                        transaction.setSellPrice(transaction.getBuyNextPrice());
 //                        transaction.setSellTime(itemStock.getTime());
-//                        transaction.setProfit(String.valueOf(-3));
+//                        transaction.setProfit(String.valueOf(10));
 //                        iOperateTableDao.addTransaction(transaction);
 //                        transactionType = "";
+//                        continue;
 //                    }
                 }
 
@@ -122,18 +124,10 @@ public class StrategyTQA implements IBackTest {
                         transactionType = "buy-market";
                         transaction.setBuyReason("做多");
                         transaction.setBuyTime(itemStock.getTime());
-                        if(test)
-                        {
-                            transaction.setBuyPrice(testPrice);
-                            transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(testPrice) *1.1));
-                            test = false;
-                            buyPrice = Float.parseFloat(testPrice);
-                        }
-                        else {
+
                             transaction.setBuyPrice(itemStock.getMa14());
                             transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(itemStock.getMa14()) *1.1));
                             buyPrice = Float.parseFloat(itemStock.getMa14());
-                        }
 
                 }
 
@@ -146,24 +140,15 @@ public class StrategyTQA implements IBackTest {
                         transactionType = "sell-market";
                         transaction.setBuyTime(itemStock.getTime());
 
-                    if(test)
-                    {
-                        transaction.setBuyPrice(testPrice);
-                        transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(testPrice) *0.9));
-                        test = false;
-                        buyPrice = Float.parseFloat(testPrice);
-                    }
-                    else {
+
                         transaction.setBuyPrice(itemStock.getMa10());
                         transaction.setBuyNextPrice(String.valueOf( Float.parseFloat(itemStock.getMa10()) *0.9));
                         buyPrice = Float.parseFloat(itemStock.getMa10());
-                    }
                 }
             }
-            test = false;
             pVolume = itemStock.getVolume();
         }
-        ChrisCalculationUtils.outPrint(iOperateTableDao, this.symbolCode, this.symbolName, "9-18区间做多止盈10点做空止盈10点的正常操作");
+        ChrisCalculationUtils.outPrint(iOperateTableDao, this.symbolCode, this.symbolName, "5-18区间正常操作");
 
         return "success";
     }
@@ -197,7 +182,7 @@ public class StrategyTQA implements IBackTest {
 
         }
 
-        List minArrayList = tempItemArray.subList(9,18);
+        List minArrayList = tempItemArray.subList(13,18);
         float min10OpenPrice = 0.0f;
         float max10OpenPrice = 0.0f;
         for(int i = 0;i < minArrayList.size();i++)
@@ -236,7 +221,7 @@ public class StrategyTQA implements IBackTest {
         this.symbolName = symbolName;
         String tableName = "";
         if (makeMoney == MakeMoney.COIN) {
-            tableName = "coin_" + period + "_" + symbolCode;
+            tableName = "coin_" + period + "_" + symbolCode.toUpperCase();
             if (iOperateTableDao.existTable(tableName) == 1) {
                 this.strategy(null, iOperateTableDao.queryInfoForLimit_coin(tableName, "closeTime", 0, 100000000));
             }

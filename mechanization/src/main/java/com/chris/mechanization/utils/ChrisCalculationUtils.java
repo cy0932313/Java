@@ -22,6 +22,8 @@ public class ChrisCalculationUtils {
         }
         //总收益
         float countProfit = 0;
+        //按1W来算可以赚多少钱
+        float initMoney = 10000;
         //交易次数
         int transactionNum = 0;
         //持仓天数
@@ -38,6 +40,7 @@ public class ChrisCalculationUtils {
         String t;
         //区间涨幅
         String immobility;
+
 
         float maxProfit = 0;
         float minxProfit = 0;
@@ -69,6 +72,8 @@ public class ChrisCalculationUtils {
                 lossNum = tempLossNum;
             }
 
+            initMoney = initMoney + ((Float.parseFloat(transaction.getProfit())/100 *initMoney));
+            System.out.println("当前本金"+initMoney+"==当前收益"+Float.parseFloat(transaction.getProfit())/100);
             winProfit = String.format("%.2f", (float) tempTrue / size * 100) + "%";
         }
         Transaction fistTransaction = transactionList.get(0);
@@ -82,5 +87,6 @@ public class ChrisCalculationUtils {
                 String.format("%.2f", countProfit) + "%", String.valueOf(transactionNum), String.valueOf(holdDay), String.format("%.2f", md) + "%",
                 String.valueOf(lossNum), winProfit, t + "%", immobility + "%");
         iOperateTableDao.addBackTestResult(backTestResult);
+        System.out.println(symbolCode+"总盈利人民币："+initMoney);
     }
 }
