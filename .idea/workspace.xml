@@ -3,17 +3,89 @@
   <component name="ChangeListManager">
     <list default="true" id="90467b81-2978-455a-8f6e-eb90c7c6d080" name="Default Changelist" comment="加油·">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openunirest_open_unirest_java_3_3_02.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_13.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_9_7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_agent_1_9_7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpasyncclient_4_1_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_nio_4_4_11.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_16_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20180813.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_1_10_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_26.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_devtools_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_mail_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_test_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_2_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_2_1_5_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_1_7_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_4_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_4_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_1_7_RELEASE.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/strategy/StrategyTQA.java" beforeDir="false" afterPath="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/strategy/StrategyTQA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/web/MechanizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/web/MechanizationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mechanization/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/mechanization/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/EmailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/XueqiuSixtyDataImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/XueqiuSixtyDataImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/CCI/CCI_MonitorCenterImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/CCI/CCI_MonitorCenterImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trading/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/trading/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Monitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Monitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/requestManager/ApiSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/requestManager/ApiSignature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trading/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/trading/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trading/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/trading/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quantification/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/quantification/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quantification/src/test/java/com/chris/quantification/QuantificationApplicationTests.java" beforeDir="false" />
     </list>
     <list id="8f868fcf-abd9-4ef2-8bdd-a15568419100" name="Revert: 加油`" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -30,6 +102,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Java$MechanizationApplication.ic" NAME="MechanizationApplication Coverage Results" MODIFIED="1559541344446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/workspace$MechanizationApplication.ic" NAME="MechanizationApplication Coverage Results" MODIFIED="1554648935371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CoverageViewManager">
@@ -37,89 +110,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Transaction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="226" column="24" lean-forward="true" selection-start-line="226" selection-start-column="24" selection-end-line="226" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/domian/TransactionInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="44" column="42" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="42" />
-              <folding>
-                <element signature="e#851#852#0" expanded="true" />
-                <element signature="e#897#898#0" expanded="true" />
-                <element signature="e#1035#1036#0" expanded="true" />
-                <element signature="e#1083#1084#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/TradingApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Monitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-198">
-              <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Average.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/run/MonitorApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="15" selection-start-line="15" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="64">
+              <caret line="31" column="45" lean-forward="true" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/quantification/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/ChrisDateUtils.java">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/EmailServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="830">
-              <caret line="31" column="42" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="42" />
+            <state relative-caret-position="405">
+              <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/Remind.java">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/CCI/CCI_MonitorCenterImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+            <state relative-caret-position="486">
+              <caret line="75" column="34" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,23 +150,55 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/Handler.java">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/XueqiuSixtyDataImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+            <state relative-caret-position="113">
+              <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/EmailUtils.java">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/dao/IOperateTableDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#510#535#1" expanded="true" />
-              </folding>
+            <state relative-caret-position="165">
+              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/ContentColumn.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/ContentItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/DataSixty.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/SixtyContent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -163,11 +217,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>readValue</find>
-      <find>Json</find>
-      <find>jsonWrapper</find>
-      <find>avgMap</find>
-      <find>getMonitorSymbol</find>
       <find>mechanization</find>
       <find>getCurrentMarket</find>
       <find>System</find>
@@ -193,6 +242,11 @@
       <find>emailService</find>
       <find>Transaction</find>
       <find>remindMailForTransactionInfoFail</find>
+      <find>existTable</find>
+      <find>api.binance.com</find>
+      <find>30187</find>
+      <find>3</find>
+      <find>test</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -211,21 +265,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/XueqiuDayDataImpl.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/SymbolDataImpl.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/domain/Candlestick.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/binance/api/client/domain/market/Candlestick.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/TechnicalIndexImpl.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/dao/IOperateTableDao.java" />
         <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/utils/ChrisDateUtils.java" />
         <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/strategy/StrategyCCI.java" />
         <option value="$PROJECT_DIR$/mechanization/src/main/java/com/binance/api/client/impl/BinanceApiWebSocketClientImpl.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/utils/ChrisCalculationUtils.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/resources/Mybatis/mapper/OperateTableMapper.xml" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/CoinDataImpl.java" />
         <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/domain/CandlestickCopy.java" />
         <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/strategy/StrategyMA.java" />
-        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/web/MechanizationController.java" />
         <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/strategy/StrategySH.java" />
         <option value="$PROJECT_DIR$/huobi_Java-master/src/test/java/com/huobi/client/impl/TestGetAccount.java" />
         <option value="$PROJECT_DIR$/huobi_Java-master/src/test/java/com/huobi/client/impl/TestGetBalance.java" />
@@ -251,7 +295,6 @@
         <option value="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/requestManager/ApiRequest.java" />
         <option value="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/requestManager/ApiSignature.java" />
         <option value="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/domian/TransactionInfo.java" />
-        <option value="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/CCI/CCI_MonitorCenterImpl.java" />
         <option value="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/LogUtils.java" />
         <option value="$PROJECT_DIR$/trading/pom.xml" />
         <option value="$PROJECT_DIR$/trading/src/main/resources/application.properties" />
@@ -262,6 +305,17 @@
         <option value="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/Remind.java" />
         <option value="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/EmailUtils.java" />
         <option value="$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Transaction.java" />
+        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/CoinDataImpl.java" />
+        <option value="$PROJECT_DIR$/mechanization/src/main/resources/Mybatis/mapper/OperateTableMapper.xml" />
+        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/utils/ChrisCalculationUtils.java" />
+        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/strategy/StrategyTQA.java" />
+        <option value="$PROJECT_DIR$/mechanization/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/web/MechanizationController.java" />
+        <option value="$PROJECT_DIR$/quantification/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/CCI/CCI_MonitorCenterImpl.java" />
+        <option value="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/XueqiuSixtyDataImpl.java" />
+        <option value="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/EmailServiceImpl.java" />
+        <option value="$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/run/MonitorApplication.java" />
       </list>
     </option>
   </component>
@@ -272,10 +326,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="403" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1393" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -286,335 +340,29 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="binance" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="binance" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="mechanization" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java" type="b2602c69:ProjectViewProjectNode" />
               <item name="quantification" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java" type="b2602c69:ProjectViewProjectNode" />
               <item name="quantification" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java" type="b2602c69:ProjectViewProjectNode" />
               <item name="quantification" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Java" type="b2602c69:ProjectViewProjectNode" />
               <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="enumType" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="run" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-              <item name="monitor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="quantification" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="automated" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="automated" type="462c0819:PsiDirectoryNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="automated" type="462c0819:PsiDirectoryNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chris" type="462c0819:PsiDirectoryNode" />
-              <item name="automated" type="462c0819:PsiDirectoryNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="trading" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
@@ -623,7 +371,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -633,8 +380,8 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558788318026" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/binance-java-api-master" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559801316287" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../binance-java-api-master" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -668,7 +415,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.TradingApplication">
+  <component name="RunManager" selected="Spring Boot.QuantificationApplication">
     <configuration name="Account" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.chris.automated.trading.Account" />
       <module name="trading" />
@@ -861,6 +608,14 @@
       <workItem from="1558715205685" duration="236000" />
       <workItem from="1558742433743" duration="11469000" />
       <workItem from="1558765565671" duration="13511000" />
+      <workItem from="1559306284704" duration="2737000" />
+      <workItem from="1559523721517" duration="13475000" />
+      <workItem from="1559562906837" duration="424000" />
+      <workItem from="1559613461480" duration="12268000" />
+      <workItem from="1559642878047" duration="549000" />
+      <workItem from="1559696452206" duration="1644000" />
+      <workItem from="1559707343084" duration="1360000" />
+      <workItem from="1559790584606" duration="1649000" />
     </task>
     <task id="LOCAL-00001" summary="加油·">
       <created>1552576630356</created>
@@ -988,7 +743,14 @@
       <option name="project" value="LOCAL" />
       <updated>1558714891508</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="加油·">
+      <created>1559633393485</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1559633393485</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1024,7 +786,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="251526000" />
+    <option name="totallyTimeSpent" value="285632000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1036,9 +798,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="23" width="1393" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28304905" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3042191" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -1048,16 +811,16 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.329718" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37093276" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3383948" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.37070063" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5057325" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.329718" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3286334" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32738853" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.329718" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32866243" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.329718" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" weight="0.329718" />
@@ -1193,154 +956,10 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/huobi_Java-master/src/test/java/com/huobi/client/impl/TestGetOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="77" column="31" selection-start-line="77" selection-start-column="31" selection-end-line="77" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/github/openunirest/open-unirest-java/3.3.02/open-unirest-java-3.3.02.jar!/unirest/Config.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7953">
-          <caret line="282" selection-start-line="282" selection-end-line="282" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/requestManager/UrlParamsBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4851">
-          <caret line="166" column="19" selection-start-line="166" selection-start-column="19" selection-end-line="166" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/github/openunirest/open-unirest-java/3.3.02/open-unirest-java-3.3.02.jar!/unirest/HttpRequestWithBody.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/github/openunirest/open-unirest-java/3.3.02/open-unirest-java-3.3.02.jar!/unirest/RequestBodyEntity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/requestManager/ApiRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="14" column="46" selection-start-line="14" selection-start-column="46" selection-end-line="14" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/huobi_Java-master/src/main/java/com/huobi/client/impl/RestApiRequestImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2211">
-          <caret line="121" column="55" selection-start-line="121" selection-start-column="21" selection-end-line="121" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/huobi_Java-master/src/test/java/com/huobi/client/impl/TestTransfer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="41" column="53" selection-start-line="41" selection-start-column="53" selection-end-line="41" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/requestManager/ApiSignature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="44" column="29" lean-forward="true" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/Tips.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/utils/LogUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/CCI/CCI_MonitorCenterImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="8" column="38" lean-forward="true" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/resources/table.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/domian/SymbolInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-          <folding>
-            <element signature="e#548#549#0" expanded="true" />
-            <element signature="e#671#672#0" expanded="true" />
-            <element signature="e#706#707#0" expanded="true" />
-            <element signature="e#852#853#0" expanded="true" />
-            <element signature="e#886#887#0" expanded="true" />
-            <element signature="e#1180#1181#0" expanded="true" />
-            <element signature="e#1212#1213#0" expanded="true" />
-            <element signature="e#1266#1267#0" expanded="true" />
-            <element signature="e#1308#1309#0" expanded="true" />
-            <element signature="e#1342#1343#0" expanded="true" />
-            <element signature="e#1373#1374#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/HoldRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="9" column="21" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="49" selection-start-line="49" selection-end-line="52" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="55" column="48" selection-start-line="55" selection-start-column="44" selection-end-line="55" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quantification/src/main/resources/logback.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="11" column="33" lean-forward="true" selection-end-line="21" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1396,27 +1015,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/MechanizationApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="13" column="29" lean-forward="true" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/web/MechanizationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="70" column="9" lean-forward="true" selection-start-line="70" selection-start-column="9" selection-end-line="70" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/IBackTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/IGetDataSource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
@@ -1424,20 +1022,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/CoinDataImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1716">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/service/IEmailService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/service/IEmailService.java" />
     <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Account.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="627">
@@ -1476,20 +1061,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/EmailServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="35" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/XueqiuSixtyDataImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/Price_MonitorCenterImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -1497,78 +1068,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/run/MonitorApplication.java">
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/service/impl/EmailServiceImpl.java" />
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Transaction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="15" selection-start-line="15" selection-end-line="15" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/TradingApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+        <state relative-caret-position="151">
+          <caret line="208" column="64" selection-start-line="208" selection-start-column="64" selection-end-line="208" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/Handler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/service/impl/EmailServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="641">
-          <caret line="33" column="5" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/ChrisDateUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="830">
-          <caret line="31" column="42" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/EmailUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#510#535#1" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Monitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-198">
-          <caret line="24" column="28" lean-forward="true" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Average.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/domian/TransactionInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
+        <state relative-caret-position="570">
           <caret line="44" column="42" selection-start-line="44" selection-start-column="32" selection-end-line="44" selection-end-column="42" />
           <folding>
             <element signature="e#851#852#0" expanded="true" />
@@ -1579,9 +1092,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/TradingApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Monitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Average.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1125">
+          <caret line="82" column="29" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/ChrisDateUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="31" column="42" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/Remind.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
+        <state relative-caret-position="675">
           <caret line="46" column="21" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1589,13 +1136,202 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/Transaction.java">
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/Handler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="226" column="24" lean-forward="true" selection-start-line="226" selection-start-column="24" selection-end-line="226" selection-end-column="24" />
+        <state relative-caret-position="45">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/SymbolDataImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/utils/ChrisCalculationUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="70" column="40" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/MechanizationApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/domain/Transaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="81" column="18" selection-start-line="81" selection-start-column="18" selection-end-line="81" selection-end-column="18" />
+          <folding>
+            <element signature="e#1633#1634#0" expanded="true" />
+            <element signature="e#1662#1663#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/web/MechanizationController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="91" column="67" lean-forward="true" selection-start-line="91" selection-start-column="67" selection-end-line="91" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/strategy/StrategyTQA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2610">
+          <caret line="184" column="52" selection-start-line="184" selection-start-column="52" selection-end-line="184" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/resources/Mybatis/mapper/OperateTableMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/resources/table.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/IBackTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/dao/IOperateTableDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/chris/mechanization/service/impl/CoinDataImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="96" column="13" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/java/com/binance/api/client/constant/BinanceApiConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trading/src/main/java/com/chris/automated/trading/utils/EmailUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mechanization/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="5" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/utils/HttpClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="32" column="31" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/ContentColumn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/ContentItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/DataSixty.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/domain/xueqiuSixty/SixtyContent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/dao/IOperateTableDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/monitor/CCI/CCI_MonitorCenterImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="75" column="34" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/XueqiuSixtyDataImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/service/impl/EmailServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/src/main/java/com/chris/quantification/run/MonitorApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="31" column="45" lean-forward="true" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quantification/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
         </state>
       </provider>
     </entry>

@@ -7,9 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="helloSpringBoot" />
-        <module name="mechanization" />
-        <module name="quantification" />
-        <module name="trading" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
